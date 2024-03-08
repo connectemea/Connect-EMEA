@@ -1,31 +1,24 @@
-# Connect EMEA
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This is the repository for the Connect EMEA 2024 website.
+## Getting Started
 
-## Development
-- Clone the repository
-- Run `npm install`
-- Run `npm run dev`
-- Open `http://localhost:3000` in your browser
-- Start coding!
-- Commit your changes and push to the repository
-  
-## Deployment
-- Run `npm run build`
-- Run `npm run export`
-- Commit your changes and push to the repository
-- Run `npm run deploy`
-- Done!
-- The website is now live at ....
+First, run the development server:
 
-## Credits
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [google-fonts](https://fonts.google.com/)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-<!-- ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. -->
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
