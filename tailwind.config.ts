@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+
 const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
@@ -10,7 +11,9 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      
+      colors: {
+        'custom-bg': '#0A0118',
+      },
     },
   },
   plugins: [
