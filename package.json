@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "@tabler/icons-react": "^2.47.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.8",
