@@ -5,9 +5,9 @@ import { BackgroundGradientDemo } from "./Image";
 
 export function BackgroundBeamsDemo() {
   return (
-    <div className="h-[36rem] w-full rounded-md bg-custom-bg relative flex flex-col items-center justify-center antialiased">
+    <div className=" w-full rounded-md bg-custom-bg relative flex flex-col items-center justify-center antialiased py-10">
       <div className="max-w-2xl mx-auto p-4 flex flex-col items-center gap-4 text-center mb-8">
-        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
+        <h1 className="relative z-10 text-lg md:text-4xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
           Lorem ipsum dolor sit amet
         </h1>
         <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
@@ -19,8 +19,12 @@ export function BackgroundBeamsDemo() {
           Join Now
         </button>
       </div>
-      <BackgroundGradientDemo />
-
+      {/* <BackgroundGradientDemo /> */}
+      <div className="relative z-20 flex items-center justify-center mt-10">
+      <img src="/Images/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-36 w-[90%] -z-10" />
+      <img src="/Images/groupImage.png" alt="macbook" className="z-50 w-[90%]" />
+      </div>
+     
       <BackgroundBeams />
     </div>
   );

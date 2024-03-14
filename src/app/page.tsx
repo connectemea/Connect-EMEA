@@ -1,11 +1,15 @@
 import Image from "next/image";
-import { MacbookScrollDemo } from "./ui/Home/Macbook";
+// import { MacbookScrollDemo } from "./ui/Home/Macbook";
 import {BackgroundBeamsDemo} from "./ui/Home/Hero";
-import {CardHoverEffectDemo} from "./ui/Home/AdsCard";
+import {CardHoverEffectDemo} from "./ui/Home/PiontCard";
 import { TextGenerateEffectDemo } from "./ui/Home/ConnectText";
-import {GridBackgroundDemo} from "./ui/Home/Background";
 import NavLinks from "./ui/NavBar";
-
+import EmblaCarousel from "./ui/Home/EmblaCarousal";
+import { EmblaOptionsType } from 'embla-carousel'
+import './ui/embla.css';
+const OPTIONS: EmblaOptionsType = { loop: true }
+const SLIDE_COUNT = 8
+const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
 export default function Home() {
   return (
@@ -14,11 +18,12 @@ export default function Home() {
        <NavLinks />
        <BackgroundBeamsDemo />
       </div>
-      <div className=" flex max-h-[450px] overflow-hidden mx-auto">
-        <div className=" overflow-hidden ">
+      <div className=" flex  mx-auto">
+        <div className=" ">
           <div className="">
-            <div className=" md:scale-50 h-full  -mt-40 p-6">
-              <MacbookScrollDemo />
+            <div className=" h-full ">
+              {/* <MacbookScrollDemo /> */}
+              <img src="/Images/macbook.png" alt="macbook" className="w-full" />
             </div>
           </div>
 
@@ -33,6 +38,7 @@ export default function Home() {
         </div>
       </div>
 
+      <img src="/Visual.png" alt="macbook" className="" />
 
       <div className="">
         <h1 className="text-center text-4xl text-white mb-4">Why does it exist</h1>
@@ -41,6 +47,7 @@ export default function Home() {
 
       <div>
         {/* <GridBackgroundDemo /> */}
+        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
       </div>
     </div>
   );

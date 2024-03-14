@@ -1,52 +1,40 @@
-'use client';
-
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
+"use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
 const links = [
-  { name: 'Home', href: '/', icon: HomeIcon },
-  {
-    name: 'About',
-    href: '/about',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Contact', href: '/conact', icon: UserGroupIcon },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Team', href: '/team' },
+  { name: 'Event', href: '/event' },
 ];
 
 export default function NavLinks() {
   const pathname = usePathname();
+
   return (
     <>
-    <div className='flex w-full justify-between items-center    border-b-zinc-400 '>
-
-      {links.map((link) => {
-        const LinkIcon = link.icon;
-        return (
-          <Link
-            key={link.name}
-            href={link.href}
-            className={clsx(
-              'flex h-[48px] text-zinc-400 grow items-center justify-center gap-2 rounded-md  p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
-              {
-                'bg-black/50 text-blue-600 ': pathname === link.href,
-              },
-            )}
-          >
-            <LinkIcon className="w-6" />
-            <p className="hidden md:block">{link.name}</p>
-          </Link>
-        );
-      })}
-    </div>
-
+      <div className="flex justify-between items-center border border-b-zinc-400 p-2 bg-custom-bg">
+        <div>
+          <img src="/logo.png" alt="logo" />
+        </div>
+        <div className="flex justify-between items-center gap-4">
+          {links.map((link) => (
+            <Link key={link.name} href={link.href}>
+              <p
+                className={`flex text-white h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 ${
+                  pathname === link.href ? 'bg-black/50 text-blue-600' : ''
+                }`}
+              >
+                {link.name}
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div>
+          <button className="p-2 bg-blue-600 text-white rounded-md">Sign In</button>
+        </div>
+      </div>
     </>
   );
 }
