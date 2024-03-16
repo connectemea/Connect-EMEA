@@ -31,3 +31,47 @@ body {
     text-wrap: balance;
   }
 } */
+
+
+/* the layout width */
+.custom-container {
+  width: 100%;
+  padding: 0px 10px;
+  /* border-left: 5px solid black;
+  border-right: 5px solid black; */
+}
+
+@media (min-width: 640px) {
+  .custom-container {
+      max-width: 580px;
+      padding: 0 10px;
+      margin: 0 auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-container {
+      max-width: 750px;
+      margin: 0 auto;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .custom-container {
+      max-width: 980px;
+      margin: 0 auto;
+  }
+}
+
+@media (min-width: 1204px) {
+  .custom-container {
+      max-width: 1300px;
+      margin: 0 auto;
+  }
+}
+
+
+.nav-bar {
+  padding: 15px 10px;
+}

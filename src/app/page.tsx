@@ -1,54 +1,71 @@
+"use client";
 import Image from "next/image";
 // import { MacbookScrollDemo } from "./ui/Home/Macbook";
-import {BackgroundBeamsDemo} from "./ui/Home/Hero";
-import {CardHoverEffectDemo} from "./ui/Home/PiontCard";
+import { BackgroundBeamsDemo } from "./ui/Home/Hero";
+import { CardHoverEffectDemo } from "./ui/Home/PiontCard";
 import { TextGenerateEffectDemo } from "./ui/Home/ConnectText";
-import NavLinks from "./ui/NavBar";
 import EmblaCarousel from "./ui/Home/EmblaCarousal";
-import { EmblaOptionsType } from 'embla-carousel'
 import './ui/embla.css';
-const OPTIONS: EmblaOptionsType = { loop: true }
-const SLIDE_COUNT = 8
-const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
+import './ui/custom.css';
+
 
 export default function Home() {
+  const OPTIONS: EmblaOptionsType = { loop: true }
+  const SLIDE_COUNT = 8
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
+
   return (
-    <div className="flex flex-col  bg-custom-bg">
-      <div>
-       <NavLinks />
-       <BackgroundBeamsDemo />
-      </div>
-      <div className=" flex  mx-auto">
-        <div className=" ">
+    <div className="  bg-custom-bg">
+      <div className="custom-container flex flex-col gap-10">
+        <div>
+          <BackgroundBeamsDemo />
+        </div>
+        <div className=" flex  mx-auto flex-col md:flex-row">
+          <div className=" ">
+            <img src="/Images/macbook.png" alt="macbook" className="w-full" />
+          </div>
           <div className="">
-            <div className=" h-full ">
-              {/* <MacbookScrollDemo /> */}
-              <img src="/Images/macbook.png" alt="macbook" className="w-full" />
+            <h1 className="text-4xl  mb-4 gradient">What is Connect ?</h1>
+            <div className="text-white max-w-xl p-4">
+              <TextGenerateEffectDemo />
             </div>
           </div>
-
         </div>
-        <div className="w-full h-full flex items-center justify-start">
-          <div className="p-4 flex items-center justify-center flex-col">
-          <h1 className="text-4xl text-white mb-4">Connect with your friends</h1>
-          <p className="text-white max-w-xl p-4">
-            <TextGenerateEffectDemo />
-          </p>
+
+
+        <div className="">
+          <CardHoverEffectDemo />
+        </div>
+
+        <div className=" flex  mx-auto flex-col md:flex-row">
+          <div className="">
+            <h1 className="text-4xl  mb-4 gradient">Benefits</h1>
+            <div className="text-white max-w-xl p-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+          </div>
+          <div className=" ">
+            <img src="/Images/benfit.png" alt="macbook" className="w-full" />
           </div>
         </div>
-      </div>
 
-      <img src="/Visual.png" alt="macbook" className="" />
+        <div>
+  <EmblaCarousel slides={SLIDES} options={OPTIONS} />
 
-      <div className="">
-        <h1 className="text-center text-4xl text-white mb-4">Why does it exist</h1>
-       <CardHoverEffectDemo />
-      </div>
+        </div>
 
-      <div>
-        {/* <GridBackgroundDemo /> */}
-        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+        <div className="min-h-[400px] bg-gray-500 my-2 text-center">
+          Our Team
+        </div>
+
+
+        <div className="min-h-[400px] bg-gray-400 my-2 text-center">
+          Suggestions
+        </div>
+
+       
       </div>
     </div>
+
   );
 }
