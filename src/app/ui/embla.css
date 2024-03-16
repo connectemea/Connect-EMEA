@@ -60,6 +60,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgb(79, 23, 163);
   }
   .embla__button:disabled {
     color: var(--detail-high-contrast);
@@ -93,7 +94,9 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    background-color: blue;
   }
+  
   .embla__dot:after {
     box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
     width: 1.4rem;
@@ -102,8 +105,10 @@
     display: flex;
     align-items: center;
     content: '';
+    background-color: red;
   }
   .embla__dot--selected:after {
     box-shadow: inset 0 0 0 0.2rem var(--text-body);
+    background-color: green;
   }
   

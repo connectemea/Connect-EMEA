@@ -14,10 +14,13 @@ export default function NavLinks() {
 
   return (
     <>
-      <div className="flex justify-between items-center border border-b-zinc-400 p-2 bg-custom-bg">
+      <div className=" bg-custom-bg nav-border ">
+        <div className='custom-container flex justify-between items-center nav-bar'>
+          {/* left section */}
         <div>
           <img src="/logo.png" alt="logo" />
         </div>
+        {/* center section */}
         <div className="flex justify-between items-center gap-4">
           {links.map((link) => (
             <Link key={link.name} href={link.href}>
@@ -31,10 +34,14 @@ export default function NavLinks() {
             </Link>
           ))}
         </div>
-        <div>
+        {/* right section */}
+        <div className='flex gap-2 items-center justify-center'>
+          <img src='/icons/bell.png' alt='notification' />
           <button className="p-2 bg-blue-600 text-white rounded-md">Sign In</button>
         </div>
       </div>
+      </div>
+
     </>
   );
 }

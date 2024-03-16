@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       colors: {
         'custom-bg': '#0A0118',
+        'footer-bg': '#19022D',
       },
     },
   },

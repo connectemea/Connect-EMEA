@@ -1,7 +1,13 @@
 
 export function CardHoverEffectDemo() {
   return (
-    <div className="flex gap-4 flex-wrap items-center justify-center">
+    <div className="flex gap-4 flex-col items-center justify-center ">
+      <div>
+
+      <h1 className="text-4xl gradient mb-4">Why does it exist</h1>
+      </div>
+      <div className="flex gap-10 flex-wrap">
+
     {cards.map((card, index) => (
       <div key={index} className="max-w-5xl mx-auto px-8 max-w-[500px]">
         <div className="bg-custom-bg border shadow-lg rounded-lg p-4">
@@ -19,6 +25,7 @@ export function CardHoverEffectDemo() {
       </div>
       ))}
    
+   </div>
     </div>
 
   );
