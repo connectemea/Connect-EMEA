@@ -1,36 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --color-primary:  #0A0118;
+  --color-primary-light:   #19022D;
+  --color-secondary: #FF00F5;
+  --color-card-1: #A33FF8;
+  --color-card-2:  #C400FE;
+  --color-text: #F9F8FC;
+  --primary-orange: #ED642B;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+/* the global styles */
+.primary-bg {
+  background-color: var(--color-primary);
+}
+.primary-bg-light {
+  background-color: var(--color-primary-light);
+}
+.secondary-bg {
+  background-color: var(--color-secondary);
+}
+.card-1-bg {
+  background-color: var(--color-card-1);
+}
+.card-2-bg {
+  background-color: var(--color-card-2);
+}
+.text-bg {
+  color: var(--color-text);
+}
+
+.primary-color {
+  color: var(--color-primary);
+}
+.primary-color-light {
+  color: var(--color-primary-light);
+}
+.secondary-color {
+  color: var(--color-secondary);
+}
+.card-1-color {
+  color: var(--color-card-1);
+}
+.card-2-color {
+  color: var(--color-card-2);
+}
+.text-color {
+  color: var(--color-text);
+}
+
+/* transitions.css */
+.page-enter {
+  opacity: 0;
+}
+
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* animations.css */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
 
 
 /* the layout width */

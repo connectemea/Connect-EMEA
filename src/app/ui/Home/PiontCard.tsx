@@ -1,26 +1,26 @@
+import Link from 'next/link';
 
 export function CardHoverEffectDemo() {
   return (
     <div className="flex gap-4 flex-col items-center justify-center ">
       <div>
 
-      <h1 className="text-4xl gradient mb-4">Why does it exist</h1>
+      <h1 className="text-6xl gradient my-10 font-extrabold">Why does it exist</h1>
       </div>
       <div className="flex gap-10 flex-wrap">
 
     {cards.map((card, index) => (
       <div key={index} className="max-w-5xl mx-auto px-8 max-w-[500px]">
-        <div className="bg-custom-bg border shadow-lg rounded-lg p-4">
+        <div className="bg-white/10 backdrop-blur border shadow-lg rounded-lg p-4 text-white transition-all ease-in duration-300 hover:-translate-y-4 hover:border-secondary">
           <h2 className="text-xl font-semibold">{card.title}</h2>
           <p className="text-gray-500 mt-2">{card.description}</p>
-          <a
+          {/* <Link
             href={card.link}
-            target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 mt-2 block"
           >
             Learn more
-          </a>
+          </Link> */}
         </div>
       </div>
       ))}
@@ -32,39 +32,39 @@ export function CardHoverEffectDemo() {
 }
 export const cards = [
   {
-    title: "Stripe",
+    title: "Point Card 1",
     description:
       "A technology company that builds economic infrastructure for the internet.",
-    link: "https://stripe.com",
+    link: "/team/1",
   },
   {
-    title: "Netflix",
+    title: "Point Card 2",
     description:
       "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-    link: "https://netflix.com",
+    link: "/team/2",
   },
   {
-    title: "Google",
+    title: "Point Card 3",
     description:
       "A multinational technology company that specializes in Internet-related services and products.",
-    link: "https://google.com",
+    link: "/team/3",
   },
   {
-    title: "Meta",
+    title: "Point Card 4",
     description:
       "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: "https://meta.com",
+    link: "/team/4",
   },
   {
-    title: "Amazon",
+    title: "Point Card 5",
     description:
       "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-    link: "https://amazon.com",
+    link: "/team/5",
   },
   {
-    title: "Microsoft",
+    title: "Point Card 6",
     description:
       "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-    link: "https://microsoft.com",
+    link: "/team/6",
   },
 ];

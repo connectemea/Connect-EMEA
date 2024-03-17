@@ -1,9 +1,9 @@
 .embla {
-    max-width: 48rem;
+    max-width: 1300px;
     margin: auto;
-    --slide-height: 19rem;
-    --slide-spacing: 1rem;
-    --slide-size: 70%;
+    --slide-height: 400px;
+    --slide-spacing: 2rem;
+    --slide-size: 400px;
   }
   .embla__viewport {
     overflow: hidden;
@@ -27,11 +27,16 @@
     object-fit: cover;
   }
   .embla__controls {
-    display: grid;
+    /* display: grid;
     grid-template-columns: auto 1fr;
     justify-content: space-between;
-    gap: 1.2rem;
+    gap: 1.2rem; */
     margin-top: 1.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+
   }
   .embla__buttons {
     display: grid;
@@ -71,8 +76,10 @@
   }
   .embla__dots {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    /* flex-wrap: wrap; */
+    overflow: hidden;
+    max-width: 200px;
+    justify-content: center;
     align-items: center;
     margin-right: calc((2.6rem - 1.4rem) / 2 * -1);
   }
@@ -87,28 +94,46 @@
     cursor: pointer;
     border: 0;
     padding: 0;
-    margin: 0;
-    width: 2.6rem;
-    height: 2.6rem;
+    margin: 2px;
+    width: 3rem;
+    height: .5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background-color: blue;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    background-color: rgb(204, 204, 204);
   }
   
   .embla__dot:after {
     box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    /* border-radius: 50%; */
     display: flex;
     align-items: center;
     content: '';
-    background-color: red;
+    /* background-color: red; */
   }
   .embla__dot--selected:after {
     box-shadow: inset 0 0 0 0.2rem var(--text-body);
-    background-color: green;
+    background-color: rgb(255, 255, 255);
+    width: 3rem;
+    height: .5rem;
+    border-radius: 5px;
   }
   
+  .embla__class-names{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 260px;
+    gap: 1rem;
+    width: 100px;
+    scale: 0.9;
+    transition: all 0.3s ease-in-out;
+  }
+  .active_slide{
+    scale: 1.1;
+    transition: all 0.3s ease-in-out;
+  }
