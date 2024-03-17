@@ -1,12 +1,15 @@
-"use client";
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import cards from '../../lib/Data';
+import Link from 'next/link';
+
 import {
   EmblaCarouselType,
   EmblaEventType,
   EmblaOptionsType
 } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
-import AutoScroll from 'embla-carousel-auto-scroll';
+import Autoplay from 'embla-carousel-autoplay'
+import ClassNames from 'embla-carousel-class-names'
 import {
   NextButton,
   PrevButton,
@@ -19,7 +22,6 @@ const TWEEN_FACTOR_BASE = 0.84;
 const numberWithinRange = (number: number, min: number, max: number): number =>
   Math.min(Math.max(number, min), max);
 
-
 type PropType = {
   slides: number[];
   options?: EmblaOptionsType;
@@ -27,7 +29,14 @@ type PropType = {
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const { slides, options } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [
+    Autoplay({ playOnInit: true, delay: 3000 })
+    // slidesInView: 5, // Display 5 slides at a time
+    // loop: true, // Enable looping
+    // skipSnaps: false, // Disable snap points
+    // draggable: true // Enable dragging
+  ]);
+  const [isPlaying, setIsPlaying] = useState(true);
   const tweenFactor = useRef(0);
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
@@ -40,87 +49,87 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     onNextButtonClick
   } = usePrevNextButtons(emblaApi);
 
-  const setTweenFactor = useCallback((emblaApi: EmblaCarouselType) => {
-    tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
-  }, []);
+  const toggleAutoplay = useCallback(() => {
+    const autoScroll = emblaApi?.plugins()?.autoScroll;
+    if (!autoScroll) return;
 
-  const tweenOpacity = useCallback(
-    (emblaApi: EmblaCarouselType, eventName?: EmblaEventType) => {
-      const engine = emblaApi.internalEngine();
-      const scrollProgress = emblaApi.scrollProgress();
-      const slidesInView = emblaApi.slidesInView();
-      const isScrollEvent = eventName === 'scroll';
+    const playOrStop = autoScroll.isPlaying()
+      ? autoScroll.stop
+      : autoScroll.play;
+    playOrStop();
+    setIsPlaying(autoScroll.isPlaying());
+  }, [emblaApi]);
 
-      emblaApi.scrollSnapList().forEach((scrollSnap, snapIndex) => {
-        let diffToTarget = scrollSnap - scrollProgress;
-        const slidesInSnap = engine.slideRegistry[snapIndex];
+  useEffect(() => {
+    
+    const autoScroll = emblaApi?.plugins()?.autoScroll;
+    if (!autoScroll) return;
+    console.log(autoScroll.isPlaying());
+    setIsPlaying(autoScroll.isPlaying());
+    emblaApi
+      .on('autoScroll:play', () => setIsPlaying(true))
+      .on('autoScroll:stop', () => setIsPlaying(false))
+      .on('reInit', () => setIsPlaying(false));
 
-        slidesInSnap.forEach((slideIndex) => {
-          if (isScrollEvent && !slidesInView.includes(slideIndex)) return;
+  }, [emblaApi]);
 
-          if (engine.options.loop) {
-            engine.slideLooper.loopPoints.forEach((loopItem) => {
-              const target = loopItem.target();
-
-              if (slideIndex === loopItem.index && target !== 0) {
-                const sign = Math.sign(target);
-
-                if (sign === -1) {
-                  diffToTarget = scrollSnap - (1 + scrollProgress);
-                }
-                if (sign === 1) {
-                  diffToTarget = scrollSnap + (1 - scrollProgress);
-                }
-              }
-            });
-          }
-
-          const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
-          const opacity = numberWithinRange(tweenValue, 0, 1).toString();
-          emblaApi.slideNodes()[slideIndex].style.opacity = opacity;
-        });
-      });
-    },
-    []
-  );
-
+  // to get active slide
   useEffect(() => {
     if (!emblaApi) return;
 
-    setTweenFactor(emblaApi);
-    tweenOpacity(emblaApi);
-    emblaApi
-      .on('reInit', setTweenFactor)
-      .on('reInit', tweenOpacity)
-      .on('scroll', tweenOpacity);
-  }, [emblaApi, tweenOpacity]);
+    const onSelect = () => {
+      const activeSlideIndex = emblaApi.selectedScrollSnap();
+      const slides = Array.from(document.querySelectorAll('.embla__slide'));
+      slides.forEach((slide, index) => {
+        slide.classList.toggle('active_slide', index === activeSlideIndex);
+      });
+    };
+    emblaApi.on('select', onSelect);
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
+  }, [emblaApi]);
 
-  // Handle empty or undefined slides array
-  if (!slides || slides.length === 0) {
-    return null;
-  }
+
+  const handleMouseEnter = () => {
+    if (!isPlaying) {
+      toggleAutoplay();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (isPlaying) {
+      toggleAutoplay();
+    }
+  };
 
   return (
-    <div className="embla">
+    <div
+      className="embla"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((index) => (
-            <div className="embla__slide" key={index}>
-              <img
-                className="embla__slide__img"
-                src={`https://picsum.photos/600/350?v=${index}`}
-                alt="Your alt text"
-              />
+          {cards.map((card, index) => (
+            <div className="embla__slide embla__class-names " key={index}>
+              <div className="card text-white bg-gradient flex flex-col gap-4 max-w-[400px] p-4 rounded-xl min-h-[200px] justify-between">
+                <h2 className='font-bold text-3xl'>{card.title}</h2>
+                <p className='text-lg font-medium'>{card.description}</p>
+                <div className='flex items-center justify-end'>
+                  <Link href={card.link} className='px-4 py-2 bg-white text-black font-semibold rounded-full'>Open >> </Link>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </div>
 
       <div className="embla__controls">
-        <div className="embla__buttons">
+        {/* <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-        </div>
+        </div> */}
 
         <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
@@ -133,6 +142,9 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             />
           ))}
         </div>
+        <button className="embla__play" onClick={toggleAutoplay} type="button">
+          {isPlaying ? 'Stop' : 'Start'}
+        </button>
       </div>
     </div>
   );

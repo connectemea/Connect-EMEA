@@ -24,7 +24,7 @@ const IndexPage: React.FC = () => {
   const person: Person = { name: 'John', age: 30 };
 
   return (
-    <div>
+    <div className='bg-primary text-white min-h-screen text-center py-20'>
       <h1>TS Demo</h1>
       <PersonDetails person={person} />
     </div>

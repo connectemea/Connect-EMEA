@@ -12,8 +12,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'custom-bg': '#0A0118',
-        'footer-bg': '#19022D',
+        'primary': '#0A0118',
+        'primary-light': '#19022D',
+        'secondary': '#FF00F5',
+        'custom-card': '#A33FF8',
+        'custom-card2': '#C400FE',
+        'white-light': '#F9F8FC',
+        'white': '#FFFFFF',
+        'black': '#000000',
+        'primary-orange': '#ED642B',
       },
     },
   },
@@ -35,5 +42,4 @@ function addVariablesForColors({ addBase, theme }: any) {
   });
 }
 
-  
-  
+

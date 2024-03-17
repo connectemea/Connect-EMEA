@@ -1,6 +1,8 @@
+// "use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavLinks from './ui/NavBar';
+// import { Transition } from 'react-transition-group';
 import Footer from "./ui/Footer";
 import "./ui/globals.css";
 
@@ -16,13 +18,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body className={inter.className}>
-      <NavLinks />
-        {children}
+        <div  className="fixed w-full z-50">
+          <NavLinks/>
+        </div>
+        {/* <Transition in={true} timeout={300} classnames="page"> */}
+        {/* fadeIn */}
+        <div className="pt-16 ">
+            {children}
+          </div>
+        {/* </Transition> */}
         <Footer />
-        </body>
+      </body>
     </html>
   );
 }
