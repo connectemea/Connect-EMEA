@@ -113,11 +113,11 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
         <div className="embla__container">
           {cards.map((card, index) => (
             <div className="embla__slide embla__class-names " key={index}>
-              <div className="card text-white bg-gradient flex flex-col gap-4 max-w-[400px] p-4 rounded-xl min-h-[200px] justify-between">
+              <div className="card text-white bg-gradient-to-t from-custom-card to-[#FFFFFF]/40 flex flex-col gap-4 max-w-[400px] p-4 rounded-xl min-h-[200px] justify-between border">
                 <h2 className='font-bold text-3xl'>{card.title}</h2>
                 <p className='text-lg font-medium'>{card.description}</p>
                 <div className='flex items-center justify-end'>
-                  <Link href={card.link} className='px-4 py-2 bg-white text-black font-semibold rounded-full'>Open >> </Link>
+                  <Link href={card.link} className='px-4 py-1.5 bg-white text-black font-semibold rounded-full text-sm'>Open >> </Link>
                 </div>
               </div>
             </div>
