@@ -1,6 +1,7 @@
 // pages/index.tsx
 
 import React from 'react';
+import { MacbookScrollDemo } from '../ui/Home/Macbook';
 
 
 // Define a TypeScript interface for a person
@@ -27,6 +28,12 @@ const IndexPage: React.FC = () => {
     <div className='bg-primary text-white min-h-screen text-center py-20'>
       <h1>TS Demo</h1>
       <PersonDetails person={person} />
+      <div className='overflow-hidden '>
+        <MacbookScrollDemo />
+      </div>
+      <div className='min-h-[800px]'>
+        s
+      </div>
     </div>
   );
 };
