@@ -19,55 +19,55 @@ export default function Home() {
 
   return (
     <div className="bg-primary">
-          <BackgroundBeamsDemo />
-      <div className="custom-container flex flex-col gap-4">
+      <BackgroundBeamsDemo />
+      <main className="custom-container flex flex-col gap-4">
 
-        <div className=" flex  mx-auto flex-col lg:flex-row gap-10 my-10">
+        <section className=" flex  mx-auto flex-col lg:flex-row gap-10 my-10">
           <div className=" ">
-            <img src="/Images/macbook.png" alt="macbook" className="w-full" />
-          </div>
-          <div className="">
-            <h1 className="text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">What is Connect ?</h1>
-            <div className="text-white max-w-xl p-4">
-              <TextGenerateEffectDemo />
-            </div>
-          </div>
+          <img src="/Images/macbook.png" alt="macbook" className="w-full" />
         </div>
-
-
-        <div className="my-10">
-          <CardHoverEffectDemo />
-        </div>
-
-        <div className=" flex  mx-auto flex-col lg:flex-row my-10">
-          <div className="">
-            <h1 className="text-6xl font-extrabold  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70">Benefits</h1>
-            <div className="text-white max-w-xl p-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-          </div>
-          <div className=" ">
-            <img src="/Images/benfit.png" alt="macbook" className="w-full" />
+        <div className="">
+          <h1 className="text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">What is Connect ?</h1>
+          <div className="text-white max-w-xl p-4">
+            <TextGenerateEffectDemo />
           </div>
         </div>
+      </section>
 
-        <div className="my-10">
-          <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
-          <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+
+      <section className="my-10">
+        <CardHoverEffectDemo />
+      </section>
+
+      <section className=" flex  mx-auto flex-col lg:flex-row my-10">
+        <div className="">
+          <h1 className="text-6xl font-extrabold  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70">Benefits</h1>
+          <div className="text-white max-w-xl p-4">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
         </div>
-
-        <div className="my-10">
-          <Team />
+        <div className=" ">
+          <img src="/Images/benfit.png" alt="macbook" className="w-full" />
         </div>
+      </section>
+
+      <section className="my-10">
+        <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
+        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+      </section>
+
+      <section className="my-10">
+        <Team />
+      </section>
 
 
-        <div className="my-10 mb-28">
-          <Suggestion />
-        </div>
+      <section className="my-10 mb-28">
+        <Suggestion />
+      </section>
 
 
-      </div>
-    </div>
+    </main>
+    </div >
 
   );
 }

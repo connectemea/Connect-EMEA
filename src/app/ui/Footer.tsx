@@ -14,10 +14,10 @@ const Footer: React.FC = () => {
                 <section className='flex justify-between p-4'>
                     <ul className='p-4 '>
                         <li className='text-3xl font-bold mb-4'>ConnectEMEA</li>
-                        <li className='text-lg cursor-pointer'><Link href="about" >About</Link></li>
-                        <li className='text-lg cursor-pointer'><Link href="team" >Team</Link></li>
-                        <li className='text-lg cursor-pointer'><Link href="event" >Events</Link></li>
-                        <li className='text-lg cursor-pointer'><Link href="join" >Join</Link></li>
+                        <li className='text-lg cursor-pointer transition-all ease-in-out duration-300 hover:underline hover:translate-x-2'><Link href="about" >About</Link></li>
+                        <li className='text-lg cursor-pointer transition-all ease-in-out duration-300 hover:underline hover:translate-x-2'><Link href="team" >Team</Link></li>
+                        <li className='text-lg cursor-pointer transition-all ease-in-out duration-300 hover:underline hover:translate-x-2'><Link href="event" >Events</Link></li>
+                        <li className='text-lg cursor-pointer transition-all ease-in-out duration-300 hover:underline hover:translate-x-2'><Link href="join" >Join</Link></li>
 
                     </ul>
                     <div className='p-4 flex flex-col justify-start'>

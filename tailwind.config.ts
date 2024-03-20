@@ -13,10 +13,11 @@ module.exports = {
     extend: {
       colors: {
         'primary': '#0A0118',
+        'primary-dark': '#A33FF8',
         'primary-light': '#19022D',
         'secondary': '#FF00F5',
-        'custom-card': '#A33FF8',
-        'custom-card2': '#C400FE',
+        'customCard': '#A33FF8',
+        'customCard2': '#C400FE',
         'white-light': '#F9F8FC',
         'white': '#FFFFFF',
         'black': '#000000',
@@ -25,6 +26,7 @@ module.exports = {
         'cream-light': '#F0DEFF',
         'violet': '#A33FF8',
         'dark-violet': '#0A0118',
+        'secondaryCard': '#A33FF8'
       },
     },
   },

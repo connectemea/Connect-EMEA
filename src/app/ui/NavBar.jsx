@@ -52,10 +52,10 @@ const handleClick = () => {
           <div className='line line-2' />
           <div className='line line-3' />
           </div>
-        <div className="Nav-list responsive ">
+        <div className="Nav-list responsive">
           {links.map((link) => (
-            <Link key={link.name} href={link.href} onClick={handleClick} className={` px-6 py-2 rounded-lg ${
-              pathname === link.href ? 'bg-primary-light' : ''
+            <Link key={link.name} href={link.href} onClick={handleClick} className={` p-2 rounded-lg ${
+              pathname === link.href ? ' active-nav' : 'unactive-nav'
             }`}>
               <p
                 className={`flex text-color h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 `}
