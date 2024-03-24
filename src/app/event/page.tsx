@@ -1,41 +1,49 @@
-// pages/index.tsx
+"use client";
+import React, { useState } from 'react';
+import { Button, Modal } from 'antd';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
+import events  from '../lib/Event'; 
 
-import React from 'react';
-import { MacbookScrollDemo } from '../ui/Home/Macbook';
+const EventPage: React.FC = () => {
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
-// Define a TypeScript interface for a person
-interface Person {
-  name: string;
-  age: number;
-}
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
-// Define a functional component that takes a person as a prop
-const PersonDetails: React.FC<{ person: Person }> = ({ person }) => {
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div>
-      <h2>Name: {person.name}</h2>
-      <h2>Age: {person.age}</h2>
+    <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24'>
+      <h1>Event Page</h1>
+      <section className='p-6 border border-gray-700 rounded-lg bg-primary-light m-4 flex flex-wrap gap-4 items-center justify-center' ref={parent}>
+        {events.map((event) => (
+          <div key={event.id} className='bg-white rounded-lg flex flex-col gap-2 items-center justify-center h-fit max-w-[300px] min-w-[260px] p-4' onClick={() => showModal()}>
+            <div className='bg-dark-violet rounded-lg min-h-[200px] min-w-[100%]'>
+            </div>
+            <div className=''>
+              {event.name}
+            </div>
+          </div>
+        ))}
+
+        <Modal title="Basic Modal" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+          <p>Event Name: </p>
+          <Button type="primary" onClick={handleOk}>
+            OK
+          </Button>
+        </Modal>
+      </section>
     </div>
   );
 };
 
-const IndexPage: React.FC = () => {
-  // Create a person object
-  const person: Person = { name: 'John', age: 30 };
-
-  return (
-    <div className='bg-primary text-white min-h-screen text-center py-20'>
-      <h1>TS Demo</h1>
-      <PersonDetails person={person} />
-      <div className='overflow-hidden '>
-        <MacbookScrollDemo />
-      </div>
-      <div className='min-h-[800px]'>
-        s
-      </div>
-    </div>
-  );
-};
-
-export default IndexPage;
+export default EventPage;

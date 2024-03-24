@@ -12,6 +12,7 @@
     "@formkit/auto-animate": "^0.8.1",
     "@heroicons/react": "^2.1.1",
     "@tabler/icons-react": "^2.47.0",
+    "antd": "^5.15.3",
     "clsx": "^2.1.0",
     "embla-carousel-auto-scroll": "^8.0.0",
     "embla-carousel-autoplay": "^8.0.0",

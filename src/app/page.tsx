@@ -35,7 +35,7 @@ export default function Home() {
       </section>
 
 
-      <section className="my-10">
+      <section className="my-10  mx-auto lg:px-10">
         <CardHoverEffectDemo />
       </section>
 
@@ -51,17 +51,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="my-10">
+      <section className="my-10  lg:px-10">
         <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
         <EmblaCarousel slides={SLIDES} options={OPTIONS} />
       </section>
 
-      <section className="my-10">
+      <section className="my-10 mx-auto lg:px-10">
         <Team />
       </section>
 
 
-      <section className="my-10 mb-28">
+      <section className="my-10 mb-28 mx-auto lg:px-10">
         <Suggestion />
       </section>
 

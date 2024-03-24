@@ -4,20 +4,7 @@ import { useState } from 'react';
 import TeamData from '../lib/Team.js';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import '../ui/style.css';
-
-/*
-id: '1',
-        name: 'Founder 1',
-        role: 'CEO',
-        image: 'examble.png ',
-        profession: 'ss',
-        department: 'cs',
-        social: {
-            linkedin: 's',
-            github: 'ss',
-            instagram: 'ss'
-        }
-        */
+import { AnimatedTooltip } from "../../components/ui/animated-tooltip";
 
 const Page: React.FC = () => {
     const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
@@ -26,10 +13,14 @@ const Page: React.FC = () => {
     const handleSocial = (url: string) => () => {
         window.open(url, '_blank');
     }
-    const HandleInterPop = () => {
-        // var popup = document.getElementById("myPopup");
-        // popup.classList.toggle("show");
-    }
+    const [showPopup, setShowPopup] = useState<string | null>(null);
+    const handleTooltip = (id: string) => {
+        setShowPopup(id);
+    };
+    const handleMouseLeave = () => {
+        setShowPopup(null);
+    };
+
     return (
         <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24'>
             <main className='custom-container flex flex-col gap-4 mx-auto '>
@@ -44,6 +35,7 @@ const Page: React.FC = () => {
                                 <div className='text-center flex items-center justify-center flex-col gap-2 my-6'>
                                     <p className='font-bold '>{founder.role}</p>
                                     <p>{founder.profession}</p>
+                                    {/* need to change img ot icons  */}
                                     <div className='flex gap-4'>
                                         <img src='/icons/instagram.png' alt='instagram' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={handleSocial(founder.social.instagram)} />
                                         <img src='/icons/github.png' alt='github' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={handleSocial(founder.social.github)} />
@@ -56,7 +48,7 @@ const Page: React.FC = () => {
 
                 </section>
 
-                <section className='p-6 border rounded-lg bg-primary-light m-4' ref={parent}>
+                <section className='p-6 border border-gray-700 rounded-lg bg-primary-light m-4' ref={parent}>
 
                     <div className='flex gap-4 mx-auto mb-10'>
                         <div className='basis-11/12 pl-20'>
@@ -79,13 +71,26 @@ const Page: React.FC = () => {
                         team.year === selectedYear && (
                             <div key={team.year} className='flex gap-4 flex-wrap items-center justify-center' ref={parent}>
                                 {team.members.map((member) => (
-                                    <div key={member.id} className='min-h-[260px] border rounded-md  max-w-[260px] min-w-[260px] text-black rounded-xl overflow-hidden flex flex-col relative'>
-                                        <div className={`bg-${team.color} h-[120px]`} >
+                                    <div key={member.id} className='min-h-[260px]  rounded-md  max-w-[260px] min-w-[260px] text-black rounded-xl overflow-hidden flex flex-col relative'>
+                                        <div className={`bg-[${team.color}] h-[120px]`} style={{ backgroundColor: team.color }}>
                                         </div>
-                                        <div className={`absolute h-[120px] w-[120px] top-[50px] right-[70px] rounded-full bg-white border-4 border-${team.color}`}>
+                                        <div className='bg-white flex items-center justify-center h-[10px]'>
+                                            <div className={`-translate-y-4 h-[120px] w-[120px]  rounded-full bg-white border-4 border-[${team.color}]`} style={{ borderColor: team.color }}>
+                                                <img src={`/Images/${member.image}`} alt={member.name} className='w-full h-full object-cover rounded-full' />
+                                            </div>
                                         </div>
-                                        <div className='h-[200px] bg-white flex items-center justify-center'>
+                                        {/* department badge */}
+                                        <div className={`absolute top-2 right-2 px-2 py-1 rounded-full bg-white text-[${team.color}] text-sm font-semibold select-none shadow`} style={{ color: team.color }}>
+                                        <p>{member.department}</p>
+                                            </div>
+                                        <div className='h-[200px] bg-white flex items-center justify-center flex-col'>
                                             <p>{member.role}</p>
+                                            <p className='text-gray-500'>{member.profession}</p>
+                                            <div className='flex gap-4'>
+                                                <img src='/icons/instagram.png' alt='instagram' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(member.social.instagram, '_blank')} />
+                                                <img src='/icons/github.png' alt='github' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(member.social.github, '_blank')} />
+                                                <img src='/icons/linkedin.png' alt='linkedin' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(member.social.linkedin, '_blank')} />
+                                            </div>
                                         </div>
 
                                     </div>
@@ -95,30 +100,38 @@ const Page: React.FC = () => {
                     ))}
                 </section>
 
-                <section className='p-6  m-4'>
+
+                <section className='p-6 m-4'>
                     <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                    <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase mb-6'>Interns</h2>
-                    <div className='flex flex-wrap gap-2 mt-20' ref={parent}>
-                        {TeamData.interns.map((intern) => (
-                            <div key={intern.id} className='rounded-full intern-card relative' ref={parent} onClick={HandleInterPop}>
-                                <div className='intern-popup' >
-                                    <div className='popuptext'  ref={parent}>
-
-                                    <p className="" id="myPopup">{intern.role}</p>
-                                    <div className='flex gap-4'  ref={parent}>
-                                        <img src='/icons/instagram.png' alt='instagram' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={handleSocial(intern.social.instagram)} />
-                                        <img src='/icons/github.png' alt='github' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={handleSocial(intern.social.github)} />
-                                        <img src='/icons/linkedin.png' alt='linkedin' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={handleSocial(intern.social.linkedin)} />
-                                    </div>
-                                    </div>  
-                                </div>
-                                <div ref={parent}>
-                                    <img src={`/Images/${intern.image}`} alt={intern.name} className='w-20 h-20 rounded-full border-4 border-white ' />
-                                </div>
-                            </div>
-                        ))}
+                    <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
+                    <div className='flex flex-wrap gap-2 mt-20'>
+                        <div className="flex flex-row items-center justify-center mb-10 w-full">
+                            <AnimatedTooltip items={TeamData.interns} />
+                        </div>
+                        {/* {TeamData.interns.map((intern) => (
+                           
+                            // <div
+                            //     key={intern.id}
+                            //     className='relative'
+                            //     onMouseEnter={() => handleTooltip(intern.id)}
+                            //     onMouseLeave={handleMouseLeave}
+                            // >
+                            //     <div className='intern-card rounded-full'>
+                            //         <img src={`/Images/${intern.image}`} alt={intern.name} className='w-20 h-20 rounded-full border-4 border-white' />
+                            //     </div>
+                            //     {showPopup === intern.id && (
+                            //         <div className='tooltip'>
+                            //             <p>{intern.role}</p>
+                            //             <div className='flex gap-4'>
+                            //                 <img src='/icons/instagram.png' alt='instagram' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(intern.social.instagram, '_blank')} />
+                            //                 <img src='/icons/github.png' alt='github' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(intern.social.github, '_blank')} />
+                            //                 <img src='/icons/linkedin.png' alt='linkedin' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(intern.social.linkedin, '_blank')} />
+                            //             </div>
+                            //         </div>
+                            //     )}
+                            // </div>
+                        ))} */}
                     </div>
-
                 </section>
 
             </main>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { MacbookScrollDemo } from '../ui/Home/Macbook';
+
 
 const About: React.FC = () => {
     return (
@@ -6,6 +8,9 @@ const About: React.FC = () => {
             <h1>Hello, World!</h1>
             <h1>About Page</h1>
             <p>Welcome to the About page of our application!</p>
+            <div className='overflow-hidden '>
+        <MacbookScrollDemo />
+      </div>
         <img src="/Visual.png" alt="macbook" className="" />
         </div>
     );
