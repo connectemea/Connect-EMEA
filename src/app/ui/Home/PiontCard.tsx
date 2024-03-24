@@ -8,11 +8,11 @@ export function CardHoverEffectDemo() {
 
       <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold">Why does it exist</h1>
       </div>
-      <div className="flex flex-wrap gap-10 mx-auto items-center justify-center">
+      <div className="flex flex-wrap gap-4 gap-y-6 mx-auto items-center justify-center">
 
     {cards.map((card, index) => (
-      <div key={index} className="max-w-5xl px-8 max-w-[380px] cursor-default">
-        <div className="bg-white/10 backdrop-blur border shadow-lg rounded-lg p-4 text-white transition-all ease-in duration-300 hover:-translate-y-4 hover:border-secondary">
+      <div key={index} className="max-w-[360px] cursor-default">
+        <div className="m-2 bg-white/10 backdrop-blur border shadow-lg rounded-lg p-4 text-white transition-all ease-in duration-300 hover:-translate-y-2 hover:border-secondary">
           <div className='flex gap-4'>
             <div className='items-start'>
               <span>
@@ -46,31 +46,31 @@ export const cards = [
   {
     title: "Point Card 1",
     description:
-      "A technology company that builds economic infrastructure for the internet.economic infrastructure for the internet.economic infrastructure for the internet.",
+      "A technology company that builds economic infrastructure for the for the internet.economic infrastructure for the internet.documentaries, and more ",
     link: "/team/1",
   },
   {
     title: "Point Card 2",
     description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
+      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime,  of internet-connected devices.documentaries, and more ",
     link: "/team/2",
   },
   {
     title: "Point Card 3",
     description:
-      "A multinational technology company that specializes in Internet-related services and products.",
+      "A multinational technology company that specializes in Internet-related services and products.fers a wide variety of award-winning TV shows, ",
     link: "/team/3",
   },
   {
     title: "Point Card 4",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
+      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together. movies, anime,",
     link: "/team/4",
   },
   {
     title: "Point Card 5",
     description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
+      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.internet. movies, anime, ",
     link: "/team/5",
   },
 ];

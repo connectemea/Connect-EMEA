@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div  className="fixed w-full z-50">
+        <div  className="fixed w-full z-50 ">
           <NavLinks/>
         </div>
         {/* <Transition in={true} timeout={300} classnames="page"> */}

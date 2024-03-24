@@ -12,6 +12,10 @@
 
 /* Nav bar */
 
+.nav-bar {
+  padding: 15px 10px;
+}
+
 .nav-border {
   border-style: solid;
   border-width: 0 0 1px 0;
@@ -24,7 +28,6 @@
   align-items: center;
   justify-content: center;
   list-style: none;
-  padding: 0;
   margin: 0;
   transition: all 0.3s ease;
   color: #fff;
@@ -71,6 +74,11 @@
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+@media (min-width: 1024px) {
+  .nav-bar {
+    padding: 15px 2.5rem;
+  }
+}
 @media (max-width: 768px) {
   .harmburger {
     display: block;
@@ -133,15 +141,7 @@ select::after {
 select option:checked {
   background-color: #ddd;
 } */
-
-.intern-card:hover .intern-popup {
-  cursor: pointer;
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Popup container - can be anything you want */
+/* Tooltip Styles */
 .intern-popup {
   visibility: hidden;
   position: absolute;
@@ -151,54 +151,14 @@ select option:checked {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  top: -100px;
-}
-
-/* The actual popup */
-.intern-popup .popuptext {
-  /* visibility: hidden; */
-  display: flex;
-  width: 200px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #A33FF8;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
+  top: -100px; /* Adjust as needed */
   left: 50%;
-  margin-left: -100px;
-  position: absolute;
+  transform: translateX(-50%);
   z-index: 1;
 }
 
-/* Popup arrow */
-.intern-popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #A33FF8 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.intern-popup .show {
+.intern-card:hover .intern-popup {
   visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }
 
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
-}
+/* Other styles remain the same */

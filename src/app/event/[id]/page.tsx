@@ -8,7 +8,22 @@ import cards from '../../lib/Data';
 //     location: string;
 //     description: string;
 // }
+// Define a TypeScript interface for a person
+interface Person {
+    name: string;
+    age: number;
+  }
 
+// Define a functional component that takes a person as a prop
+const PersonDetails: React.FC<{ person: Person }> = ({ person }) => {
+    return (
+      <div>
+        <h2>Name: {person.name}</h2>
+        <h2>Age: {person.age}</h2>
+      </div>
+    );
+  };
+  
 const EventPage: React.FC<{ params: { id: string } }> = ({ params }) => {
     const { id } = params;
     // Filter the cards array to find the event with the matching id
@@ -17,6 +32,7 @@ const EventPage: React.FC<{ params: { id: string } }> = ({ params }) => {
     if (!event) {
         return <div>Event not found ${id}</div>;
     }
+    const person: Person = { name: 'John', age: 30 };
 
     return (
         <div className='h-screen flex items-center justify-center mx-auto bg-primary'>
@@ -26,6 +42,8 @@ const EventPage: React.FC<{ params: { id: string } }> = ({ params }) => {
             <p>Location: {event.id}</p>
             <p>Description: {event.description}</p>
             </div>
+      <PersonDetails person={person} />
+
         </div>
     );
 };

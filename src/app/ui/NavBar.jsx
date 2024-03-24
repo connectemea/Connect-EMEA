@@ -41,7 +41,7 @@ const handleClick = () => {
   return (
     <>
       <div className=" bg-primary nav-border ">
-        <div className='custom-container flex justify-between items-center nav-bar'>
+        <div className='custom-container flex justify-between items-center nav-bar '>
           {/* left section */}
         <div>
           <img src="/logo.png" alt="logo" />
