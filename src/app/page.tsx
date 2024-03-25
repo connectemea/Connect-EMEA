@@ -3,19 +3,13 @@
 import { BackgroundBeamsDemo } from "./ui/Home/Hero";
 import { CardHoverEffectDemo } from "./ui/Home/PiontCard";
 import { TextGenerateEffectDemo } from "./ui/Home/ConnectText";
-import EmblaCarousel from "./ui/Home/EmblaCarousal";
+import  Slider  from "./ui/Home/Events";
 import Team from "./ui/Home/Team";
 import Suggestion from "./ui/Home/Suggestion";
-import { EmblaOptionsType } from 'embla-carousel'
-import './ui/embla.css';
 import './ui/style.css';
 
 
 export default function Home() {
-
-  const OPTIONS: EmblaOptionsType = { loop: true }
-  const SLIDE_COUNT = 8
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
   return (
     <div className="bg-primary">
@@ -53,7 +47,7 @@ export default function Home() {
 
       <section className="my-10  lg:px-10">
         <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
-        <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+        <Slider />
       </section>
 
       <section className="my-10 mx-auto lg:px-10">
