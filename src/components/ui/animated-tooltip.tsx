@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { Button, Modal } from 'antd';
 import {
     motion,
     useTransform,
@@ -39,16 +40,27 @@ export const AnimatedTooltip = ({
         const halfWidth = event.target.offsetWidth / 2;
         x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
     };
-    const handleSocial = (url: string) => () => {
-        window.open(url, '_blank');
-    }
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     return (
-        <div className="flex flex-wrap items-center justify-center">
+        <>
             {items.map((item, idx) => (
                 <div
                     className="-mr-4  relative group"
-                    key={item.id}
+                    key={item.name}
                     onMouseEnter={() => setHoveredIndex(item.id)}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
@@ -72,34 +84,34 @@ export const AnimatedTooltip = ({
                                     rotate: rotate,
                                     whiteSpace: "nowrap",
                                 }}
-                                className="absolute -top-24 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2 w-fit"
+                                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
                             >
                                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
                                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
                                 <div className="font-bold text-white relative z-30 text-base">
                                     {item.name}
                                 </div>
-                                {/* <p>{item.profession}</p> */}
                                 <div className="text-white text-xs">{item.role}</div>
-                                <div className='flex gap-2 relative z-30 text-base'>
-                                    <img src='/icons/instagram.png' alt='instagram' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(item.social.instagram, '_blank')} />
-                                    <img src='/icons/github.png' alt='github' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(item.social.github, '_blank')} />
-                                    <img src='/icons/linkedin.png' alt='linkedin' className='cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 p-2' onClick={() => window.open(item.social.linkedin, '_blank')} />
-                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
                     <Image
                         onMouseMove={handleMouseMove}
+                        onClick={showModal}
                         height={100}
                         width={100}
                         src={`/Images/${item.image}`}
                         alt={item.name}
-                        onClick={handleSocial(item.social.linkedin)}
-                        className="object-cover !m-0 !p-0 object-top rounded-full h-20 md:h-24 w-20 md:w-24 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+                        className="object-cover !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
                     />
+                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+                        <p>{item.name}</p>
+                        <img  src={`/Images/${item.image}`} alt={item.name} />
+                        <p>{item.role}</p>
+                    </Modal>
                 </div>
             ))}
-        </div>
+        </>
     );
 };
+

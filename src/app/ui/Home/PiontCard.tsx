@@ -1,5 +1,5 @@
 import Link from 'next/link';
-
+import { BsCaretRight } from "react-icons/bs";
 
 export function CardHoverEffectDemo() {
   return (
@@ -13,10 +13,11 @@ export function CardHoverEffectDemo() {
     {cards.map((card, index) => (
       <div key={index} className="max-w-[360px] cursor-default">
         <div className="m-2 bg-white/10 backdrop-blur border shadow-lg rounded-lg p-4 text-white transition-all ease-in duration-300 hover:-translate-y-2 hover:border-secondary">
-          <div className='flex gap-4'>
+          <div className='flex gap-1'>
             <div className='items-start'>
               <span>
-          <img src='/icons/arrow.png' alt='notification' />
+                <BsCaretRight className='text-[28px] text-secondary'/>
+          {/* <img src='/icons/arrow.png' alt='notification' /> */}
               </span>
 
               </div>
