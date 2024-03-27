@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { BackgroundBeams } from "../../../components/ui/background-beams";
-import { BackgroundGradientDemo } from "./Image";
 import { TypewriterEffectSmooth } from "../../../components/ui/typewriter-effect";
 
 import Link from 'next/link';
@@ -43,7 +42,6 @@ export function BackgroundBeamsDemo() {
         </button>
           </Link>
       </div>
-      {/* <BackgroundGradientDemo /> */}
       <div className="relative z-20 flex items-center justify-center mt-10">
       <img src="/Images/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-28 md:-top-36 w-[90%] -z-10" />
       <img src="/Images/groupImage.png" alt="macbook" className="z-50 w-[90%] custom-container" />

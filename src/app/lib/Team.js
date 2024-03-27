@@ -3,7 +3,7 @@ const founders = [
         id: '1',
         name: 'Founder 1',
         role: 'Machine Learning',
-        image: 'examble.png ',
+        image: 'founder1.png ',
         profession: 'ss',
         department: 'Bsc cs',
         social: {
@@ -13,9 +13,10 @@ const founders = [
         }
     },
     {
-        id: '2', name: 'Founder 2',
+        id: '2', 
+        name: 'Founder 2',
         role: 'CTO',
-        image: 'examble.png',
+        image: 'founder2.png',
         profession: 'ss',
         department: 'Bsc cs',
         social: {
@@ -25,9 +26,10 @@ const founders = [
         }
     },
     {
-        id: '3', name: 'Founder 3',
+        id: '3', 
+        name: 'Founder 3',
         role: 'COO',
-        image: 'examble.png',
+        image: 'founder3.png',
         profession: 'ss',
         department: 'Bsc cs',
         social: {
@@ -37,9 +39,10 @@ const founders = [
         }
     },
     {
-        id: '4', name: 'Founder 3',
-        role: 'COO',
-        image: 'examble.png',
+        id: '4', 
+        name: 'Founder 3',
+        role: 'CO-founder',
+        image: 'founder4.png',
         profession: 'ss',
         department: 'Bsc cs',
         social: {
@@ -53,7 +56,7 @@ const founders = [
 
 
 const coreteam = [{
-    year: '2021', color: '#A33FF8', members: [
+    year: '2021-22', color: '#A33FF8', members: [
         {
             id: '1', name: 'Core Team Member 1',
             role: 'Engineer',
@@ -129,7 +132,7 @@ const coreteam = [{
     ]
 },
 {
-    year: '2022', color: '#C400FE', members: [
+    year: '2022-23', color: '#C400FE', members: [
         {
             id: '1', name: 'Core Team intern 1',
             role: 'Engineer intern',
@@ -205,7 +208,7 @@ const coreteam = [{
     ]
 },
 {
-    year: '2023', color: '#A33FF8', members: [
+    year: '2023-24', color: '#A33FF8', members: [
         {
             id: '1', name: 'Core Team Member 1',
             role: 'intern Engineer',
@@ -281,7 +284,7 @@ const coreteam = [{
     ]
 },
 {
-    year: '2024', color: '#C400FE', members: [
+    year: '2024-25', color: '#C400FE', members: [
         {
             id: '1', name: 'intern Core Team Member 1',
             role: 'Engineer',
