@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../../ui/styles/globals.css";
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -15,7 +15,6 @@ import { auth } from '@/app/server/config/firebase';
 import { signOut } from "firebase/auth";
 import { usePathname, useRouter } from 'next/navigation';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-
 const { Header, Sider, Content } = Layout;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,6 +30,7 @@ interface RootLayoutProps {
 
 function RootLayout({ children }: RootLayoutProps) {
   const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+  const [selectedKey, setSelectedKey] = useState('');
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -38,6 +38,30 @@ function RootLayout({ children }: RootLayoutProps) {
 
   const Router = useRouter();
   const pathname = usePathname();
+
+  useEffect(() => {
+    switch (true) {
+      case pathname === '/adminpanel':
+        setSelectedKey('1');
+        break;
+      case pathname.startsWith('/adminpanel/interns'):
+        setSelectedKey('2');
+        break;
+      case pathname === '/adminpanel/events':
+        setSelectedKey('3');
+        break;
+      case pathname === '/adminpanel/coreteam':
+        setSelectedKey('4');
+        break;
+      case pathname === '/adminpanel/founders':
+        setSelectedKey('5');
+        break;
+      default:
+        setSelectedKey('1');
+        break;
+    }
+  }, [pathname]);
+  
 
   auth.onAuthStateChanged((user) => {
     if (user) {
@@ -69,37 +93,65 @@ function RootLayout({ children }: RootLayoutProps) {
       key: '1',
       icon: <UserOutlined />,
       label: 'Dashboard',
-      href: '/adminpanel',
     },
     {
       key: '2',
       icon: <VideoCameraOutlined />,
-      label: 'Interns',
-      href: '/adminpanel/interns',
+      label: 'interns',
+
     },
     {
       key: '3',
       icon: <UploadOutlined />,
       label: 'Events',
-      href: '/adminpanel/events',
     },
     {
       key: '4',
       icon: <UploadOutlined />,
       label: 'Core Team',
-      href: '/adminpanel/coreteam',
+
     },
     {
       key: '5',
       icon: <UploadOutlined />,
       label: 'Founders',
-      href: '/adminpanel/founders',
     }
   ];
 
   const handleMenuClick = (e: any) => {
-    Router.push(e.key);
-  }
+    let route;
+    switch (e.key) {
+      case '1':
+        route = '/adminpanel';
+        setSelectedKey('1')
+        break;
+      case '2':
+        route = '/adminpanel/interns';
+        setSelectedKey('2')
+        break;
+      case '3':
+        route = '/adminpanel/events';
+        setSelectedKey('3')
+        break;
+      case '4':
+        route = '/adminpanel/coreteam';
+        setSelectedKey('4')
+
+        break;
+      case '5':
+        route = '/adminpanel/founders';
+        setSelectedKey('5')
+
+        break;
+      default:
+        route = '/adminpanel/';
+        break;
+    }
+
+    Router.push(route);
+  };
+
+
 
 
   return (
@@ -114,9 +166,8 @@ function RootLayout({ children }: RootLayoutProps) {
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={['1']}
-              selectedKeys={[pages.find(page => pathname.includes(page.href))?.key || '1']}
-              onChange={handleMenuClick}
+              selectedKeys={[selectedKey]}
+              onClick={handleMenuClick}
               items={pages}
             />
 
@@ -148,7 +199,7 @@ function RootLayout({ children }: RootLayoutProps) {
                 background: colorBgContainer,
                 borderRadius: borderRadiusLG,
               }}
-              className="text-white rounded overflow-hidden"
+              className="text-black rounded overflow-hidden"
               ref={parent}
             >
               {children}
