@@ -22,10 +22,10 @@ export default function Home() {
             <img src="/Images/macbook.png" alt="macbook" className="w-full" />
           </div>
           <div className="">
-            <h1 className="text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">What is Connect ?</h1>
+            <h1 className="text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
             <div className="text-white max-w-xl p-4">
               {/* <TextGenerateEffectDemo /> */}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              A vibrant student-led community to empower every student to uplift their career aspirations via skill-enhancing programs, mentorship, and enabling the right opportunities
             </div>
           </div>
         </section>
@@ -35,7 +35,7 @@ export default function Home() {
           <CardHoverEffectDemo />
         </section>
 
-        <section className=" flex  mx-auto flex-col lg:flex-row my-10">
+        {/* <section className=" flex  mx-auto flex-col lg:flex-row my-10">
           <div className="">
             <h1 className="text-6xl font-extrabold  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70">Benefits</h1>
             <div className="text-white max-w-xl p-4">
@@ -45,7 +45,7 @@ export default function Home() {
           <div className=" ">
             <img src="/Images/benfit.png" alt="macbook" className="w-full" />
           </div>
-        </section>
+        </section> */}
 
         <section className="my-10  lg:px-10">
           <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
@@ -56,12 +56,14 @@ export default function Home() {
           <Team />
         </section>
 
-
         {/* <section className="my-10 mb-28 mx-auto lg:px-10">
           <Suggestion />
         </section> */}
 
-
+        <section>
+          <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
+          </h1>
+        </section>
       </main>
     </div >
 

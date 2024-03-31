@@ -29,7 +29,7 @@ import {
 
 const Page: React.FC = () => {
     const [parent, enableAnimations] = useAutoAnimate(/* optional config */)
-    const [selectedYear, setSelectedYear] = useState('2020-21');
+    const [selectedYear, setSelectedYear] = useState('2021-22');
     const [coremembers, setCoremembers] = useState<any[]>([]);
     const [interns, setInterns] = useState<any[]>([]);
     const internsCollection = collection(db, "Interns");
@@ -49,9 +49,11 @@ const Page: React.FC = () => {
                 name: doc.data().name,
                 image: doc.data().imageUrl,
                 profession: doc.data().profession,
+                position: doc.data().teams?.find((team: any) => team.teamId === TeamId)?.position,
                 role: doc.data().role,
                 social: doc.data().social,
                 department: doc.data().department,
+                short_department: doc.data().short_department,
                 tags: doc.data().tags,
             }));
             setCoremembers(internsData);
@@ -84,18 +86,20 @@ const Page: React.FC = () => {
     const getCoreTeamOptions = async () => {
         const coreTeamRef = collection(db, 'CoreTeam');
         try {
-            const data = await getDocs(coreTeamRef);
+            const data = await getDocs(query(coreTeamRef, where('Status', '==', 'Publish')));
             const internsData = data.docs.map((doc) => ({
                 value: doc.id,
                 label: doc.id,
-                Color: doc.data().Color,
+                Color: doc.data().Color ? doc.data().Color : 'secondary',
             }));
+            setSelectedYear(internsData[0].value);
             console.log("CoreTeam Options:", internsData);
             setOptions(internsData);
         } catch (err) {
             console.error(err);
         }
     };
+
 
 
     useEffect(() => {
@@ -130,22 +134,26 @@ const Page: React.FC = () => {
                 <section className='p-6 mx-auto'>
                     <h1 className='text-2xl font-medium'>Connect EMEA</h1>
                     <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Founders</h2>
-                    <div className='grid grid-cols-2  md:grid-cols-4 gap-x-10 gap-y-10 items-center justify-center my-16'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-x-10 gap-y-10 items-center justify-center my-16'>
                         {TeamData.founders.map((founder) => (
-                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[200px] mx-auto shadow '>
-                                <div className='relative'>
-                                    <img src='/Images/bg-traingle.png' alt='overlay' className='absolute top-0 left-0 w-full h-full object-cover rounded-md z-10' />
-                                    <div className='mt-2 mx-auto p-4 z-20 h-[250px]'>
-                                        <img src={`Images/founders/${founder.image}`} alt={founder.name} className='w-full h-full  object-cover rounded-md' />
+                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[230px] mx-auto shadow '>
+                                <div className='relative z-10'>
+                                    <div className='mt-2 mx-auto p-4 z-20 h-[300px] relative'>
+                                        <img src={`Images/founders/${founder.image}`} alt={founder.name} className='w-full h-full object-cover rounded-md z-30' />
+                                        <div className='absolute top-0 left-0 w-full h-full' style={{ zIndex: -10 }}>
+                                            <img src='/Images/bg-traingle.png' alt='overlay' className='w-full h-full object-cover rounded-md' style={{ zIndex: -10 }} />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='text-center flex items-center justify-center flex-col my-2 mx-auto'>
-                                    <p className='font-bold '>{founder.role}</p>
+
+
+                                <div className='text-center flex items-center justify-center gap-1 flex-col my-2 mx-auto'>
+                                    <p className='font-bold '>{founder.name}</p>
                                     <p>{founder.profession}</p>
-                                    <div className='flex gap-4 mt-1'>
-                                        <FaInstagram className='text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.instagram)} />
-                                        <FiGithub className='text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.github)} />
-                                        <SlSocialLinkedin className='text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.linkedin)} />
+                                    <div className='flex gap-4 my-2'>
+                                        <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.instagram)} />
+                                        <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.github)} />
+                                        <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.linkedin)} />
                                     </div>
                                 </div>
                             </div>
@@ -153,72 +161,74 @@ const Page: React.FC = () => {
                     </div>
 
                 </section>
+                {options.length > 0 && (
 
-                <section className='p-6 border border-gray-700 rounded-lg bg-primary-light m-4' ref={parent}>
+                    <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
 
-                    <div className='flex gap-4 mx-auto mb-10'>
-                        <div className='basis-11/12 pl-20'>
-                            <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                            <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
-                        </div>
-                        <div className='basis-1/12 flex items-center justify-end'>
-                            <Select
-                                defaultValue="2020-21"
-                                style={{ width: 120 }}
-                                onChange={handleChange}
-                                options={options}
-                            />
-
-                            {/* <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)} className='text-white  shadow-md w-fit h-fit rounded-full p-2 px-4 cursor-pointer border border-black/20 '>
-                                <option value=""></option>
-                                <option value="">2023</option>
-                                <option value="2022">2022</option>
-                                <option value="2021">2021</option>
-                            </select> */}
-                        </div>
-
-                    </div>
-
-                    <div key={selectedYear} className='flex gap-4 flex-wrap items-center justify-center' ref={parent}>
-                        {coremembers.map((member: any) => (
-                            <div key={member.id} className='min-h-[260px]  rounded-md  max-w-[260px] min-w-[260px] text-black rounded-xl overflow-hidden flex flex-col relative'>
-                                <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
-                                </div>
-                                <div className='bg-white flex items-center justify-center h-[10px]'>
-                                    <div className={`-translate-y-4 h-[120px] w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
-                                        <img src={`${member.image}`} alt={member.name} className='w-full h-full object-cover rounded-full' />
-                                    </div>
-                                </div>
-                                {/* department badge */}
-                                <div className={`absolute top-2 right-2 px-2 py-1 rounded-full bg-white text-[${selectedOptions[0]?.Color}] text-sm font-semibold select-none shadow`} style={{ color: selectedOptions[0]?.Color }}>
-                                    <p>{member.department}</p>
-                                </div>
-                                <div className='h-[200px] bg-white flex items-center justify-center flex-col'>
-                                    <p>{member.role}</p>
-                                    <p className='text-gray-500'>{member.profession}</p>
-                                    <div className='flex gap-4'>
-                                        <FaInstagram className=' text-secondary text-xl cursor-pointer  transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.instagram, '_blank')} />
-                                        <FiGithub className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.github, '_blank')} />
-                                        <SlSocialLinkedin className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.linkedin, '_blank')} />
-                                    </div>
-                                </div>
-
+                        <div className='flex gap-4 mx-auto mb-10'>
+                            <div className='basis-11/12 pl-20'>
+                                <h1 className='text-2xl font-medium'>Connect EMEA</h1>
+                                <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
                             </div>
-                        ))}
-                    </div>
-                </section>
+                            <div className='basis-1/12 flex items-center justify-end'>
+                                <Select
+                                    defaultValue="2020-21"
+                                    style={{ width: 120 }}
+                                    onChange={handleChange}
+                                    options={options}
+                                />
+                               
+                            </div>
 
-
-                <section className='p-6 m-4'>
-                    <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                    <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
-                    <div className='flex flex-wrap gap-2 mt-20'>
-                        <div className="flex flex-row items-center justify-center mb-10 w-full">
-                            <AnimatedTooltip items={interns} />
                         </div>
-                    </div>
-                </section>
 
+                        <div key={selectedYear} className='flex gap-10 flex-wrap items-center justify-center' ref={parent}>
+                            {coremembers.map((member: any) => (
+                                <div key={member.id} className='min-h-[260px]  rounded-md  max-w-[220px] min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
+                                    <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
+                                    </div>
+                                    <div className='bg-slate-200 flex items-center justify-center h-[10px]'>
+                                        <div className={`-translate-y-4 h-[120px] w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
+                                            <img src={`${member.image}`} alt={member.name} className='w-full h-full object-cover rounded-full' />
+                                        </div>
+                                    </div>
+                                    {/* department badge */}
+                                    {member.short_department && (
+                                        <div className={`absolute shadow-xl top-2 right-2 px-2 py-1 rounded-full bg-white text-[${selectedOptions[0]?.Color}] text-xs font-semibold select-none shadow`} style={{ color: selectedOptions[0]?.Color }}>
+                                            <p>{member.short_department}</p>
+                                        </div>
+                                    )}
+
+                                    <div className='h-[160px] bg-slate-200 flex items-center justify-center gap-0 pt-4 flex-col'>
+                                        <p className='text-lg font-bold capitalize'>{member.name}</p>
+                                        <p className='text-gray-500 font-medium uppercase text-sm'>{member.position}</p>
+                                        <div className='flex gap-4 mt-4 -mb-2'>
+                                            <FaInstagram className=' text-secondary text-xl cursor-pointer  transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.instagram, '_blank')} />
+                                            <FiGithub className={` text-${selectedOptions[0]?.Color ? selectedOptions[0]?.Color : 'secondary'} text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 `} onClick={() => window.open(member.social.github, '_blank')} />
+                                            <SlSocialLinkedin className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.linkedin, '_blank')} />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+                {interns.length > 0 && (
+                    <section className='p-6 m-4'>
+                        <h1 className='text-2xl font-medium'>Connect EMEA</h1>
+                        <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
+                        <div className='flex flex-wrap gap-2 mt-20'>
+                            <div className="flex flex-row items-center justify-center mb-10 w-full">
+                                <AnimatedTooltip items={interns} />
+                            </div>
+                        </div>
+                    </section>
+                )}
+
+                <div className="darkLogo bg-no-repeat h-2 w-full">
+                </div>
             </main>
 
         </div>

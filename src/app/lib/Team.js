@@ -1,7 +1,7 @@
 const founders = [
     {
         id: '1',
-        name: 'Salman Faris',
+        name: 'Salmanul Faris CC',
         role: 'Co-Founder',
         image: 'founder1.png ',
         profession: 'Office Manager',
@@ -14,7 +14,7 @@ const founders = [
     },
     {
         id: '2',
-        name: 'Afeef',
+        name: 'Mohammed Afeef',
         role: 'Co-Founder',
         image: 'founder2.png',
         profession: 'Developer',
@@ -27,7 +27,7 @@ const founders = [
     },
     {
         id: '3',
-        name: 'Nahyan',
+        name: 'Nahyan Sharvin',
         role: 'Co-Founder',
         image: 'founder3.png',
         profession: 'Developer',
@@ -40,7 +40,7 @@ const founders = [
     },
     {
         id: '4',
-        name: 'Aseel',
+        name: 'Aseel KP',
         role: 'Co-Founder',
         image: 'founder4.png',
         profession: 'Developer',

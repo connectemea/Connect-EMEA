@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+import { FaTimes } from 'react-icons/fa';
 import { Button, Modal } from 'antd';
 import {
     motion,
@@ -9,6 +10,9 @@ import {
     useMotionValue,
     useSpring,
 } from "framer-motion";
+import { FaInstagram } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
+import { SlSocialLinkedin } from "react-icons/sl";
 
 export const AnimatedTooltip = ({
     items,
@@ -57,6 +61,9 @@ export const AnimatedTooltip = ({
     const handleCancel = () => {
         setOpenModalIndex(null);
     };
+    const handleSocial = (url: string) => () => {
+        window.open(url, '_blank');
+    }
 
     return (
         <>
@@ -107,10 +114,43 @@ export const AnimatedTooltip = ({
                         alt={item.name}
                         className="object-cover !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
                     />
-                    <Modal title="Basic Modal" open={openModalIndex === idx} onOk={handleOk} onCancel={handleCancel} footer={null}>
+                    <Modal open={openModalIndex === idx} className='ant-modal-content' footer={null} closable={false} width="400px">
+                        <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer  ' onClick={handleCancel} />
+                        <div className='bg-white rounded-2xl overflow-hidden'>
+                            <div className="flex flex-col w-full h-[180px]">
+                                <div className="bg-secondary basis-5/12 relative">
+                                    <div className="absolute right-4 bottom-4">
+                                        <div className="bg-white text-secondary w-fit h-fit shadow-xl rounded-full px-2 py-.5">
+                                            {item.profession}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white basis-7/12 flex gap-2 items-center p-4 pt-0">
+                                    <div className="border-[5px] border-white relative -mt-16 overflow-hidden rounded-full">
+                                        <img src={`${item.imageUrl}`} alt={item.name} className="w-24 h-24 rounded-full object-cover" />
+                                    </div>
+                                    <div className="ml-2">
+                                        <p className="capitalize text-lg font-semibold">{item.name}</p>
+                                        <p className="text-black text-sm font-medium">{item.role}</p>
+                                        <div className='flex gap-4 mt-2'>
+                                        <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.instagram)} />
+                                        <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.github)} />
+                                        <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.linkedin)} />
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* <img src={`${item.imageUrl}`} alt={item.name} />
                         <p>{item.name}</p>
-                        <img src={`${item.imageUrl}`} alt={item.name} />
                         <p>{item.role}</p>
+                        <p>{item.profession}</p>
+                        <p>{item.department}</p>
+                        <p>{item.social.linkedin}</p>
+                        <p>{item.social.github}</p> */}
+                            {/* <p>{item.social.instagram}</p> */}
+                        </div>
+
                     </Modal>
                 </div>
             ))}

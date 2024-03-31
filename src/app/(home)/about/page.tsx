@@ -6,15 +6,15 @@ const About: React.FC = () => {
     return (
         <div className='bg-primary min-h-screen py-20 text-white text-center '>
             {/* background image */}
-            <img src="/Visual.png" alt="macbook" className=" fixed z-10 opacity-50 top-10  w-[100%] left-0 right-0 h-[100%]" />
+            {/* <img src="/Visual.png" alt="macbook" className=" fixed z-10 opacity-50 top-10  w-[100%] left-0 right-0 h-[100%]" /> */}
 
             <main className='mx-auto flex items-center flex-col custom-container z-20 text-white text-center'>
 
                 <h1 className='text-5xl font-bold'>
                     About Us
                 </h1>
-                <h2 className='text-5xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold'>
-                    Get your skill going & growing with Connect.
+                <h2 className='text-5xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center'>
+                    Get your skill going & growing <br/> with Connect.
                 </h2>
                 <section className='flex flex-col md:flex-row items-center justify-center mx-auto my-16'>
                     <div className='basis-1/2 flex items-center justify-center'>
@@ -68,7 +68,6 @@ const About: React.FC = () => {
                     </div>
                     <div className='basis-1/2 flex items-center justify-center'>
                         <img src="/image/about-vission.png" alt="logo" className="" />
-
                     </div>
                 </section>
                 <section className='flex flex-col  w-full items-center justify-around my-16 bg-white/10 border border-gray-600/50 rounded-2xl min-h-[800px] relative p-16'>

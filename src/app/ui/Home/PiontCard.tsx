@@ -6,72 +6,61 @@ export function CardHoverEffectDemo() {
     <div className="flex gap-4 flex-col items-center justify-center ">
       <div>
 
-      <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold">Why does it exist</h1>
+        <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold">Why do you want to join us?</h1>
       </div>
       <div className="flex flex-wrap gap-4 gap-y-6 mx-auto items-center justify-center">
 
-    {cards.map((card, index) => (
-      <div key={index} className="max-w-[360px] cursor-default">
-        <div className="m-2 bg-white/10 backdrop-blur border shadow-lg rounded-lg p-4 text-white transition-all ease-in duration-300 hover:-translate-y-2 hover:border-secondary">
-          <div className='flex gap-1'>
-            <div className='items-start'>
-              <span>
-                <BsCaretRight className='text-[28px] text-secondary'/>
-          {/* <img src='/icons/arrow.png' alt='notification' /> */}
-              </span>
+        {cards.map((card, index) => (
+          <div key={index} className=" cursor-default">
+            <div className="max-w-[340px] min-h-[180px] m-2 bg-white/10 backdrop-blur border border-gray-700 shadow-lg rounded-[25px] p-4 text-white transition-all ease-in duration-300 hover:-translate-y-1 hover:border-secondary">
+              <div className='flex gap-1'>
+                <div className='items-start'>
+                  <span>
+                    <BsCaretRight className='text-[28px] text-secondary' />
+                    {/* <img src='/icons/arrow.png' alt='notification' /> */}
+                  </span>
 
+                </div>
+                <div className='flex-1'>
+                  {/* <span className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">0{index + 1}</span> */}
+                  <h2 className="text-xl font-semibold">{card.title}</h2>
+                  <p className="text-gray-500 mt-4">{card.description}</p>
+
+                </div>
               </div>
-              <div className='flex-1'>
-          {/* <span className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">0{index + 1}</span> */}
-          <h2 className="text-xl font-semibold">{card.title}</h2>
-          <p className="text-gray-500 mt-2">{card.description}</p>
-          {/* <Link
-            href={card.link}
-            rel="noopener noreferrer"
-            className="text-blue-500 mt-2 block"
-          >
-            Learn more
-          </Link> */}
-        </div>
-        </div>
-        </div>
+            </div>
+          </div>
+        ))}
+
       </div>
-      ))}
-   
-   </div>
     </div>
 
   );
 }
 export const cards = [
   {
-    title: "Point Card 1",
+    title: "Networking",
     description:
-      "A technology company that builds economic infrastructure for the for the internet.economic infrastructure for the internet.documentaries, and more ",
-    link: "/team/1",
+      "Expand your network with like-minded peers and industry professionals for career opportunities.",
   },
   {
-    title: "Point Card 2",
+    title: "Skill Development",
     description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime,  of internet-connected devices.documentaries, and more ",
-    link: "/team/2",
+      "Enhance your skills through workshops and boot camps led by experts in various fields.",
   },
   {
-    title: "Point Card 3",
+    title: "Alumni Meets",
     description:
-      "A multinational technology company that specializes in Internet-related services and products.fers a wide variety of award-winning TV shows, ",
-    link: "/team/3",
+      "Get motivated and inspired by successful alumni and industry leaders through engaging talk sessions.",
   },
   {
-    title: "Point Card 4",
+    title: "Community Support",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together. movies, anime,",
-    link: "/team/4",
+      "Receive support and guidance from fellow students and mentors to navigate your career journey.",
   },
   {
-    title: "Point Card 5",
+    title: "Career Advancement",
     description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.internet. movies, anime, ",
-    link: "/team/5",
+      "Gain valuable insights and resources to excel in your chosen career path, all for free.",
   },
 ];

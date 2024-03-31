@@ -21,10 +21,15 @@
   opacity: 0.8;
   -webkit-text-stroke: 1px #fff;
 }
+.unactive-nav:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
+}
 
 .active-nav {
   opacity: 1;
   color: #fff;
+  -webkit-text-stroke: 1px #fff;
   filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
 }
 
@@ -80,7 +85,10 @@ header nav {
     visibility: visible;
     opacity: 1;
   }
-
+  .active-nav-line::after {
+    height: 0px;
+  }
+  
   header nav {
     position: fixed;
     top: 0;

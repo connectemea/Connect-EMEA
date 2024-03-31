@@ -40,7 +40,7 @@ export default function Slider() {
       const eventsData = data.docs.map((doc) => ({
         key: doc.id,
         title: doc.data().title,
-        Summary: doc.data().Summary,
+        // Summary: doc.data().Summary,
         short_description: doc.data().short_description,
         Date: doc.data().Date,
         imageUrl: doc.data().imageUrl,
@@ -55,43 +55,11 @@ export default function Slider() {
   const handleSlideChange = (swiper) => {
     setCenterSlideIndex(swiper.realIndex);
   };
-  const slideContent = [
-    {
-      id: 1,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    },
-    {
-      id: 2,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
 
-    },
-    {
-      id: 3,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    },
-    {
-      id: 4,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    },
-    {
-      id: 5,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    },
-    {
-      id: 6,
-      title: 'Lorem ipsum dolor ',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.',
-    }
-  ];
   const pagination = {
     clickable: true,
     dynamicBullets: true,
-    renderBullet: function (index, className) {
+    renderBullet: function (_index, className) {
       return '<span class=" ' + className + '"></span>';
     },
   };
@@ -100,6 +68,8 @@ export default function Slider() {
   }
   return (
     <>
+    <div>
+
       <Swiper
         slidesPerView={3}
         spaceBetween={50}
@@ -112,23 +82,23 @@ export default function Slider() {
         grabCursor={true}
         autoplay={{
           delay: 2500,
-          disableOnInteraction: true,
+          disableOnInteraction: false,
         }}
         modules={[Pagination, Autoplay]}
         className="mySwiper"
         onSlideChange={handleSlideChange}
       >
         {events.map((slide, index) => (
-          <SwiperSlide key={index} className={centerSlideIndex === (index - 1 + slideContent.length) % slideContent.length ? 'center-slide' : ''}>
-            <div className='bg-gradient-to-b  from-secondary to-violet text-left p-6 min-w-[200px]'>
+          <SwiperSlide key={index} className={centerSlideIndex === (index - 1 + events.length) % events.length ? 'center-slide' : ''}>
+            <div className='bg-gradient-to-b  from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
             <h1 className='text-white font-bold text-3xl'>
               {slide.title}
             </h1>
-            <p className='text-white font-medium'>
+            <p className='text-white font-medium ml-2'>
               {slide.short_description}
             </p>
             <div className='flex justify-end p-2 py-4'>
-            <button className='bg-white text-[8px] text-black rounded-full px-4 py-[5px] flex items-center gap-1 font-medium' onClick={handleOpen(slide.key)}>
+            <button className='bg-white text-xs font-semibold text-black rounded-full px-2 py-1 flex items-center gap-1 font-medium' onClick={handleOpen(slide.key)}>
               Open <MdKeyboardDoubleArrowRight className='text-xl'/>
             </button>
             </div>
@@ -136,6 +106,11 @@ export default function Slider() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <p className='text-white cursor-pointer text-center mx-auto mt-4 w-fit select-none' onClick={() => router.push('/event')}>
+        Show more
+        {/* {centerSlideIndex} */}
+      </p>
+      </div>
 
     </>
   );
