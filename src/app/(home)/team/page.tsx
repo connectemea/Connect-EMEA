@@ -68,12 +68,15 @@ const Page: React.FC = () => {
             const data = await getDocs(internsCollection);
             const internsData = data.docs.map((doc) => ({
                 key: doc.id,
+                id: doc.id,
                 name: doc.data().name,
                 imageUrl: doc.data().imageUrl,
                 profession: doc.data().profession,
                 role: doc.data().role,
                 social: doc.data().social,
                 department: doc.data().department,
+                active: doc.data().active,
+                joined_year: doc.data().joined_year,
                 tags: doc.data().tags,
             }));
             setInterns(internsData);
@@ -177,7 +180,7 @@ const Page: React.FC = () => {
                                     onChange={handleChange}
                                     options={options}
                                 />
-                               
+
                             </div>
 
                         </div>

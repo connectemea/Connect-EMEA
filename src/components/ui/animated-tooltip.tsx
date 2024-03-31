@@ -20,13 +20,15 @@ export const AnimatedTooltip = ({
     items: {
         key: string;
         tags: any;
-        id: number;
+        id: any;
         name: string;
         imageUrl: string;
         profession: string;
         role: string;
         social: { linkedin: string; github: string; instagram: string };
         department: string;
+        acive: boolean;
+        joined_year: any;
     }[];
 }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -120,8 +122,8 @@ export const AnimatedTooltip = ({
                             <div className="flex flex-col w-full h-[180px]">
                                 <div className="bg-secondary basis-5/12 relative">
                                     <div className="absolute right-4 bottom-4">
-                                        <div className="bg-white text-secondary w-fit h-fit shadow-xl rounded-full px-2 py-.5">
-                                            {item.profession}
+                                        <div className="bg-white text-secondary w-fit h-fit shadow-xl rounded-full px-2 py-[2px] text-xs">
+                                            {item.joined_year} Joined
                                         </div>
                                     </div>
                                 </div>
@@ -133,22 +135,13 @@ export const AnimatedTooltip = ({
                                         <p className="capitalize text-lg font-semibold">{item.name}</p>
                                         <p className="text-black text-sm font-medium">{item.role}</p>
                                         <div className='flex gap-4 mt-2'>
-                                        <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.instagram)} />
-                                        <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.github)} />
-                                        <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.linkedin)} />
-                                    </div>
+                                            <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.instagram)} />
+                                            <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.github)} />
+                                            <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(item.social.linkedin)} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <img src={`${item.imageUrl}`} alt={item.name} />
-                        <p>{item.name}</p>
-                        <p>{item.role}</p>
-                        <p>{item.profession}</p>
-                        <p>{item.department}</p>
-                        <p>{item.social.linkedin}</p>
-                        <p>{item.social.github}</p> */}
-                            {/* <p>{item.social.instagram}</p> */}
                         </div>
 
                     </Modal>

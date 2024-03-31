@@ -12,6 +12,8 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  query,
+  where
 } from "firebase/firestore";
 import '../../../ui/styles/event.css';
 import { usePathname } from 'next/navigation';
@@ -57,7 +59,7 @@ const EventPage: React.FC = () => {
 
   const getEvents = async () => {
     try {
-      const data = await getDocs(eventsCollection);
+      const data = await getDocs(query(eventsCollection, where('Status', '==', 'Publish')));
       console.log("Fetched data:", data);
       const eventsData = data.docs.map((doc) => ({
         key: doc.id,
@@ -80,7 +82,7 @@ const EventPage: React.FC = () => {
     const year = date.getFullYear();
     return `${month} ${date.getDate()}, ${year}`;
   }
-  
+
 
   return (
     <div className='bg-primary min-h-screen text-white  pt-10 pb-24'>
@@ -104,7 +106,7 @@ const EventPage: React.FC = () => {
         ))}
         {/* onOk={handleOk} onCancel={handleCancel} */}
         <Modal title="" width="900px" open={isModalOpen} className='ant-modal-content' footer={null} closable={false}>
-            <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer' onClick={handleCancel} />
+          <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer' onClick={handleCancel} />
           <div className='bg-white rounded-2xl overflow-hidden'>
             <div className="relative h-48 rounded-t-xl overflow-hidden">
               <img src='/image/Rectangle 40.png' alt='event' className='absolute top-0 z-10' />
