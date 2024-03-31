@@ -47,15 +47,15 @@ function RootLayout({ children }: RootLayoutProps) {
       case pathname.startsWith('/adminpanel/interns'):
         setSelectedKey('2');
         break;
-      case pathname === '/adminpanel/events':
+      case pathname.startsWith('/adminpanel/events'):
         setSelectedKey('3');
         break;
-      case pathname === '/adminpanel/coreteam':
+      case pathname.startsWith('/adminpanel/coreteam'):
         setSelectedKey('4');
         break;
-      case pathname === '/adminpanel/founders':
-        setSelectedKey('5');
-        break;
+      // case pathname === '/adminpanel/founders':
+      //   setSelectedKey('5');
+      //   break;
       default:
         setSelectedKey('1');
         break;
@@ -111,11 +111,11 @@ function RootLayout({ children }: RootLayoutProps) {
       label: 'Core Team',
 
     },
-    {
-      key: '5',
-      icon: <UploadOutlined />,
-      label: 'Founders',
-    }
+    // {
+    //   key: '5',
+    //   icon: <UploadOutlined />,
+    //   label: 'Founders',
+    // }
   ];
 
   const handleMenuClick = (e: any) => {
@@ -138,11 +138,11 @@ function RootLayout({ children }: RootLayoutProps) {
         setSelectedKey('4')
 
         break;
-      case '5':
-        route = '/adminpanel/founders';
-        setSelectedKey('5')
+      // case '5':
+      //   route = '/adminpanel/founders';
+      //   setSelectedKey('5')
 
-        break;
+      //   break;
       default:
         route = '/adminpanel/';
         break;

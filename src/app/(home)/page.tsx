@@ -9,6 +9,7 @@ import Suggestion from "../ui/Home/Suggestion";
 import '../ui/styles/style.css';
 
 
+
 export default function Home() {
 
   return (
@@ -56,9 +57,9 @@ export default function Home() {
         </section>
 
 
-        <section className="my-10 mb-28 mx-auto lg:px-10">
+        {/* <section className="my-10 mb-28 mx-auto lg:px-10">
           <Suggestion />
-        </section>
+        </section> */}
 
 
       </main>

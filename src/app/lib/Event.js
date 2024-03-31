@@ -20,4 +20,3 @@ const events = [
 ];
 
 export default events;
-console.log(events);

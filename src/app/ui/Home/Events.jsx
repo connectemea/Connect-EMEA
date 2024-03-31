@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState , useEffect} from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
@@ -13,9 +13,44 @@ import '../styles/swiper.css';
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
 
+import { db, auth, storage } from "@/app/server/config/firebase";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+
 export default function Slider() {
   const router = useRouter();
   const [centerSlideIndex, setCenterSlideIndex] = useState(0);
+  const [events, setEvents] = useState([]);
+  const eventsCollection = collection(db, "Events");
+
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  const getEvents = async () => {
+    try {
+      const data = await getDocs(eventsCollection);
+      console.log("Fetched data:", data);
+      const eventsData = data.docs.map((doc) => ({
+        key: doc.id,
+        title: doc.data().title,
+        Summary: doc.data().Summary,
+        short_description: doc.data().short_description,
+        Date: doc.data().Date,
+        imageUrl: doc.data().imageUrl,
+      }));
+      setEvents(eventsData);
+      console.log("Events data:", eventsData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleSlideChange = (swiper) => {
     setCenterSlideIndex(swiper.realIndex);
@@ -83,17 +118,17 @@ export default function Slider() {
         className="mySwiper"
         onSlideChange={handleSlideChange}
       >
-        {slideContent.map((slide, index) => (
+        {events.map((slide, index) => (
           <SwiperSlide key={index} className={centerSlideIndex === (index - 1 + slideContent.length) % slideContent.length ? 'center-slide' : ''}>
-            <div className='bg-gradient-to-b  from-secondary to-violet text-left p-6'>
+            <div className='bg-gradient-to-b  from-secondary to-violet text-left p-6 min-w-[200px]'>
             <h1 className='text-white font-bold text-3xl'>
               {slide.title}
             </h1>
             <p className='text-white font-medium'>
-              {slide.description}
+              {slide.short_description}
             </p>
             <div className='flex justify-end p-2 py-4'>
-            <button className='bg-white text-[8px] text-black rounded-full px-4 py-[5px] flex items-center gap-1 font-medium' onClick={handleOpen(slide.id)}>
+            <button className='bg-white text-[8px] text-black rounded-full px-4 py-[5px] flex items-center gap-1 font-medium' onClick={handleOpen(slide.key)}>
               Open <MdKeyboardDoubleArrowRight className='text-xl'/>
             </button>
             </div>

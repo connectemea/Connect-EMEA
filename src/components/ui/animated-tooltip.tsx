@@ -14,9 +14,11 @@ export const AnimatedTooltip = ({
     items,
 }: {
     items: {
+        key: string;
+        tags: any;
         id: number;
         name: string;
-        image: string;
+        imageUrl: string;
         profession: string;
         role: string;
         social: { linkedin: string; github: string; instagram: string };
@@ -36,23 +38,24 @@ export const AnimatedTooltip = ({
         useTransform(x, [-100, 100], [-50, 50]),
         springConfig
     );
+
+    const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
+
     const handleMouseMove = (event: any) => {
         const halfWidth = event.target.offsetWidth / 2;
         x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
+    const showModal = (idx: number) => {
+        setOpenModalIndex(idx);
     };
 
     const handleOk = () => {
-        setIsModalOpen(false);
+        setOpenModalIndex(null);
     };
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setOpenModalIndex(null);
     };
 
     return (
@@ -97,16 +100,16 @@ export const AnimatedTooltip = ({
                     </AnimatePresence>
                     <Image
                         onMouseMove={handleMouseMove}
-                        onClick={showModal}
+                        onClick={() => showModal(idx)}
                         height={100}
                         width={100}
-                        src={`/Images/${item.image}`}
+                        src={`${item.imageUrl}`}
                         alt={item.name}
                         className="object-cover !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
                     />
-                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
+                    <Modal title="Basic Modal" open={openModalIndex === idx} onOk={handleOk} onCancel={handleCancel} footer={null}>
                         <p>{item.name}</p>
-                        <img  src={`/Images/${item.image}`} alt={item.name} />
+                        <img src={`${item.imageUrl}`} alt={item.name} />
                         <p>{item.role}</p>
                     </Modal>
                 </div>
@@ -114,4 +117,5 @@ export const AnimatedTooltip = ({
         </>
     );
 };
+
 

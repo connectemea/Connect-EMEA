@@ -1,11 +1,13 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Link as ScrollLink } from 'react-scroll';
 import { useRouter } from 'next/navigation';
 import '../styles/style.css';
+import { Avatar, Flex, Segmented } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 const links = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
@@ -27,7 +29,6 @@ function Header() {
             router.push('/');
         }
     }
-    
     return (
         <header className='flex items-center justify-between h-[80px] p-4 bg-primary nav-border z-50'>
             <div className='custom-container flex justify-between items-center'>
@@ -38,10 +39,15 @@ function Header() {
                 </div>
                 <nav ref={navRef} >
                     {links.map((link) => (
-                        <Link key={link.name} href={link.href} onClick={ShowNavbar} className={` p-2 rounded-lg ${pathname === link.href ? ' active-nav' : 'unactive-nav'
-                            }`}>
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            onClick={ShowNavbar}
+                            className={`p-2 rounded-lg ${pathname === link.href ? 'active-nav active-nav-line' : 'unactive-nav'
+                                }`}
+                        >
                             <p
-                                className={`flex text-color h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 `}
+                                className={`flex text-color h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600`}
                             >
                                 {link.name}
                             </p>

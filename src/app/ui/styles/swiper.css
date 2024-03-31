@@ -9,6 +9,7 @@
   }
   .swiper-slide {
     height: 200px;
+    min-width: 200px;
     text-align: center;
     /* Center slide text vertically */
     background-image: linear-gradient(to bottom,#C806C4 ,#5B0493 );

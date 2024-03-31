@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload } from 'antd';
+import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker } from 'antd';
+import dayjs from 'dayjs';
 import { usePathname, useRouter } from 'next/navigation';
 import { db, auth, storage } from '@/app/server/config/firebase';
 import {
@@ -15,16 +16,21 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import type { GetProp, UploadProps } from 'antd';
+import { onValue } from 'firebase/database';
 // import { v4 } from "uuid";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 type FieldType = {
-  name?: string;
-  age?: number;
-  role?: string;
+  title?: string;
+  Date?: any;
+  summary?: string;
+  short_description?: string;
+  join_link?: string;
+  Gallery?: [];
+  Status?: string;
 };
-
+const { TextArea } = Input;
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result as string));
@@ -55,13 +61,14 @@ const App: React.FC = (params: any) => {
   const [imageUrl, setImageUrl] = useState<string>();
   const pathname = usePathname();
   const router = useRouter()
+  const [DateValue, setDateValue] = useState<any>(dayjs());
   let mode = pathname.includes('/edit') ? 'Edit' : 'Add';
   const getIdFromPathname = (pathname: any) => {
     const parts = pathname.split('-');
     return parts[parts.length - 1];
   };
   let id = mode === 'Edit' ? getIdFromPathname(pathname) : null;
-  const docRef = doc(db, `Interns/${id}`)
+  const docRef = doc(db, `Events/${id}`)
 
   useEffect(() => {
     if (mode === 'Edit') {
@@ -78,11 +85,16 @@ const App: React.FC = (params: any) => {
       const data = docSnap.data();
       console.log('Data:', data);
       form.setFieldsValue({
-        name: data.name,
-        age: data.age,
-        role: data.role,
+        title: data.title,
+        summary: data.summary,
+        Date: setDateValue(dayjs(data.Date)),
+        imageUrl: data.imageUrl,
+        short_description: data.short_description,
+        join_link: data.join_link,
+        Status: data.Status,
       });
       setimgUrl(data.imageUrl)
+      setImageUrl(data.imageUrl)
       setLoadingPage(false)
     } else {
       console.log('Document does not exist');
@@ -92,9 +104,14 @@ const App: React.FC = (params: any) => {
   };
 
   const uploadFile = async (values: any) => {
+    if (mode === 'Edit') {
+      if (imgUrl === imageUrl) {
+        updateEvent(values)
+        return;
+      }
+    }
     if (!imageUpload) return message.warning('Plese upload image');
-    console.log(imageUpload)
-    const imageRef = ref(storage, `interns/${imageUpload?.name}`);
+    const imageRef = ref(storage, `events/${imageUpload?.name}`);
     try {
       const snapshot = await uploadBytes(imageRef, imageUpload);
       const url = await getDownloadURL(snapshot.ref);
@@ -104,7 +121,7 @@ const App: React.FC = (params: any) => {
           clearInterval(waitForUrl);
           setImageUrl(url);
           setimgUrl(url);
-          onSubmitIntern(values, url);
+          onSubmitEvent(values, url);
         }
       }, 1000);
     } catch (error) {
@@ -114,30 +131,24 @@ const App: React.FC = (params: any) => {
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log('Success:', values);
-    if (mode === 'Edit') {
-      updateIntern(values)
-    } else {
-      uploadFile(values);
-    }
+    uploadFile(values);
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
 
-  const internCollectionRef = collection(db, 'Interns');
-  const onSubmitIntern = async (values: any , url : any) => {
-    if (url){
-      console.log('ssssss')
-    }else{
-      return
-    }
+  const eventCollectionRef = collection(db, 'Events');
+  const onSubmitEvent = async (values: any, url: any) => {
     try {
-      await addDoc(internCollectionRef, {
-        name: values.name,
-        age: values.age,
-        role: values.role,
+      await addDoc(eventCollectionRef, {
+        title: values.title,
         imageUrl: url,
+        Date: values.Date.toString(),
+        summary: values.summary,
+        short_description: values.short_description,
+        join_link: values.join_link,
+        Status: values.Status,
         userId: auth?.currentUser?.uid,
       });
       message.success('Document successfully added!');
@@ -147,11 +158,15 @@ const App: React.FC = (params: any) => {
     }
   };
 
-  const updateIntern = async (values: any) => {
+  const updateEvent = async (values: any) => {
     await updateDoc(docRef, {
-      name: values.name,
-      age: values.age,
-      role: values.role,
+      name: values.title,
+      imageUrl: imgUrl,
+      Date: values.Date.toString(),
+      summary: values.summary,
+      short_description: values.short_description,
+      join_link: values.join_link,
+      Status: values.Status,
     }).then(() => {
       message.success('Document successfully updated!')
       console.log('Document successfully updated!');
@@ -170,7 +185,7 @@ const App: React.FC = (params: any) => {
       setImageUpload(info.file.originFileObj);
       getBase64(info.file.originFileObj as FileType, (url) => {
         setLoading(false);
-        setImageUrl(url);
+        setimgUrl(url);
       });
     }
   };
@@ -182,6 +197,20 @@ const App: React.FC = (params: any) => {
     </button>
   );
 
+
+
+  const onChange = (date: any) => {
+    console.log(date);
+    form.setFieldsValue({ Date: date });
+  };
+
+
+  const handleStatusChange = (value: any) => {
+    console.log(value);
+    form.setFieldsValue({ Status: value });
+  }
+
+
   return (
     <div className='h-screen bg-gray-400' ref={parent}>
       <h1 className='text-black text-center my-10 text-xl'>
@@ -192,57 +221,89 @@ const App: React.FC = (params: any) => {
           <Spin size='large' />
         </div>
       ) : (
-        <Form
-          form={form}
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
+        <div>
+          <Form
+            form={form}
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
           >
-            {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-          </Upload>
+            <Upload
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              beforeUpload={beforeUpload}
+              onChange={handleChange}
+            >
+              {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+            </Upload>
 
-          <Form.Item<FieldType>
-            label="name"
-            name="name"
-            rules={[{ required: true, message: 'Please input your name!' }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item<FieldType>
+              label="title"
+              name="title"
+              rules={[{ required: true, message: 'Please input your name!' }]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item<FieldType>
-            label="age"
-            name="age"
-            rules={[{ required: true, message: 'Please input your age!' }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item<FieldType>
+              label="Date"
+              name="Date"
+              rules={[{ required: true, message: 'Please input your date!' }]}
+            >
+              <DatePicker
+                defaultValue={DateValue}
+                onChange={onChange}
+              />
+            </Form.Item>
 
-          <Form.Item<FieldType>
-            label="role"
-            name="role"
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item<FieldType>
+              label="summary"
+              name="summary"
+            >
+              <TextArea rows={4} />
+            </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item<FieldType>
+              label="short description"
+              name="short_description"
+            >
+              <TextArea rows={2} maxLength={50} />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              label="join link"
+              name="join_link"
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Status"
+              name="Status"
+              rules={[]}
+            >
+              <Select onChange={handleStatusChange} options={[
+                { value: 'draft', label: 'draft' },
+                { value: 'Publish', label: 'Publish' },
+                { value: 'Cancel', label: 'Cancel' },
+              ]}
+              />
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       )}
 
       {/* <input

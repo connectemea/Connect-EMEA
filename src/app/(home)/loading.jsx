@@ -1,9 +1,10 @@
 import React from 'react';
+import Preloader from '../ui/Preloader';
 
 const Loading = () => {
     return (
         <div className="loading h-screen flex items-center justify-center ">
-            <h1>Loading...</h1>
+            <Preloader />
             {/* Add any additional loading animations or messages here */}
         </div>
     );

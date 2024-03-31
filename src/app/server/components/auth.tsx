@@ -49,7 +49,7 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className='flex items-start justify-center w-full h-full mt-20'>
+        <div className='flex items-start justify-center w-full h-full mt-20 text-white'>
             <Form
                 name="normal_login"
                 className="login-form"
@@ -74,9 +74,9 @@ const Login: React.FC = () => {
                 </Form.Item>
                 <Form.Item>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
-                        <Checkbox>Remember me</Checkbox>
+                        <Checkbox className='text-white'>Remember me</Checkbox>
                     </Form.Item>
-                    <p className="login-form-forgot" onClick={handleForgot}>
+                    <p className="login-form-forgot text-white" onClick={handleForgot}>
                         Forgot password
                     </p>
                 </Form.Item>

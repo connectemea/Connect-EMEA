@@ -101,4 +101,7 @@ body{
   }
 }
 
+.ant-upload-wrapper.ant-upload-picture-card-wrapper{
+  width: fit-content !important;
+}
 

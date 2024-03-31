@@ -25,9 +25,33 @@
 .active-nav {
   opacity: 1;
   color: #fff;
-  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff) drop-shadow(0 0 30px #fff);
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
 }
 
+.active-nav-line::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  animation: moveBorder 0.3s ease-in-out forwards;
+  filter: none !important;
+  opacity: .8;
+  border-radius: 50%;
+}
+
+@keyframes moveBorder {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
 
 .nav-btn {
   padding: 0.5rem 1rem;
@@ -92,34 +116,3 @@ header nav {
   background: #A33FF8;
   height: 5px;
 }
-
-/* select filed in core team year */
-/* Hide the default arrow and add new*/
-/* select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding-right: 1.5rem;
-  background-color: #f8f8f8;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  color: #333;
-  padding: 5px 10px;
-  position: relative;
-}
-
-select::after {
-  content: '\25BC'; 
-  position: absolute;
-  top: 50%;
-  right: 10px; 
-  transform: translateY(-50%);
-  color: #666;
-  font-size: 12px;
-}
-
-select option:checked {
-  background-color: #ddd;
-} */
-
