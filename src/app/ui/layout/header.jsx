@@ -57,15 +57,24 @@ function Header() {
                         <FaTimes />
                     </button>
                 </nav>
+
                 <button onClick={ShowNavbar} className='nav-btn'>
                     <FaBars />
                 </button>
-                <div className='flex gap-2 items-center justify-center responsive-hide'>
-                    <img src='/icons/bell.png' alt='notification' />
-                    <button className="p-2 bg-blue-600 text-white rounded-md">
-                        <Link href='/adminpanel'>Admin</Link>
-                    </button>
+
+                <div className='flex items-center justify-end '>
+                    <Link href='/adminpanel'>
+                        <div className='text-white boxShadow flex-end'>
+                            Admin
+                            {/* responsive-hide */}
+                            {/* <div className="box"></div> */}
+                        </div>
+                    </Link>
                 </div>
+
+
+            </div>
+            <div>
             </div>
         </header>
     );

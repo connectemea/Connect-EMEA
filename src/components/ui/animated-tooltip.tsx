@@ -31,7 +31,7 @@ export const AnimatedTooltip = ({
         joined_year: any;
     }[];
 }) => {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [hoveredIndex, setHoveredIndex] = useState<any | null>(null);
     const springConfig = { stiffness: 100, damping: 5 };
     const x = useMotionValue(0); // going to set this value on mouse move
     // rotate the tooltip
@@ -45,14 +45,14 @@ export const AnimatedTooltip = ({
         springConfig
     );
 
-    const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
+    const [openModalIndex, setOpenModalIndex] = useState<any | null>(null);
 
     const handleMouseMove = (event: any) => {
         const halfWidth = event.target.offsetWidth / 2;
         x.set(event.nativeEvent.offsetX - halfWidth); // set the x value, which is then used in transform and rotate
     };
 
-    const showModal = (idx: number) => {
+    const showModal = (idx: any) => {
         setOpenModalIndex(idx);
     };
 
@@ -71,42 +71,43 @@ export const AnimatedTooltip = ({
         <>
             {items.map((item, idx) => (
                 <div
-                    className="-mr-4  relative group"
+                    className="-mr-4  relative group overlfow-hidden"
                     key={item.name}
                     onMouseEnter={() => setHoveredIndex(item.id)}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >
-                    <AnimatePresence mode="wait">
-                        {hoveredIndex === item.id && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20, scale: 0.6 }}
-                                animate={{
-                                    opacity: 1,
-                                    y: 0,
-                                    scale: 1,
-                                    transition: {
-                                        type: "spring",
-                                        stiffness: 260,
-                                        damping: 10,
-                                    },
-                                }}
-                                exit={{ opacity: 0, y: 20, scale: 0.6 }}
-                                style={{
-                                    translateX: translateX,
-                                    rotate: rotate,
-                                    whiteSpace: "nowrap",
-                                }}
-                                className="absolute -top-16 -left-1/2 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-50 shadow-xl px-4 py-2"
-                            >
-                                <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
-                                <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
-                                <div className="font-bold text-white relative z-30 text-base">
-                                    {item.name}
-                                </div>
-                                <div className="text-white text-xs">{item.role}</div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    {hoveredIndex === item.id && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20, scale: 0.6 }}
+                            animate={{
+                                opacity: 1,
+                                y: 0,
+                                scale: 1,
+                                transition: {
+                                    type: "spring",
+                                    stiffness: 260,
+                                    damping: 10,
+                                },
+                            }}
+                            exit={{ opacity: 0, y: 20, scale: 0.6 }}
+                            style={{
+                                translateX: translateX,
+                                rotate: rotate,
+                                whiteSpace: "nowrap",
+                            }}
+                            className="absolute -top-16 -left-1/3 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-40 shadow-xl px-4 py-2"
+                        >
+                            <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
+                            <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
+                            <div className="font-bold text-white relative z-30 text-base px-4 "  style={{ overflowWrap: 'anywhere' }}>
+                                <p className="flex flex-wrap" style={{ overflowWrap: 'anywhere' }}>
+                                {item.name}
+                                </p>
+                            </div>
+
+                            <div className="text-white text-xs">{item.role}</div>
+                        </motion.div>
+                    )}
                     <Image
                         onMouseMove={handleMouseMove}
                         onClick={() => showModal(idx)}
@@ -114,7 +115,7 @@ export const AnimatedTooltip = ({
                         width={100}
                         src={`${item.imageUrl}`}
                         alt={item.name}
-                        className="object-cover !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+                        className="object-cover cursor-pointer !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
                     />
                     <Modal open={openModalIndex === idx} className='ant-modal-content' footer={null} closable={false} width="400px">
                         <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer  ' onClick={handleCancel} />

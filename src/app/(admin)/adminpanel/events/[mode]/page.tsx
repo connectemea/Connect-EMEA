@@ -11,6 +11,7 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  serverTimestamp,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -149,6 +150,7 @@ const App: React.FC = (params: any) => {
         short_description: values.short_description,
         join_link: values.join_link,
         Status: values.Status,
+        createdAt: serverTimestamp(),
         userId: auth?.currentUser?.uid,
       });
       message.success('Document successfully added!');
@@ -212,7 +214,7 @@ const App: React.FC = (params: any) => {
 
 
   return (
-    <div className='h-screen bg-gray-400' ref={parent}>
+    <div className='min-h-screen bg-gray-400' ref={parent}>
       <h1 className='text-black text-center my-10 text-xl'>
         {mode}
       </h1>

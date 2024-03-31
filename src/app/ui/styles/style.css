@@ -7,6 +7,40 @@
   background: linear-gradient(180deg, #A33FF8 22.5%, rgba(255, 255, 255, 0.7) 100%);
 } */
 
+.input {
+  outline: none !important;
+  transition: all 0.3s ease;
+}
+
+.input:hover,
+.input:focus,
+.joinNow .ant-select-selector:hover,
+.joinNow .ant-select-selector:focus {
+  box-shadow: 0px 0px 10px #A33FF8 !important;
+  outline: none !important;
+}
+
+.joinNow .ant-select-selector {
+  background-color: #F0DEFF !important;
+  padding: 10px;
+  border: 1px solid #A33FF8 !important;
+  height: 45px !important;
+}
+
+.joinNow .ant-select-selector:hover,
+.ant-select-selector:focus {
+  background-color: #fff !important;
+}
+
+.ant-modal-content {
+  padding: 0px !important;
+  border-radius: 40px !important;
+  user-select: none;
+}
+.ant-empty-description {
+  color: #fff !important;
+  font-weight: 600;
+}
 
 /* Nav bar */
 
@@ -21,6 +55,7 @@
   opacity: 0.8;
   -webkit-text-stroke: 1px #fff;
 }
+
 .unactive-nav:hover {
   opacity: 1;
   filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
@@ -85,10 +120,11 @@ header nav {
     visibility: visible;
     opacity: 1;
   }
+
   .active-nav-line::after {
     height: 0px;
   }
-  
+
   header nav {
     position: fixed;
     top: 0;
@@ -123,4 +159,81 @@ header nav {
 .ant-divider-horizontal.ant-divider-with-text::after {
   background: #A33FF8;
   height: 5px;
+}
+
+
+
+
+
+.box {
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  background: red;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  width: 180%;
+  height: 180%;
+  background: conic-gradient(from 90deg, rgb(0 0 0/0%) 70%, rgb(11 78 230/9%) 80%, rgb(255, 255, 255) 100%);
+  top: -30%;
+  left: -30%;
+  animation: rotate 2s linear infinite;
+  border-radius: 20px;
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  width: 94%;
+  height: 94%;
+  background-color: red;
+  top: 3%;
+  left: 3%;
+  border-radius: 20px;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.box:hover,
+.box::after:hover {
+  background-color: #A33FF8;
+  box-shadow: 0 0 5px #ffffff,
+    0 0 25px #ffffff,
+    0 0 50px #ffffff,
+    0 0 100px #ffffff;
+
+}
+
+
+.boxShadow{
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #ffffff14;
+  border: 1px solid #ffffff14;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.boxShadow:hover {
+  box-shadow: 0 0 5px #ffffff,
+    0 0 25px #ffffff,
+    0 0 50px #ffffff,
+    0 0 100px #ffffff;
+  background-color: #fff;
+  color: #000;
 }

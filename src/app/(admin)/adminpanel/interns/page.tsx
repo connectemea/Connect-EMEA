@@ -181,7 +181,7 @@ const Page: React.FC = () => {
 
 
   return (
-    <div className="h-screen bg-primary text-center p-6">
+    <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Interns List</h1>
       {loading ? (
         <div className='flex items-start mt-10 justify-center h-full'>

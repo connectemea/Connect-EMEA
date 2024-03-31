@@ -48,7 +48,7 @@ const Page: React.FC = () => {
         short_description: doc.data().short_description,
         link: doc.data().link,
         Status: doc.data().Status,
-        Date: doc.data().Date
+        Date: doc.data().Date,
       }));
       setEvents(eventsData);
       setLoading(false);
@@ -159,7 +159,7 @@ const Page: React.FC = () => {
   }
 
   return (
-    <div className="h-screen bg-primary text-center p-6">
+    <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Events Page</h1>
       {loading ? (
         <div className='flex items-start mt-10 justify-center h-full'>

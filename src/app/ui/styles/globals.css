@@ -109,8 +109,5 @@ body{
   width: fit-content !important;
 }
 
-.ant-modal-content{
-  padding: 0px !important;
-  border-radius: 40px !important;
-  user-select: none;
-}
+
+

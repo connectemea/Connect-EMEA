@@ -49,7 +49,7 @@ const Page: React.FC = () => {
                 department: doc.data().department,
                 mobile: doc.data().mobile,
                 email: doc.data().email,
-                admissionNo: doc.data().admissionNo,
+                admissionNo: doc.data().AdmissionNo,
             }));
             setInterns(internsData);
             setLoading(false);
@@ -173,7 +173,7 @@ const Page: React.FC = () => {
     ];
 
     return (
-        <div className="h-screen bg-primary text-center p-6" ref={parent}>
+        <div className="min-h-screen bg-primary text-center p-6" ref={parent}>
             <h1 className="text-4xl font-bold text-white py-10">Members List</h1>
 
             {loading ? (
@@ -201,11 +201,12 @@ const Page: React.FC = () => {
 
                                     <Descriptions items={items} layout="horizontal" bordered column={1} />
 
-                                    <h2 className='text-xl font-bold text-center mt-4'>Change Status</h2>
-                                    <p className='text-center text-sm text-gray-500 max-w-[200px] mx-auto'>
+                                    <h2 className='text-xl font-semibold text-center mt-10'>Change Status</h2>
+                                    <p className='text-center text-sm text-gray-500 max-w-[200px] mx-auto my-2'>
                                         Change the status of the user if added to Whatsapp
                                     </p>
                                     <Select
+                                        size='large'
                                         style={{ width: '100%' }}
                                         defaultValue={userData.Status}
                                         onChange={(value) => showConfirm(value, userData.key)}

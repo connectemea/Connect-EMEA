@@ -215,7 +215,7 @@ const Page: React.FC = () => {
     }
 
     return (
-        <div className="h-screen bg-primary text-center p-6" ref={parent}>
+        <div className="min-h-screen bg-primary text-center p-6" ref={parent}>
             <h1 className="text-4xl font-bold text-white pt-10 ">Core Team Page</h1>
             <div className='flex items-center justify-end'>
                 <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px]'>

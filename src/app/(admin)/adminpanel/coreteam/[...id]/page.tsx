@@ -248,7 +248,7 @@ const Page: React.FC = (params: any) => {
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
   return (
-    <div className="h-screen bg-primary text-center p-6">
+    <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Core Team {id} Memebers</h1>
       <button onClick={showModal} className='bg-blue-500 p-2 my-6'>
         Add new

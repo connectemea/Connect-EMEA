@@ -1,16 +1,17 @@
-// "use client";
+"use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Footer from "../ui/layout/Footer";
 import "../ui/styles/globals.css";
 import Header from "../ui/layout/header";
+import { FloatButton } from 'antd';
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Connect",
-  description: "Connect portfolio webiste",
-};
+// export const metadata: Metadata = {
+//   title: "Connect",
+//   description: "Connect portfolio webiste",
+// };
 
 export default function RootLayout({
   children,
@@ -30,6 +31,7 @@ export default function RootLayout({
         <div className="z-20 sticky">
           <Footer />
         </div>
+        <FloatButton.BackTop />
       </body>
     </html>
   );

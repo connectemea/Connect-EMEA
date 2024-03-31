@@ -277,7 +277,7 @@ const App: React.FC = (params: any) => {
   };
 
   return (
-    <div className='h-screen bg-gray-400 overflow-auto' ref={parent}>
+    <div className='min-h-screen bg-gray-400 ' ref={parent}>
       <h1 className='text-black text-center my-10 text-xl'>
         {mode}
       </h1>

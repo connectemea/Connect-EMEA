@@ -10,7 +10,7 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, Button, theme, Modal } from 'antd';
+import { Layout, Menu, Button, theme, Modal , FloatButton } from 'antd';
 import { auth } from '@/app/server/config/firebase';
 import { signOut } from "firebase/auth";
 import { usePathname, useRouter } from 'next/navigation';
@@ -61,7 +61,7 @@ function RootLayout({ children }: RootLayoutProps) {
         break;
     }
   }, [pathname]);
-  
+
 
   auth.onAuthStateChanged((user) => {
     if (user) {
@@ -187,9 +187,11 @@ function RootLayout({ children }: RootLayoutProps) {
                     height: 64,
                   }}
                 />
-                <Button type="text" style={{ fontSize: '16px', width: 64, height: 64 }} onClick={logout}>
-                  Logout
-                </Button>
+                <div className="flex items-center"
+                  onClick={logout}>
+                  <p className="mx-4 mr-10 cursor-pointer font-semibold hover:bg-gray-200 px-4 py-1 h-fit text-lg rounded-lg">  Logout
+                  </p>
+                </div>
               </div>
             </Header>
             <Content
@@ -206,6 +208,8 @@ function RootLayout({ children }: RootLayoutProps) {
             </Content>
           </Layout>
         </Layout>
+        <FloatButton.BackTop />
+
       </body>
     </html >
   );

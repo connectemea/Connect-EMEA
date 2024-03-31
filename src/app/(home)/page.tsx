@@ -63,6 +63,9 @@ export default function Home() {
         <section>
           <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
           </h1>
+          <div className="my-20 text-center text-xl font-bold text-white">
+            Coming Soon!
+          </div>
         </section>
       </main>
     </div >
