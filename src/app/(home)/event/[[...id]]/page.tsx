@@ -88,11 +88,11 @@ const EventPage: React.FC = () => {
 
 
   return (
-    <div className='bg-primary min-h-screen text-white  pt-10 pb-24 custom-container px-4'>
+    <div className='bg-primary min-h-screen text-white dark:bg-white dark:text-black  pt-10 pb-24 custom-container px-4 dark:bg-white dark:text-black'>
       <h1 className='text-3xl md:text-5xl font-bold text-center my-10'>Events</h1>
       <section className='p-4 md:p-6 mb-6 border border-gray-700 rounded-lg bg-primary-light  flex flex-wrap gap-10 items-center justify-center w-full' ref={parent}>
         {pending ? (
-          <div className='text-white text-center w-full'>
+          <div className='text-white dark:bg-white dark:text-black text-center w-full dark:bg-white dark:text-black'>
             Loading ....  <Skeleton active />
           </div>
         ) : (
@@ -122,7 +122,7 @@ const EventPage: React.FC = () => {
 
         {/* modal to show individual event */}
         <Modal title="" width="900px" open={isModalOpen} className='ant-modal-content ' footer={null} closable={false}>
-          <FaTimes className='absolute -top-8 md:-top-6 right-0 md:-right-6 z-40 text-white text-xl cursor-pointer' onClick={handleCancel} />
+          <FaTimes className='absolute -top-8 md:-top-6 right-0 md:-right-6 z-40 text-white dark:bg-white dark:text-black text-xl cursor-pointer dark:bg-white dark:text-black' onClick={handleCancel} />
           <div className='bg-white rounded-2xl overflow-hidden'>
             <div className="relative h-48 rounded-t-xl overflow-hidden">
               <img src='/image/Rectangle 40.png' alt='event' className='absolute top-0 z-10' />

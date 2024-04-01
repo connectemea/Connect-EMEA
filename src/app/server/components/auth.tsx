@@ -50,11 +50,11 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-primary text-white z-20">
+        <div className="flex items-center justify-center min-h-screen bg-primary text-white z-20  dark:bg-white dark:text-black ">
 
             <Form
                 name="normal_login"
-                className="bg-white p-8 rounded-lg shadow-md w-96"
+                className="bg-white p-8 rounded-lg  w-96 shadow-xl"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
             >

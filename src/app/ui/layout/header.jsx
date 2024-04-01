@@ -1,12 +1,12 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState , useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Link as ScrollLink } from 'react-scroll';
 import { useRouter } from 'next/navigation';
 import '../styles/style.css';
-import { Avatar, Flex, Segmented } from 'antd';
+import { Avatar, Flex, Segmented, Switch } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 const links = [
     { name: 'Home', href: '/' },
@@ -29,15 +29,37 @@ function Header() {
             router.push('/');
         }
     }
+    const body = document.querySelector('body');
+    const theme = localStorage.getItem('theme');
+    useEffect(() => {
+        if (theme === 'darkMode') {
+            body.classList.add('dark');
+        } else {
+            body.classList.remove('dark');
+        }
+    }, []);
+    
+    const toggleTheme = () => {
+        if (body) {
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                localStorage.setItem('theme', 'lightMode');
+            } else {
+                body.classList.add('dark');
+                localStorage.setItem('theme', 'darkMode');
+            }
+        }
+    };
     return (
-        <header className='flex items-center justify-between h-[80px] p-4 bg-primary nav-border z-50'>
+        <header className='flex items-center justify-between h-[80px] p-4 bg-primary nav-border z-50 dark:bg-slate-200 dark:text-black'>
             <div className='custom-container flex justify-between items-center'>
                 <div className='cursor-pointer'>
                     <ScrollLink to='top' smooth={true} duration={500} offset={-70} onClick={handleLogo}>
                         <img src="/logo.png" alt="logo" />
                     </ScrollLink>
+                    <Switch defaultChecked={localStorage.getItem('theme') === 'darkMode'} onChange={toggleTheme} />
                 </div>
-                
+
                 <nav ref={navRef} >
                     {links.map((link) => (
                         <Link
@@ -48,7 +70,7 @@ function Header() {
                                 }`}
                         >
                             <p
-                                className={`flex text-color h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600`}
+                                className={`flex text-color h-8 justify-center items-center gap-2 rounded-md p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 dark:text-black`}
                             >
                                 {link.name}
                             </p>
@@ -60,9 +82,9 @@ function Header() {
                 </nav>
 
                 <button onClick={ShowNavbar} className='nav-btn text-2xl'>
-                    <FaBars className='text-2xl w-24'/>
+                    <FaBars className='text-2xl w-24' />
                 </button>
-                <div className='flex items-center justify-end '>
+                <div className='flex items-center justify-end gap-1'>
                     <Link href='/adminpanel'>
                         <div className='text-white boxShadow flex-end'>
                             Admin

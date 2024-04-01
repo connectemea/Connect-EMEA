@@ -31,19 +31,19 @@ export function BackgroundBeamsDemo() {
           Lorem ipsum dolor sit amet
         </h1> */}
         <TypewriterEffectSmooth words={words} />
-        <p className="text-neutral-500 max-w-lg mx-auto my-2 mt-0 text-center relative z-10">
+        <p className="text-neutral-500 max-w-lg mx-auto my-2 mt-0 text-center relative z-10 dark:text-black">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
         </p>
           <Link href="/join" className="text-white">
-        <button className="bg-white/10 backdrop-blur text-white rounded-full px-6 py-2 mt-4 relative z-30 cursor-pointer min-w-[80px] border border-gray-800 transition-all ease-in-out hover:bg-white/5">
+        <button className="bg-white/10 backdrop-blur text-white rounded-full px-6 py-2 mt-4 relative z-30 cursor-pointer min-w-[80px] border border-gray-800 transition-all ease-in-out hover:bg-white/5 dark:text-black">
           Join Now
         </button>
           </Link>
       </div>
       <div className="relative z-20 flex items-center justify-center mt-10">
-      <img src="/Images/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-24 md:-top-28 w-[90%] -z-10" />
+      <img src="/Images/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-24 md:-top-28 w-[90%] -z-10 dark:hidden" />
       <img src="/Images/groupImage.png" alt="macbook" className="z-50 w-[90%] custom-container" />
       </div>
       </div>

@@ -152,7 +152,7 @@ const Page: React.FC = () => {
         console.log('selectedOptions', selectedOptions);
     };
     return (
-        <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24'>
+        <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24 dark:bg-white dark:text-black'>
             <main className='custom-container flex flex-col gap-4 mx-auto '>
                 <h1 className='text-4xl font-extrabold mt-16'>Team</h1>
                 <section className='p-6 mx-auto'>
@@ -160,7 +160,7 @@ const Page: React.FC = () => {
                     <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Founders</h2>
                     <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-x-10 gap-y-10 items-center justify-center my-16'>
                         {TeamData.founders.map((founder) => (
-                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[230px] mx-auto shadow '>
+                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[230px] mx-auto shadow text-white'>
                                 <div className='relative z-10'>
                                     <div className='mt-2 mx-auto p-4 z-20 h-[300px] relative'>
                                         <img src={`Images/founders/${founder.image}`} alt={founder.name} className='w-full h-full object-cover rounded-md z-30' />

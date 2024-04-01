@@ -12,18 +12,19 @@ import '../ui/styles/style.css';
 
 export default function Home() {
 
+
   return (
-    <div className="bg-primary">
+    <div className="dark:bg-slate-50 dark:text-black bg-primary">
       <BackgroundBeamsDemo />
       <main className="custom-container flex flex-col gap-4">
 
         <section className=" flex  mx-auto flex-col lg:flex-row gap-10 my-10">
-          <div className=" ">
-            <img src="/Images/macbook.png" alt="macbook" className="w-full" />
+          <div className=" mx-auto">
+            <img src="/Images/macbook.png" alt="macbook" className="w-full max-w-[400px] sm:max-w-full mx-auto" />
           </div>
           <div className="text-center md:text-left">
             <h1 className="text-4xl  md:text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
-            <div className="text-white max-w-xl p-4">
+            <div className="dark:text-black text-white max-w-xl p-4 ">
               {/* <TextGenerateEffectDemo /> */}
               We are a vibrant student-led peer-to-peer learning community, aiming to empower every student to uplift their career aspirations via skill enhancement programs, mentorships, and enabling the right opportunities. Like the name itself, this community connects students of all different talents and skills, bringing them together and motivating them to be the best version of themselves.
             </div>
@@ -63,7 +64,7 @@ export default function Home() {
         <section>
           <h1 className="text-4xl md:text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
           </h1>
-          <div className="my-20 text-center text-xl font-bold text-white">
+          <div className="my-20 text-center text-xl font-bold text-white  dark:text-black">
             Coming Soon!
           </div>
         </section>

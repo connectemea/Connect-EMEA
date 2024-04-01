@@ -12,7 +12,7 @@ export function PiontCard() {
 
         {cards.map((card, index) => (
           <div key={index} className=" cursor-default">
-            <div className="max-w-[340px] min-h-[180px] m-2 bg-white/10 backdrop-blur border border-gray-700 shadow-lg rounded-[25px] p-4 text-white transition-all ease-in duration-300 hover:-translate-y-1 hover:border-secondary">
+            <div className="max-w-[340px] min-h-[180px] m-2 bg-white/10 dark:bg-black/10 backdrop-blur border border-gray-700 shadow-lg rounded-[25px] p-4 text-white dark:text-black transition-all ease-in duration-300 hover:-translate-y-1 hover:border-secondary">
               <div className='flex gap-1'>
                 <div className='items-start'>
                   <span>
@@ -24,7 +24,7 @@ export function PiontCard() {
                 <div className='flex-1 select-none'>
                   {/* <span className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">0{index + 1}</span> */}
                   <h2 className="text-xl font-semibold">{card.title}</h2>
-                  <p className="text-gray-300 mt-4">{card.description}</p>
+                  <p className="text-gray-300 mt-4 dark:text-gray-700">{card.description}</p>
 
                 </div>
               </div>

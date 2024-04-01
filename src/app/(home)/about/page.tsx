@@ -4,11 +4,11 @@ import '../../ui/styles/style.css'
 
 const About: React.FC = () => {
     return (
-        <div className='bg-primary min-h-screen py-20 text-white text-center overflow-hidden'>
+        <div className='bg-primary min-h-screen py-20 text-white text-center overflow-hidden dark:bg-white dark:text-black'>
             {/* background image */}
             {/* <img src="/Visual.png" alt="macbook" className=" fixed z-10 opacity-50 top-10  w-[100%] left-0 right-0 h-[100%]" /> */}
 
-            <main className='mx-auto flex items-center flex-col custom-container z-20 text-white text-center'>
+            <main className='mx-auto flex items-center flex-col custom-container z-20 text-white text-center  dark:text-black'>
 
                 <h1 className='text-3xl md:text-5xl font-bold'>
                     About Us

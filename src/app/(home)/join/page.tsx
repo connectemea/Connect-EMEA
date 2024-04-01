@@ -124,7 +124,7 @@ const App: React.FC = () => {
 
   return (
     <div className='' ref={parent}>
-      <div className='m-4 joinNow'>
+      <div className='m-4 joinNow dark:bg-white dark:text-black'>
 
         <div className="min-h-[450px] bg-white/10 backdrop-blur  text-center flex  w-full rounded-2xl shadow border border-gray-50 flex-col lg:flex-row overflow-hidden max-w-[1000px] mx-auto  my-24">
           {loading ? <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
@@ -279,7 +279,7 @@ const App: React.FC = () => {
                 <Input className="border rounded-xl border-violet outline-none focus-none rounded-lg shadow p-3 bg-cream-light font-medium transition-all duration-300 ease-in-out  input" placeholder='Enter Your Email' />
               </Form.Item>
 
-              <button type="submit" className="bg-primary-light text-white font-semibold px-4 py-3 rounded-xl w-full transition-all duration-300 ease-in-out hover:bg-violet text-lg">
+              <button type="submit" className="bg-primary-light text-white  font-semibold px-4 py-3 rounded-xl w-full transition-all duration-300 ease-in-out hover:bg-violet text-lg">
                 Submit
               </button>
             </Form>

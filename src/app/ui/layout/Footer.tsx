@@ -4,8 +4,8 @@ import { FaInstagram , FaLinkedin , FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 const Footer: React.FC = () => {
     return (
-        <div className='bg-primary text-white z-20'>
-            <div className='bg-primary-light flex flex-col w-full rounded-t-[50px]'>
+        <div className='bg-primary text-white z-20 dark:bg-white dark:text-black'>
+            <div className='bg-primary-light flex flex-col w-full rounded-t-[50px] dark:bg-slate-200 dark:text-black'>
 
                 <section className='text-center p-4'>
                     <h1 className='font-bold text-2xl md:text-5xl my-2'>
@@ -26,16 +26,16 @@ const Footer: React.FC = () => {
                             <img src="/logo.png" alt="logo w-20 h-20" />
                         </div>
                         <div className='md:flex-1 flex items-center  justify-end md:justify-center md:h-full gap-2 text-black'>
-                            <span className='text-white text-xl cursor-pointer'>
+                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
                                 <FaInstagram />
                             </span>
-                            <span className='text-white text-xl cursor-pointer'>
+                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
                                 <FaLinkedin />
                             </span>
-                            <span className='text-white text-xl cursor-pointer'>
+                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
                                 <FaGithub />
                             </span>
-                            <span className='text-white text-xl cursor-pointer'>
+                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
                                 <MdEmail />
                             </span>
                         </div>

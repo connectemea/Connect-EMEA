@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 import Footer from "../ui/layout/Footer";
 import "../ui/styles/globals.css";
 import Header from "../ui/layout/header";
-import { FloatButton } from 'antd';
+import { FloatButton, Switch } from 'antd';
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  const theme = localStorage.getItem('theme');
+  const body = document.querySelector('body');
+  if (body) {
+    if (theme === 'darkMode') {
+      body.classList.add('dark');
+    } else {
+      body.classList.remove('dark');
+    }
+  }
+ 
+
   return (
-    <html lang="en">
+    <html lang="en" >
       <body className={inter.className}>
         <div className="fixed w-full z-50 ">
           <Header />
@@ -29,6 +41,7 @@ export default function RootLayout({
           {children}
         </div>
         <div className="z-20 sticky">
+         
           <Footer />
         </div>
         <FloatButton.BackTop />
