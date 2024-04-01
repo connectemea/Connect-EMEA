@@ -17,10 +17,10 @@ const About: React.FC = () => {
                     Get your skill going & growing <br className='hidden md:block'/> with Connect.
                 </h2>
                 <section className='flex flex-row items-center justify-center mx-auto my-16 gap-2'>
-                    <div className='basis-1/2 -ml-36 flex items-center justify-center w-full h-full flex-1'>
+                    <div className='basis-1/2 -ml-36 flex items-center justify-center w-full h-full '>
                         <img src="/image/about-1.png" alt="logo" className="w-full h-full" />
                     </div>
-                    <div className='basis-1/2 flex-1'>
+                    <div className='basis-1/2 '>
                         <div>
                             <Divider className=''>
                                 <h1 className='text-3xl md:text-5xl font-bold text-secondary'>
@@ -44,7 +44,7 @@ const About: React.FC = () => {
 
                 </section>
                 <section className='flex flex-row w-full items-center justify-center mx-auto my-16 gap-2'>
-                    <div className='basis-1/2 flex-1'>
+                    <div className='basis-1/2 '>
                         <div>
                             <Divider>
                                 <h1 className='text-3xl md:text-5xl font-bold text-secondary'>
@@ -66,7 +66,7 @@ const About: React.FC = () => {
                             </Divider>
                         </div>
                     </div>
-                    <div className='basis-1/2 -mr-36 flex items-center justify-center w-full h-full flex-1'>
+                    <div className='basis-1/2 -mr-36 flex items-center justify-center w-full h-full '>
                         <img src="/image/about-vission.png" alt="logo" className="w-full h-full" />
                     </div>
                 </section>
