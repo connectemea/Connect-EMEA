@@ -116,10 +116,10 @@ export const AnimatedTooltip = ({
                         width={100}
                         src={`${item.imageUrl}`}
                         alt={item.name}
-                        className="object-cover cursor-pointer !m-0 !p-0 object-top rounded-full h-20 w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
+                        className="object-cover cursor-pointer !m-0 !p-0 object-top rounded-full h-16 w-16 md:h-20 md:w-20 border-4 group-hover:scale-105 group-hover:z-30 border-white  relative transition duration-500"
                     />
                     <Modal open={openModalIndex === idx} className='ant-modal-content' footer={null} closable={false} width="400px">
-                        <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer  ' onClick={handleCancel} />
+                        <FaTimes className='absolute -top-8 md:-top-6 right-0 md:-right-6 z-40 text-white text-xl cursor-pointer  ' onClick={handleCancel} />
                         <div className='bg-white rounded-2xl overflow-hidden'>
                             <div className="flex flex-col w-full h-[180px]">
                                 <div className="bg-secondary basis-5/12 relative">

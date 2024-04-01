@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { Button, Modal , Image , Skeleton } from 'antd';
+import { Button, Modal, Image, Skeleton , Empty } from 'antd';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { FaTimes } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -93,31 +93,36 @@ const EventPage: React.FC = () => {
       <section className='p-4 md:p-6 mb-6 border border-gray-700 rounded-lg bg-primary-light  flex flex-wrap gap-10 items-center justify-center w-full' ref={parent}>
         {pending ? (
           <div className='text-white text-center w-full'>
-          Loading ....  <Skeleton active />
+            Loading ....  <Skeleton active />
           </div>
         ) : (
-          events.map((event: any) => (
-            <div key={event.key} className='bg-white rounded-lg flex flex-col gap-2 items-center justify-center h-fit max-w-[260px] min-w-[240px] p-4' >
-              <div className='bg-dark-violet rounded-lg min-h-[200px]  min-w-[100%] flex items-center justify-center'>
-                <img src={event?.imageUrl} alt='event' className='w-full object-cover h-full max-h-[200px] rounded-xl' />
+          events.length === 0 ? (
+            <div className='flex items-center justify-center'>
+                                    <Empty description="No Interns Found" />
+                                </div>
+          ) :
+            events.map((event: any) => (
+              <div key={event.key} className='bg-white rounded-lg flex flex-col gap-2 items-center justify-center h-fit max-w-[260px] min-w-[240px] p-4' >
+                <div className='bg-dark-violet rounded-lg min-h-[200px]  min-w-[100%] flex items-center justify-center'>
+                  <img src={event?.imageUrl} alt='event' className='w-full object-cover h-full max-h-[200px] rounded-xl' />
+                </div>
+                <div className='text-black flex items-start justify-start w-full'>
+                  <p className='font-bold'>
+                    {event.title}
+                  </p>
+                </div>
+                <div className='flex justify-end text-black w-full' >
+                  <button className='flex items-center font-medium justify-center' onClick={() => showModal(event)}>
+                    show more <MdKeyboardArrowRight className='text-xl' /></button>
+                </div>
               </div>
-              <div className='text-black flex items-start justify-start w-full'>
-                <p className='font-bold'>
-                  {event.title}
-                </p>
-              </div>
-              <div className='flex justify-end text-black w-full' >
-                <button className='flex items-center font-medium justify-center' onClick={() => showModal(event)}>
-                  show more <MdKeyboardArrowRight className='text-xl' /></button>
-              </div>
-            </div>
-          ))
+            ))
         )}
 
 
         {/* modal to show individual event */}
-        <Modal title="" width="900px" open={isModalOpen} className='ant-modal-content' footer={null} closable={false}>
-          <FaTimes className='absolute -top-6 -right-6 z-40 text-white text-xl cursor-pointer' onClick={handleCancel} />
+        <Modal title="" width="900px" open={isModalOpen} className='ant-modal-content ' footer={null} closable={false}>
+          <FaTimes className='absolute -top-8 md:-top-6 right-0 md:-right-6 z-40 text-white text-xl cursor-pointer' onClick={handleCancel} />
           <div className='bg-white rounded-2xl overflow-hidden'>
             <div className="relative h-48 rounded-t-xl overflow-hidden">
               <img src='/image/Rectangle 40.png' alt='event' className='absolute top-0 z-10' />

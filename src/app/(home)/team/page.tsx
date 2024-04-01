@@ -258,8 +258,8 @@ const Page: React.FC = () => {
                             <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4'>
                                 <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
                                 <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
-                                <div className='flex items-center justify-center'>
-                                    <p className='text-xl'>No Core Team Members Found</p>
+                                <div className='flex items-center justify-center '>
+                                    <Empty description="No Core Team Members Found" />
                                 </div>
                             </section>
                         )

@@ -1,6 +1,12 @@
-.ant-modal-content{
+.ant-modal-content {
     padding: 0px !important;
     /* box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.1); */
     border-radius: 40px !important;
     user-select: none;
 }
+@media (max-width: 768px) {
+    .ant-modal-content {
+      margin-right: 10px !important;
+      margin-left: 10px !important;
+    }
+  }
