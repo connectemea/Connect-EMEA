@@ -10,6 +10,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { Select, Space, Skeleton } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import { db, auth, storage } from "@/app/server/config/firebase";
 import {
     getDocs,
@@ -61,13 +62,28 @@ const Page: React.FC = () => {
             }));
             setCoremembers(internsData);
             console.log('coreteam', internsData);
+
+
+
             setLoadingCoreTeam(false);
         } catch (error) {
             console.error('Error getting documents: ', error);
             setLoadingCoreTeam(false);
         }
     };
-
+    const positionPriority: Record<string, number> = {
+        CONVENOR: 1,
+        COO: 2,
+        CTO: 3,
+        CMO: 4,
+        CCO: 5,
+        Tinkerhub: 6,
+        Shehike: 7,
+        IEDC: 8,
+    };
+    const sortedCoremembers = coremembers.sort((a, b) => {
+        return positionPriority[a.position] - positionPriority[b.position];
+    });
     const getInterns = async () => {
         try {
             const data = await getDocs(internsCollection);
@@ -138,10 +154,10 @@ const Page: React.FC = () => {
     return (
         <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24'>
             <main className='custom-container flex flex-col gap-4 mx-auto '>
-                <h1 className='text-4xl font-extrabold mt-16'>Our Team</h1>
+                <h1 className='text-4xl font-extrabold mt-16'>Team</h1>
                 <section className='p-6 mx-auto'>
-                    <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                    <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Founders</h2>
+                    <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                    <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Founders</h2>
                     <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-x-10 gap-y-10 items-center justify-center my-16'>
                         {TeamData.founders.map((founder) => (
                             <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[230px] mx-auto shadow '>
@@ -174,8 +190,8 @@ const Page: React.FC = () => {
                     {loadingCoreTeam ? (
                         <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
                             <div className='flex items-center justify-center flex-col w-full'>
-                                <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                                <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
+                                <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                                <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
                                 <div className='text-white w-full'>Loading ....<Skeleton active /> </div>
                             </div>
                         </section>
@@ -184,17 +200,18 @@ const Page: React.FC = () => {
 
                             <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
 
-                                <div className='flex gap-4 mx-auto mb-10 '>
-                                    <div className='basis-11/12 pl-20'>
-                                        <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                                        <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
+                                <div className='flex gap-4 mx-auto mb-10 flex-col md:flex-row'>
+                                    <div className='basis-11/12 md:pl-20'>
+                                        <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                                        <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
                                     </div>
-                                    <div className='basis-1/12 flex items-center justify-end'>
+                                    <div className='basis-1/12 flex items-center justify-center md:justify-end year-Selector'>
                                         <Select
                                             defaultValue={selectedYear}
-                                            style={{ width: 120 }}
                                             onChange={handleChange}
                                             options={options}
+                                            suffixIcon={<DownOutlined style={{ color: '#FF00F5' }} />}
+                                        // popupClassName='year-Selector'
                                         />
 
                                     </div>
@@ -202,7 +219,7 @@ const Page: React.FC = () => {
                                 </div>
                                 {coremembers.length > 0 ? (
                                     <div key={selectedYear} className='flex gap-10 flex-wrap items-center justify-center' ref={parent}>
-                                        {coremembers.map((member: any) => (
+                                        {sortedCoremembers.map((member: any) => (
                                             <div key={member.id} className='min-h-[260px]  rounded-md  max-w-[220px] min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
                                                 <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
                                                 </div>
@@ -239,8 +256,8 @@ const Page: React.FC = () => {
                             </section>
                         ) : (
                             <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4'>
-                                <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                                <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
+                                <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                                <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
                                 <div className='flex items-center justify-center'>
                                     <p className='text-xl'>No Core Team Members Found</p>
                                 </div>
@@ -252,8 +269,8 @@ const Page: React.FC = () => {
 
                     {loadingInterns ? (
                         <div className='flex items-center justify-center p-6 m-4 flex-col w-full'>
-                            <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                            <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
+                            <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                            <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
                             <div className='text-white w-full'>
                                 <Skeleton active />
                                 Loading ....</div>
@@ -261,8 +278,8 @@ const Page: React.FC = () => {
                     ) : (
                         interns.length > 0 ? (
                             <section className='p-6 m-4'>
-                                <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                                <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
+                                <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                                <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
                                 <div className='flex flex-wrap gap-2 mt-20'>
                                     <div className="flex flex-row items-center justify-center mb-10 w-full">
                                         <AnimatedTooltip items={interns} />
@@ -271,8 +288,8 @@ const Page: React.FC = () => {
                             </section>
                         ) : (
                             <section className='p-6 m-4'>
-                                <h1 className='text-2xl font-medium'>Connect EMEA</h1>
-                                <h2 className='text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
+                                <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
+                                <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold uppercase mb-6'>Interns</h2>
                                 <div className='flex items-center justify-center'>
                                     <Empty description="No Interns Found" />
                                 </div>

@@ -31,25 +31,29 @@ type FieldType = {
 const App: React.FC = () => {
   const [form] = Form.useForm();
   const [parent, enableAnimations] = useAutoAnimate();
+  const [loading, setLoading] = useState(false);
+  const [submited, setSubmited] = useState(false);
+  const router = useRouter();
 
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values :any ) => {
+
+  const onFinish: FormProps<FieldType>["onFinish"] = (values: any) => {
     console.log('Success:', values);
     const mobileRegex = /^\d{10}$/;
     if (!mobileRegex.test(values.mobile)) {
       message.warning('Please enter a valid mobile number');
       return;
     }
-    
+
     const currentYear = new Date().getFullYear();
     if (values.joined_year && values.joined_year.year() > currentYear) {
       message.warning('Joined year must be less than or equal to the current year');
       return;
     }
-    
+
     // Continue with submission
     onSubmitIntern(values);
-  };    
+  };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -69,7 +73,19 @@ const App: React.FC = () => {
         Status: 'Pending',
         createdAt: serverTimestamp(),
       });
-      message.success('Document successfully added!');
+      setLoading(true);
+      setTimeout(() => {
+        message.success('Document successfully added!');
+        setSubmited(true);
+        setLoading(false);
+      }, 1000);
+      setTimeout(() => {
+        router.push('/');
+      }, 2500);
+      setTimeout(() => {
+        form.resetFields();
+        setSubmited(false);
+      }, 3000);
       console.log('Document successfully added!');
     } catch (err) {
       console.error(err);
@@ -111,12 +127,22 @@ const App: React.FC = () => {
       <div className='m-4 joinNow'>
 
         <div className="min-h-[450px] bg-white/10 backdrop-blur  text-center flex  w-full rounded-2xl shadow border border-gray-50 flex-col lg:flex-row overflow-hidden max-w-[1000px] mx-auto  my-24">
-          <div className='flex items-center justify-center basis-1/2   bg-white flex-col relative py-10 lg:py-0'>
-            <h1 className="text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-dark-violet font-extrabold">Welcome to Connect</h1>
-            <img src='/Images/joinnow!.png' alt='Developer' className='absolute top-24 lg:top-56 z-0' />
-            <img src="/Images/joinnow.png" alt="macbook" className="max-w-[450px] z-10" />
+          {loading ? <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin sizes="large" />} />
+          </div> : null}
+          {submited ? <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
+            <div className='bg-white p-10 rounded-xl shadow-lg'>
+              <h1 className='text-3xl md:text-4xl text-violet font-bold'>Thank you for joining us!</h1>
+              <p className='text-lg'>We will get back to you soon.</p>
+            </div>
+          </div> : null}
+
+          <div className='flex items-center justify-center basis-2/5   bg-white flex-col relative py-10 lg:py-0'>
+            <h1 className="text-3xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-dark-violet font-extrabold">Welcome to Connect</h1>
+            <img src='/Images/joinnow!.png' alt='Developer' className='absolute top-24 lg:top-56 z-0 w-[280px] md:w-full' />
+            <img src="/Images/joinnow.png" alt="macbook" className="max-w-[400px] md:max-w-[450px] z-10" />
           </div>
-          <div className='flex flex-col mx-auto  basis-1/2 border w-full justify-center bg-cream  p-10 mx-auto'>
+          <div className='flex flex-col mx-auto  basis-3/5 border w-full justify-center bg-cream  p-10 mx-auto'>
             <Form
               form={form}
               name="basic"
@@ -219,6 +245,14 @@ const App: React.FC = () => {
                   {
                     required: true,
                     message: 'Please enter your mobile number',
+                  },
+                  {
+                    min: 10,
+                    message: 'Mobile number must be at least 10 digits',
+                  },
+                  {
+                    max: 10,
+                    message: 'Mobile number must be at most 10 digits',
                   },
                 ]}
                 hasFeedback

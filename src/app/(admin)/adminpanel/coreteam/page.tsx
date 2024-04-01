@@ -282,7 +282,7 @@ const Page: React.FC = () => {
                             hasFeedback
 
                         >
-                            <Input size='large' placeholder="Enter Team name"/>
+                            <Input size='large' placeholder="Enter Team name" />
                         </Form.Item>
                         <Form.Item
                             label="Status"
@@ -297,8 +297,8 @@ const Page: React.FC = () => {
                                 { value: 'Publish', label: 'Publish' },
                                 { value: 'Cancel', label: 'Cancel' },
                             ]}
-                            size='large'
-                            placeholder="Choose the status"
+                                size='large'
+                                placeholder="Choose the status"
                             />
                         </Form.Item>
 
@@ -314,8 +314,8 @@ const Page: React.FC = () => {
                                 { value: '#C400FE', label: 'violet' },
                                 { value: '#A33FF8', label: 'pink' },
                             ]}
-                            placeholder="Select the  bg color"
-                            size='large'
+                                placeholder="Select the  bg color"
+                                size='large'
                             />
                         </Form.Item>
 
@@ -327,8 +327,9 @@ const Page: React.FC = () => {
                     </Form>
                 </div>
             )}
-
-            <Table columns={columns} dataSource={interns} pagination={false} />
+            <div className='bg-white overflow-auto rounded-xl'>
+                <Table columns={columns} dataSource={interns} pagination={false} />
+            </div>
         </div>
     );
 };

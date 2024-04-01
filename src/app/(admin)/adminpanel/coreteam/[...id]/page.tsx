@@ -249,6 +249,26 @@ const Page: React.FC = (params: any) => {
   const filterOption = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
 
+  const onChangePosition = (value: string) => {
+    console.log(`selected ${value}`);
+  }
+  const onSearchPosition = (value: string) => {
+    console.log('search:', value);
+  }
+  const positionOptions = [
+    { value: 'CONVENOR', label: 'Convenor' },
+    { value: 'COO', label: 'COO' },
+    { value: 'CTO', label: 'CTO' },
+    { value: 'CMO', label: 'CMO' },
+    { value: 'CCO', label: 'CCO' },
+    { value: 'Tinkerhub', label: 'Tinkerhub' },
+    { value: 'Shehike', label: 'Shehike' },
+    { value: 'IEDC', label: 'IEDC' },
+  ];
+
+  const filterOptionPosition = (input: string, option?: { label: string; value: string }) =>
+    (option?.label ?? "").toLowerCase().includes(input.toLowerCase());
+
   return (
     <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Core Team {id} Memebers</h1>
@@ -300,9 +320,20 @@ const Page: React.FC = (params: any) => {
             <Form.Item<FieldType>
               label="Position"
               name="position"
-              rules={[{ required: true, message: 'Please input your profession!' }]}
+              rules={[{ required: true, message: 'Please Select the Position!' }]}
             >
-              <Input size='large' />
+              <Select
+                showSearch
+                placeholder="Select a Position"
+                optionFilterProp="children"
+                onChange={onChangePosition}
+                onSearch={onSearchPosition}
+                filterOption={filterOptionPosition}
+                className='w-full'
+                size='large'
+                options={positionOptions}
+              />
+
             </Form.Item>
 
             <Form.Item >
@@ -313,7 +344,9 @@ const Page: React.FC = (params: any) => {
           </Form>
         </div>
       </Modal>
-      <Table columns={columns} dataSource={coremember} pagination={false} />
+      <div className='bg-white overflow-auto rounded-xl'>
+        <Table columns={columns} dataSource={coremember} pagination={false} />
+      </div>
     </div >
   );
 };

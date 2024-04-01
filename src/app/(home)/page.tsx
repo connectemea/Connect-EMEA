@@ -1,7 +1,7 @@
 "use client";
 // import { MacbookScrollDemo } from "./ui/Home/Macbook";
 import { BackgroundBeamsDemo } from "../ui/Home/Hero";
-import { CardHoverEffectDemo } from "../ui/Home/PiontCard";
+import { PiontCard } from "../ui/Home/PiontCard";
 import { TextGenerateEffectDemo } from "../ui/Home/ConnectText";
 import Slider from "../ui/Home/Events";
 import Team from "../ui/Home/Team";
@@ -21,8 +21,8 @@ export default function Home() {
           <div className=" ">
             <img src="/Images/macbook.png" alt="macbook" className="w-full" />
           </div>
-          <div className="">
-            <h1 className="text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
+          <div className="text-center md:text-left">
+            <h1 className="text-4xl  md:text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
             <div className="text-white max-w-xl p-4">
               {/* <TextGenerateEffectDemo /> */}
               A vibrant student-led community to empower every student to uplift their career aspirations via skill-enhancing programs, mentorship, and enabling the right opportunities
@@ -32,7 +32,7 @@ export default function Home() {
 
 
         <section className="my-10  mx-auto lg:px-10">
-          <CardHoverEffectDemo />
+          <PiontCard />
         </section>
 
         {/* <section className=" flex  mx-auto flex-col lg:flex-row my-10">
@@ -48,7 +48,7 @@ export default function Home() {
         </section> */}
 
         <section className="my-10  lg:px-10">
-          <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
+          <h1 className="text-4xl md:text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">Event</h1>
           <Slider />
         </section>
 
@@ -61,7 +61,7 @@ export default function Home() {
         </section> */}
 
         <section>
-          <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
+          <h1 className="text-4xl md:text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
           </h1>
           <div className="my-20 text-center text-xl font-bold text-white">
             Coming Soon!

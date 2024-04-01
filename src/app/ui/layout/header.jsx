@@ -37,6 +37,7 @@ function Header() {
                         <img src="/logo.png" alt="logo" />
                     </ScrollLink>
                 </div>
+                
                 <nav ref={navRef} >
                     {links.map((link) => (
                         <Link
@@ -58,10 +59,9 @@ function Header() {
                     </button>
                 </nav>
 
-                <button onClick={ShowNavbar} className='nav-btn'>
-                    <FaBars />
+                <button onClick={ShowNavbar} className='nav-btn text-2xl'>
+                    <FaBars className='text-2xl w-24'/>
                 </button>
-
                 <div className='flex items-center justify-end '>
                     <Link href='/adminpanel'>
                         <div className='text-white boxShadow flex-end'>
@@ -71,8 +71,6 @@ function Header() {
                         </div>
                     </Link>
                 </div>
-
-
             </div>
             <div>
             </div>

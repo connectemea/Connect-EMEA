@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaTimes } from 'react-icons/fa';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Avatar } from 'antd';
 import {
     motion,
     useTransform,
@@ -13,6 +13,7 @@ import {
 import { FaInstagram } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
+import { UserOutlined } from "@ant-design/icons";
 
 export const AnimatedTooltip = ({
     items,
@@ -68,7 +69,7 @@ export const AnimatedTooltip = ({
     }
 
     return (
-        <>
+        <div className="flex flex-wrap gap-y-4">
             {items.map((item, idx) => (
                 <div
                     className="-mr-4  relative group overlfow-hidden"
@@ -99,9 +100,9 @@ export const AnimatedTooltip = ({
                         >
                             <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
                             <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
-                            <div className="font-bold text-white relative z-30 text-base px-4 "  style={{ overflowWrap: 'anywhere' }}>
+                            <div className="font-bold text-white relative z-30 text-base px-4 " style={{ overflowWrap: 'anywhere' }}>
                                 <p className="flex flex-wrap" style={{ overflowWrap: 'anywhere' }}>
-                                {item.name}
+                                    {item.name}
                                 </p>
                             </div>
 
@@ -129,7 +130,7 @@ export const AnimatedTooltip = ({
                                     </div>
                                 </div>
                                 <div className="bg-white basis-7/12 flex gap-2 items-center p-4 pt-0">
-                                    <div className="border-[5px] border-white relative -mt-16 overflow-hidden rounded-full">
+                                    <div className="border-[5px] border-white relative -mt-16 overflow-hidden rounded-full bg-white">
                                         <img src={`${item.imageUrl}`} alt={item.name} className="w-24 h-24 rounded-full object-cover" />
                                     </div>
                                     <div className="ml-2">
@@ -148,7 +149,7 @@ export const AnimatedTooltip = ({
                     </Modal>
                 </div>
             ))}
-        </>
+        </div>
     );
 };
 

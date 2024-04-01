@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { BsCaretRight } from "react-icons/bs";
 
-export function CardHoverEffectDemo() {
+export function PiontCard() {
   return (
     <div className="flex gap-4 flex-col items-center justify-center ">
       <div>
 
-        <h1 className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold">Why do you want to join us?</h1>
+        <h1 className="text-4xl text-center md:text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold">Why do you want to join us?</h1>
       </div>
       <div className="flex flex-wrap gap-4 gap-y-6 mx-auto items-center justify-center">
 
