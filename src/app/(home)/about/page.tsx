@@ -17,10 +17,10 @@ const About: React.FC = () => {
                     Get your skill going & growing <br className='hidden md:block'/> with Connect.
                 </h2>
                 <section className='flex flex-row items-center justify-center mx-auto my-16 gap-2'>
-                    <div className='basis-1/2 -ml-36 flex items-center justify-center w-full h-full '>
-                        <img src="/image/about-1.png" alt="logo" className="w-full h-full" />
+                    <div className='basis-1/2 -ml-36 flex items-center justify-center w-full h-full TheFLex1'>
+                        <img src="/image/about-1.png" alt="logo" className="w-full h-full max-w-[450px]" />
                     </div>
-                    <div className='basis-1/2 '>
+                    <div className='basis-1/2 TheFLex1'>
                         <div>
                             <Divider className=''>
                                 <h1 className='text-3xl md:text-5xl font-bold text-secondary'>
@@ -44,7 +44,7 @@ const About: React.FC = () => {
 
                 </section>
                 <section className='flex flex-row w-full items-center justify-center mx-auto my-16 gap-2'>
-                    <div className='basis-1/2 '>
+                    <div className='basis-1/2 TheFLex1'>
                         <div>
                             <Divider>
                                 <h1 className='text-3xl md:text-5xl font-bold text-secondary'>
@@ -66,8 +66,8 @@ const About: React.FC = () => {
                             </Divider>
                         </div>
                     </div>
-                    <div className='basis-1/2 -mr-36 flex items-center justify-center w-full h-full '>
-                        <img src="/image/about-vission.png" alt="logo" className="w-full h-full" />
+                    <div className='basis-1/2 -mr-36 flex items-center justify-center w-full h-full TheFLex1'>
+                        <img src="/image/about-vission.png" alt="logo" className="w-full h-full max-w-[450px]" />
                     </div>
                 </section>
                 <section className='flex flex-col  w-full items-center justify-around my-16 bg-white/10 border border-gray-600/50 rounded-2xl min-h-[800px] relative p-4 md:p-16'>

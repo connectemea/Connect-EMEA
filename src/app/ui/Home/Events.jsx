@@ -98,18 +98,12 @@ export default function Slider() {
     <>
       <div>
         <Swiper
+          slidesPerView={3}
+          spaceBetween={40}
           breakpoints={{
-            360: {
+            640: {
               slidesPerView: 1,
               spaceBetween: 40,
-            },
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 40,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 50,
             },
             1024: {
               slidesPerView: 3,
@@ -147,7 +141,7 @@ export default function Slider() {
           ) : events.length > 0 ? (
             events.map((slide, index) => (
               <SwiperSlide key={index} className={centerSlideIndex === (index + events.length) % events.length ? 'center-slide' : ''}>
-                <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
+                <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 m-4 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
                   <h1 className='text-white font-bold text-3xl'>
                     {slide.title}
                   </h1>

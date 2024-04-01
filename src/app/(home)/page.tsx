@@ -25,7 +25,7 @@ export default function Home() {
             <h1 className="text-4xl  md:text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
             <div className="text-white max-w-xl p-4">
               {/* <TextGenerateEffectDemo /> */}
-              A vibrant student-led community to empower every student to uplift their career aspirations via skill-enhancing programs, mentorship, and enabling the right opportunities
+              We are a vibrant student-led peer-to-peer learning community, aiming to empower every student to uplift their career aspirations via skill enhancement programs, mentorships, and enabling the right opportunities. Like the name itself, this community connects students of all different talents and skills, bringing them together and motivating them to be the best version of themselves.
             </div>
           </div>
         </section>

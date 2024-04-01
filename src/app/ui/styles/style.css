@@ -38,12 +38,6 @@
   user-select: none;
 }
 
-@media (max-width: 768px) {
-  .ant-modal-content {
-    margin-right: 10px !important;
-    margin-left: 10px !important;
-  }
-}
 
 .ant-empty-description {
   color: #fff !important;
@@ -190,7 +184,11 @@ header nav {
 }
 
 
-
+@media (max-width:768px) {
+  .TheFLex1 {
+    flex: 1 !important;
+  }
+}
 
 
 .box {

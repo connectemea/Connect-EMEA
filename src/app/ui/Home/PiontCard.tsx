@@ -21,10 +21,10 @@ export function PiontCard() {
                   </span>
 
                 </div>
-                <div className='flex-1'>
+                <div className='flex-1 select-none'>
                   {/* <span className="text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">0{index + 1}</span> */}
                   <h2 className="text-xl font-semibold">{card.title}</h2>
-                  <p className="text-gray-500 mt-4">{card.description}</p>
+                  <p className="text-gray-300 mt-4">{card.description}</p>
 
                 </div>
               </div>

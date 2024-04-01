@@ -158,7 +158,7 @@ export const TypewriterEffectSmooth = ({
         }}
       >
         <div
-          className="relative z-10 text-2xl md:text-4xl   bg-clip-text text-transparent  text-center font-sans font-bold bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70"
+          className="relative z-10 text-2xl xs:text-3xl md:text-5xl   bg-clip-text text-transparent  text-center font-sans font-bold bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70"
           style={{
             whiteSpace: "nowrap",
           }}

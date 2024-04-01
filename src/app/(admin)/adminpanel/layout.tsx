@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../../ui/styles/globals.css";
+import Link from "next/link";
 import React, { useState, createContext, useEffect } from 'react';
 import {
   MenuFoldOutlined,
@@ -160,9 +161,11 @@ function RootLayout({ children }: RootLayoutProps) {
         <Layout>
           <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className="demo-logo-vertical" />
+            <Link href="/">
             <div className="logo" >
               <img src="/logo.png" alt="logo" className="mx-auto my-10 mt-4" />
             </div>
+            </Link>
             <Menu
               theme="dark"
               mode="inline"
