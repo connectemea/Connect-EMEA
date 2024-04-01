@@ -66,7 +66,10 @@ body{
   color: var(--color-text);
 }
 
-
+.label-color-white ,.label-color-white .ant-form-item-label > label {
+  color: white !important;
+  font-weight: 600 !important;
+}
 /* the layout width */
 .custom-container {
   width: 100%;

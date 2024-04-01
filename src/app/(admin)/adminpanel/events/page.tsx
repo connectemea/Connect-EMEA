@@ -17,7 +17,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { ExclamationCircleFilled, DeleteOutlined, EyeOutlined, EditOutlined } from '@ant-design/icons'
 interface DataType {
   key: any;
-  name: string;
+  title: string;
   summary: string;
   short_description: string;
   imageUrl: string;
@@ -101,7 +101,7 @@ const Page: React.FC = () => {
       render: (text) => <a>{text}</a>,
     },
     {
-      title: 'short_description',
+      title: 'Short description',
       dataIndex: 'short_description',
       key: 'short_description',
     },
@@ -168,7 +168,7 @@ const Page: React.FC = () => {
       ) : (
         <div>
           <div className='flex items-center justify-end'>
-            <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl'>
+            <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl text-white transition-all ease-in-out hover:bg-blue-600'>
               Add new
             </button>
           </div>
@@ -176,7 +176,7 @@ const Page: React.FC = () => {
             <Table columns={columns} dataSource={events} />
           </div>
           <Modal
-            title="Event Details"
+            title={selectedEvent?.title || "Event Details"}
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -184,15 +184,23 @@ const Page: React.FC = () => {
               <Button key="back" onClick={handleCancel}>
                 Return
               </Button>
-            ]} >
-            <h1>{selectedEvent?.title}</h1>
-            <p>{selectedEvent?.summary}</p>
-            <p>{selectedEvent?.short_description}</p>
-            <p>{selectedEvent?.link}</p>
-            <p>{selectedEvent?.Status}</p>
-            <p>{selectedEvent?.Date}</p>
-            <img src={selectedEvent?.imageUrl} alt="event" />
+            ]}
+            className="w-full max-w-4xl mx-auto"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-center space-x-4">
+              <img src={selectedEvent?.imageUrl} alt="event" className="w-full md:w-1/3 rounded-lg" />
+              <div className="flex flex-col justify-center md:w-2/3 space-y-4">
+                <h1 className="text-2xl font-bold">{selectedEvent?.title}</h1>
+                <p className="">{selectedEvent?.Date}</p>
+                <p className="text-blue-500">{selectedEvent?.link}</p>
+                <p className="">{selectedEvent?.Status}</p>
+                <p className="text-gray-600">{selectedEvent?.short_description}</p>
+              </div>
+            </div>
+            <p className="text-lg text-gray-500 m-4">{selectedEvent?.summary}</p>
+
           </Modal>
+
         </div>
 
       )}

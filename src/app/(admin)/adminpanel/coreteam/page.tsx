@@ -23,6 +23,8 @@ interface DataType {
     Docid: string;
     year: number;
     Status: string;
+    Color: string;
+    TeamName: string;
 }
 type FieldType = {
     Docid?: string;
@@ -41,7 +43,7 @@ const Page: React.FC = () => {
     const Router = useRouter();
     const internsCollection = collection(db, "CoreTeam");
 
-    const getInterns = async () => {
+    const getCoreTeams = async () => {
         try {
             const data = await getDocs(internsCollection);
             console.log("Fetched data:", data);
@@ -82,7 +84,7 @@ const Page: React.FC = () => {
         const InternDoc = doc(db, "CoreTeam", id);
         await deleteDoc(InternDoc).then(() => {
             message.success('Document successfully deleted!');
-            getInterns();
+            getCoreTeams();
         }).catch((error) => {
             console.error('Error deleting document: ', error);
         });
@@ -134,12 +136,13 @@ const Page: React.FC = () => {
 
     // Fetch data from server on component mount (or when needed)
     useEffect(() => {
-        getInterns();
+        getCoreTeams();
     }, []);
 
     const handleAddNew = () => {
         setAddNew(!addNew)
     }
+
     const handleEdit = (values: any) => {
         setAddNew(true);
         form.setFieldsValue({
@@ -163,6 +166,8 @@ const Page: React.FC = () => {
                 Color: values.Color,
                 userId: auth?.currentUser?.uid,
             });
+            getCoreTeams();
+            setAddNew(false);
             message.success('Document successfully added!');
             console.log('Document successfully added!');
         } catch (err) {
@@ -216,13 +221,13 @@ const Page: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-primary text-center p-6" ref={parent}>
-            <h1 className="text-4xl font-bold text-white pt-10 ">Core Team Page</h1>
+            <h1 className="text-4xl font-bold text-white pt-10 ">Core Team List</h1>
             <div className='flex items-center justify-end'>
-                <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px]'>
+                <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl text-white transition-all ease-in-out hover:bg-blue-600'>
                     {addNew ? 'close' : 'Add new'}
                 </button>
-            </div>
 
+            </div>
             {addNew && (
                 <div className='text-white flex items-center flex-col justify-center'>
                     <Form
@@ -230,21 +235,25 @@ const Page: React.FC = () => {
                         name="basic"
                         // labelCol={{ span: 8 }}
                         // wrapperCol={{ span: 16 }}
-                        style={{ maxWidth: 600, color: 'white' }}
+                        style={{ maxWidth: 500, color: 'white' }}
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         layout="vertical"
                         requiredMark={false}
+                        className='text-white w-full mb-10 label-color-white'
                     >
                         <Form.Item
                             label="Year id"
                             name="Docid"
                             rules={[{ required: true, message: 'Please select a year id!' }]}
                             style={{ color: 'white' }}
+                            className='text-white'
+                            hasFeedback
+
                         >
-                            <Select style={{ width: '100%' }}>
+                            <Select style={{ width: '100%' }} size='large' placeholder="Select the gap">
                                 {Doc_id_Options.map(option => (
                                     <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
                                 ))}
@@ -255,8 +264,10 @@ const Page: React.FC = () => {
                             label="Year"
                             name="year"
                             rules={[{ required: true, message: 'Please select a year!' }]}
+                            className='text-white'
+                            hasFeedback
                         >
-                            <Select style={{ width: '100%' }}>
+                            <Select style={{ width: '100%' }} size='large' placeholder="Select the year">
                                 {yearOptions.map(option => (
                                     <Select.Option key={option.value} value={option.value}>{option.label}</Select.Option>
                                 ))}
@@ -267,19 +278,27 @@ const Page: React.FC = () => {
                             label="Team Name"
                             name="TeamName"
                             rules={[{ required: true, message: 'Please input the team name!' }]}
+                            className='text-white'
+                            hasFeedback
+
                         >
-                            <Input />
+                            <Input size='large' placeholder="Enter Team name"/>
                         </Form.Item>
                         <Form.Item
                             label="Status"
                             name="Status"
                             rules={[]}
+                            className='text-white'
+                            hasFeedback
+
                         >
                             <Select defaultValue="draft" onChange={handleChange} options={[
                                 { value: 'draft', label: 'draft' },
                                 { value: 'Publish', label: 'Publish' },
                                 { value: 'Cancel', label: 'Cancel' },
                             ]}
+                            size='large'
+                            placeholder="Choose the status"
                             />
                         </Form.Item>
 
@@ -287,16 +306,21 @@ const Page: React.FC = () => {
                             label="Color"
                             name="Color"
                             rules={[]}
+                            className='text-white'
+                            hasFeedback
+
                         >
                             <Select defaultValue="draft" onChange={handleColorChange} options={[
-                                { value: '#C400FE', label: 'Color1' },
-                                { value: '#A33FF8', label: 'Color2' },
+                                { value: '#C400FE', label: 'violet' },
+                                { value: '#A33FF8', label: 'pink' },
                             ]}
+                            placeholder="Select the  bg color"
+                            size='large'
                             />
                         </Form.Item>
 
-                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            <Button type="primary" htmlType="submit">
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit" size='large' className='w-full mt-2'>
                                 Submit
                             </Button>
                         </Form.Item>
@@ -304,7 +328,7 @@ const Page: React.FC = () => {
                 </div>
             )}
 
-            <Table columns={columns} dataSource={interns} />
+            <Table columns={columns} dataSource={interns} pagination={false} />
         </div>
     );
 };

@@ -223,7 +223,7 @@ const Page: React.FC = () => {
                                                     <p className='text-gray-500 font-medium uppercase text-sm'>{member.position}</p>
                                                     <div className='flex gap-4 mt-4 -mb-2'>
                                                         <FaInstagram className=' text-secondary text-xl cursor-pointer  transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.instagram, '_blank')} />
-                                                        <FiGithub className={` text-${selectedOptions[0]?.Color ? selectedOptions[0]?.Color : 'secondary'} text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 `} onClick={() => window.open(member.social.github, '_blank')} />
+                                                        <FiGithub className={` text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 `} onClick={() => window.open(member.social.github, '_blank')} />
                                                         <SlSocialLinkedin className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.linkedin, '_blank')} />
                                                     </div>
                                                 </div>

@@ -120,37 +120,37 @@ const Page: React.FC = (params: any) => {
   const handleDelete = async (id: any) => {
     if (!id) return;
     const InternDoc = doc(db, "Interns", id);
-  
+
     try {
       // Get the document to access its data
       const docSnapshot = await getDoc(InternDoc);
-  
+
       if (!docSnapshot.exists()) {
         console.log('Document does not exist.');
         return;
       }
-  
+
       const internData = docSnapshot.data();
       console.log('Document data:', internData);
       // Filter out the teamIdToRemove from both 'teams' and 'teamIds' arrays
       const updatedTeams = internData.teams.filter((team: any) => team.teamId !== TeamId);
       const updatedTeamIds = internData.teamIds.filter((teamId: any) => teamId !== TeamId);
-  
+
       // Update the document with the updated arrays
       await setDoc(InternDoc, { teams: updatedTeams, teamIds: updatedTeamIds }, { merge: true });
-      
+
       message.success('Document successfully updated!');
       console.log('Document successfully updated!');
     } catch (error) {
       console.error('Error updating document:', error);
     }
   };
-  
+
 
   const columns: TableProps<DataType>['columns'] = [
     {
       title: 'No',
-      dataIndex: 'Core_key' + 'Core_name' ,
+      dataIndex: 'Core_key',
       key: 'Core_key' + 'Core_name',
       render: (text, record, index) => index + 1,
     },
@@ -213,6 +213,8 @@ const Page: React.FC = (params: any) => {
       setDoc(TeamRef, { teams: arrayUnion(...teamsToAddOrUpdate) }, { merge: true });
       setDoc(TeamRef, { teamIds: arrayUnion(...teamsIds) }, { merge: true });
 
+      handleOk();
+      getCoreInterns(TeamId);
       message.success('Document successfully updated!');
       console.log('Document successfully updated!');
     } catch (error) {
@@ -250,65 +252,68 @@ const Page: React.FC = (params: any) => {
   return (
     <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Core Team {id} Memebers</h1>
-      <button onClick={showModal} className='bg-blue-500 p-2 my-6'>
+      <button onClick={showModal} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl text-white transition-all ease-in-out hover:bg-blue-600'>
         Add new
       </button>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <Form
-          form={form}
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          <Form.Item label="Intern"
-            name="intern"
-            rules={[{ required: true, message: 'Please input your profession!' }]}
+      <Modal title="Choose Intern" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={false}>
+        <div className='flex w-full items-center justify-center mx-auto' >
+
+          <Form
+            form={form}
+            name="basic"
+            style={{ maxWidth: 400 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            layout='vertical'
+            className='w-full mx-auto'
           >
-            <Select
-              showSearch
-              placeholder="Select a person"
-              optionFilterProp="children"
-              onChange={onChange}
-              onSearch={onSearch}
-              filterOption={filterOption}
-              className='w-full'
-              size='large'
+            <Form.Item label="Intern"
+              name="intern"
+              rules={[{ required: true, message: 'Please input your profession!' }]}
             >
-              {interns.map((intern: any) => (
-                <Select.Option key={intern.key} value={intern.key} label={intern.name}>
-                  <div className='flex gap-2 items-center justify-center'>
-                    <img src={intern.imageUrl} alt={intern.name} style={{ marginRight: 8, height: 24, width: 24, borderRadius: '50%' }} />
-                    <p>
-                      {intern.name}
-                    </p>
-                  </div>
-                </Select.Option>
-              ))}
-            </Select>
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                filterOption={filterOption}
+                className='w-full'
+                size='large'
+              >
+                {interns.map((intern: any) => (
+                  <Select.Option key={intern.key} value={intern.key} label={intern.name}>
+                    <div className='flex gap-2 items-center justify-start'>
+                      <img src={intern.imageUrl} alt={intern.name} style={{ marginRight: 8, height: 24, width: 24, borderRadius: '50%' }} />
+                      <p>
+                        {intern.name}
+                      </p>
+                    </div>
+                  </Select.Option>
+                ))}
+              </Select>
 
-          </Form.Item>
+            </Form.Item>
 
-          <Form.Item<FieldType>
-            label="Position"
-            name="position"
-            rules={[{ required: true, message: 'Please input your profession!' }]}
-          >
-            <Input />
-          </Form.Item>
+            <Form.Item<FieldType>
+              label="Position"
+              name="position"
+              rules={[{ required: true, message: 'Please input your profession!' }]}
+            >
+              <Input size='large' />
+            </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+            <Form.Item >
+              <Button type="primary" htmlType="submit" size='large' className='w-full'>
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </Modal>
-      <Table columns={columns} dataSource={coremember} pagination={false}/>
+      <Table columns={columns} dataSource={coremember} pagination={false} />
     </div >
   );
 };

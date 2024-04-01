@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker } from 'antd';
+import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker, Result } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 import { db, auth, storage } from '@/app/server/config/firebase';
@@ -63,9 +63,14 @@ const App: React.FC = (params: any) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
   const pathname = usePathname();
-  const [selectedDepartment, setSelectedDepartment] = useState<any>('2021');
+  const [selectedDepartment, setSelectedDepartment] = useState<any>('');
   const [DateValue, setDateValue] = useState<any>(dayjs());
   const router = useRouter()
+  const [fetchedData, setFetchedData] = useState<any>(null);
+  const [submit, setSubmit] = useState(false)
+
+
+
   let mode = pathname.includes('/edit') ? 'Edit' : 'Add';
   const getIdFromPathname = (pathname: any) => {
     const parts = pathname.split('-');
@@ -93,7 +98,7 @@ const App: React.FC = (params: any) => {
         name: data.name,
         role: data.role,
         department: data.department,
-        short_department: data.short,
+        short_department: data.short_department,
         github: data.social.github,
         linkedin: data.social.linkedin,
         instagram: data.social.instagram,
@@ -102,6 +107,7 @@ const App: React.FC = (params: any) => {
         active: data.active,
         imageUrl: data.imageUrl,
       });
+      setFetchedData(data);
       setDateValue(data.joined_year);
       setimgUrl(data.imageUrl)
       setImageUrl(data.imageUrl);
@@ -116,7 +122,7 @@ const App: React.FC = (params: any) => {
   const uploadFile = async (values: any) => {
     if (mode === 'Edit') {
       if (imgUrl === imageUrl) {
-        updateIntern(values , imgUrl)
+        updateIntern(values, imgUrl)
         return;
       }
     }
@@ -130,7 +136,6 @@ const App: React.FC = (params: any) => {
       const waitForUrl = setInterval(() => {
         if (url) {
           clearInterval(waitForUrl);
-          setImageUrl(url);
           setimgUrl(url);
           if (mode === 'Edit') {
             updateIntern(values, url)
@@ -162,13 +167,18 @@ const App: React.FC = (params: any) => {
     } else {
       return
     }
+    const currentYear = new Date().getFullYear();
+    if (DateValue && DateValue.year() > currentYear) {
+      message.warning('Joined year must be less than or equal to the current year');
+      return;
+    }
     const activeValue = values.active !== undefined ? values.active : true;
-
     try {
       await addDoc(internCollectionRef, {
         name: values.name,
         role: values.role,
         department: values.department,
+        short_department: selectedDepartment.data.short,
         joined_year: DateValue.year(),
         social: {
           github: values.github || 'https://github.com/',
@@ -176,11 +186,12 @@ const App: React.FC = (params: any) => {
           instagram: values.instagram || 'https://www.linkedin.com/',
         },
         profession: values.profession || 'Student',
-        AdmissionNo: values.AdmissionNo,
-        active: activeValue,
+        AdmissionNo: values.AdmissionNo || "",
+        active: activeValue || true,
         imageUrl: url,
         userId: auth?.currentUser?.uid,
       });
+      setSubmit(true)
       message.success('Document successfully added!');
       console.log('Document successfully added!');
     } catch (err) {
@@ -190,29 +201,59 @@ const App: React.FC = (params: any) => {
 
   const updateIntern = async (values: any, url: any) => {
 
-    const activeValue = values.active !== undefined ? values.active : true;
-    await updateDoc(docRef, {
-      name: values.name,
-      role: values.role,
-      department: selectedDepartment.value,
-      joined_year: DateValue,
-      short_department: selectedDepartment?.data?.short,
-      social: {
-        github: values.github || 'https://github.com/',
-        linkedin: values.linkedin || 'https://www.instagram.com/',
-        instagram: values.instagram || 'https://www.linkedin.com/',
-      },
-      profession: values.profession || 'Student',
-      AdmissionNo: values.AdmissionNo,
-      active: activeValue,
-      imageUrl: url ? url : imageUrl,
-    }).then(() => {
-      message.success('Document successfully updated!')
+    const updates: Record<string, any> = {};
+
+    if (values.name && values.name !== fetchedData.name) {
+      updates.name = values.name;
+    }
+    if (values.role && values.role !== fetchedData.role) {
+      updates.role = values.role;
+    }
+    if (values.department && values.department !== fetchedData.department) {
+      updates.department = values.department;
+    }
+    if (values.joined_year && values.joined_year !== fetchedData.joined_year) {
+      const currentYear = new Date().getFullYear();
+      if (DateValue && DateValue.year() > currentYear) {
+        message.warning('Joined year must be less than or equal to the current year');
+        return;
+      }
+      updates.joined_year = values.joined_year;
+    }
+    if (values.github && values.github !== fetchedData.social.github) {
+      updates['social.github'] = values.github;
+    }
+    if (values.linkedin && values.linkedin !== fetchedData.social.linkedin) {
+      updates['social.linkedin'] = values.linkedin;
+    }
+    if (values.instagram && values.instagram !== fetchedData.social.instagram) {
+      updates['social.instagram'] = values.instagram;
+    }
+    if (values.profession && values.profession !== fetchedData.profession) {
+      updates.profession = values.profession;
+    }
+    if (values.AdmissionNo && values.AdmissionNo !== fetchedData.AdmissionNo) {
+      updates.AdmissionNo = values.AdmissionNo;
+    }
+    if (values.active !== undefined && values.active !== fetchedData.active) {
+      updates.active = values.active;
+    }
+    if (url && url !== imageUrl) {
+      updates.imageUrl = url;
+    }
+    if (selectedDepartment && values.department !== fetchedData.department && selectedDepartment.data.short !== '') {
+      updates.short_department = selectedDepartment.data.short;
+    }
+    console.log('Updates:', updates);
+    await updateDoc(docRef, updates).then(() => {
+      setSubmit(true)
+      message.success('Document successfully updated!');
       console.log('Document successfully updated!');
     }).catch((error) => {
       console.error('Error updating document: ', error);
     });
   };
+
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -275,167 +316,226 @@ const App: React.FC = (params: any) => {
     console.log(option)
     setSelectedDepartment(option);
   };
+  const handleGoBack = () => {
+    router.push('/adminpanel/interns')
+  }
+  const handleAddIntern = () => {
+    router.push('/adminpanel/interns/add')
+  }
 
   return (
-    <div className='min-h-screen bg-gray-400 ' ref={parent}>
-      <h1 className='text-black text-center my-10 text-xl'>
-        {mode}
-      </h1>
-      {loadingPage ? (
+    <div className='min-h-screen' ref={parent}>
+      {submit ? (
         <div className='mx-auto flex items-center justify-center'>
-          <Spin size='large' />
+          <Result
+            status="success"
+            title="Successfully!"
+            subTitle="Intern added successfully."
+            extra={[
+              <Button type="primary" onClick={handleGoBack} key="console">
+                Go to Interns
+              </Button>,
+              <Button onClick={handleAddIntern} key="buy">Add new Intern</Button>,
+            ]}
+          />
         </div>
       ) : (
-        <div className='flex items-center justify-center w-full mx-auto '>
-
-          <Form
-            form={form}
-            name="basic"
-            style={{ maxWidth: 600, minWidth: 300 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-            layout='vertical'
-            className='overflow-auto'
-          >
-            <Form.Item<FieldType>
-              label="image"
-              name="image"
-
-            >
-              <div className='w-full mx-auto flex items-center justify-center'>
-                <Upload
-                  name="avatar"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  showUploadList={false}
-                  beforeUpload={beforeUpload}
-                  onChange={handleChange}
-                  accept='image/png, image/jpeg'
-                >
-                  {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                </Upload>
-              </div>
-
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="name"
-              name="name"
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="department"
-              name="department"
-            >
-              <Select
-                style={{ width: '100%' }}
-                showSearch
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option?.props?.children?.toString().toLowerCase().includes(input.toLowerCase())
-                }
-                onChange={handleDepartmentChange}
-                className="border rounded border-violet outline-none rounded-lg shadow  bg-cream-light font-medium transition-all duration-300 ease-in-out hover:outline hover:outline-offset-2 hover:outline-violet hover:border-transparent" size='large'
+        <>
+          <h1 className='text-black text-center my-10 text-2xl font-semibold'>
+            {mode} Intern
+          </h1>
+          {loadingPage ? (
+            <div className='mx-auto flex items-center justify-center'>
+              <Spin size='large' />
+            </div>
+          ) : (
+            <div className='w-full mx-auto'>
+              <Form
+                form={form}
+                name="basic"
+                style={{ maxWidth: 800, minWidth: 300 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                layout='vertical'
+                className='overflow-auto mx-auto'
               >
-                {DepartmentOptions.map(option => (
-                  <Select.Option key={option.value} value={option.value} data={{ short: option.short }}>
-                    {option.label}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
+                <div className='flex flex-col md:flex-row items-center w-full  mx-auto md:gap-4 lg:gap-10  max-w-[800px] min-w-full p-4'>
+                  <div className='basis-1/2 flex flex-col w-full'>
+                    <Form.Item<FieldType>
+                      label="image"
+                      name="image"
+                      rules={[mode !== 'Edit' ? { required: true, message: 'Please upload image!' } : { required: false }]}
+                      hasFeedback
+                      className='text-xl font-semibold'
 
-            <Form.Item<FieldType>
-              label="role"
-              name="role"
-            >
-              <Input />
-            </Form.Item>
+                    >
+                      <div className='w-full mx-auto flex items-center justify-center'>
+                        <Upload
+                          name="avatar"
+                          listType="picture-card"
+                          className="avatar-uploader"
+                          showUploadList={false}
+                          beforeUpload={beforeUpload}
+                          onChange={handleChange}
+                          accept='image/png, image/jpeg'
+                        >
+                          {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                        </Upload>
+                      </div>
 
-            <Form.Item<FieldType>
-              label="joined_year"
-              name="joined_year"
-            >
-              <DatePicker 
-              onChange={onChange} 
-              picker="year" 
-              defaultValue={DateValue ? dayjs(`${DateValue}`) : undefined}
-              style={{ width: '100%' }} />
-            </Form.Item>
+                    </Form.Item>
 
-            <Form.Item<FieldType>
-              label="linkedin"
-              name="linkedin"
-            >
-              <Input />
-            </Form.Item>
+                    <Form.Item<FieldType>
+                      label="name"
+                      name="name"
+                      rules={[{ required: true, message: 'Please input your name!' }]}
+                      hasFeedback
+                      className='text-xl font-semibold'
 
-            <Form.Item<FieldType>
-              label="github"
-              name="github"
-            >
-              <Input />
-            </Form.Item>
+                    >
+                      <Input size='large' />
+                    </Form.Item>
 
-            <Form.Item<FieldType>
-              label="instagram"
-              name="instagram"
-            >
-              <Input />
-            </Form.Item>
+                    <Form.Item<FieldType>
+                      label="department"
+                      name="department"
+                      rules={[{ required: true, message: 'Please select department!' }]}
+                      hasFeedback
+                      className='text-xl font-semibold'
 
-            <Form.Item<FieldType>
-              label="AdmissionNo"
-              name="AdmissionNo"
-            >
-              <Input />
-            </Form.Item>
+                    >
+                      <Select
+                        style={{ width: '100%' }}
+                        showSearch
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          option?.props?.children?.toString().toLowerCase().includes(input.toLowerCase())
+                        }
+                        onChange={handleDepartmentChange}
+                        className="border rounded border-violet outline-none rounded-lg shadow  bg-cream-light font-medium transition-all duration-300 ease-in-out hover:outline hover:outline-offset-2 hover:outline-violet hover:border-transparent" size='large'
+                      >
+                        {DepartmentOptions.map(option => (
+                          <Select.Option key={option.value} value={option.value} data={{ short: option.short }}>
+                            {option.label}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
 
-            <Form.Item<FieldType>
-              label="profession"
-              name="profession"
-            >
-              <Input />
-            </Form.Item>
+                    <Form.Item<FieldType>
+                      label="role"
+                      name="role"
+                      rules={[{ required: true, message: 'Please input your role!' }]}
+                      hasFeedback
+                      className='text-xl font-semibold'
 
-            <Form.Item<FieldType>
-              label="active"
-              name="active"
-            >
-              <Select
-                defaultValue={true}
-                style={{ width: '100%' }}
-                onChange={handleStatusChange}
-                options={[
-                  { value: true, label: 'active' },
-                  { value: false, label: 'inactive' },
-                ]}
-              />
-            </Form.Item>
+                    >
+                      <Input size='large' />
+                    </Form.Item>
 
-            <Form.Item >
-              <Button type="primary" htmlType="submit" className='w-full'>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+                    <Form.Item<FieldType>
+                      label="joined_year"
+                      name="joined_year"
+                      rules={[mode !== 'Edit' ? { required: true, message: 'Please select joined year!' } : { required: false }]}
+                      hasFeedback
+                      className='text-xl font-semibold'
 
-        </div>
+                    >
+                      <DatePicker
+                        onChange={onChange}
+                        picker="year"
+                        defaultValue={mode === 'Edit' ? dayjs(`${DateValue}`) : undefined}
+                        style={{ width: '100%' }} size='large' />
+                    </Form.Item>
+                  </div>
+                  <div className='basis-1/2 flex flex-col w-full'>
+                    <Form.Item<FieldType>
+                      label="linkedin"
+                      name="linkedin"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Input size='large' />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                      label="github"
+                      name="github"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Input size='large' />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                      label="instagram"
+                      name="instagram"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Input size='large' />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                      label="AdmissionNo"
+                      name="AdmissionNo"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Input size='large' />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                      label="profession"
+                      name="profession"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Input size='large' />
+                    </Form.Item>
+
+                    <Form.Item<FieldType>
+                      label="active"
+                      name="active"
+                      className='text-xl font-semibold'
+                      hasFeedback
+
+                    >
+                      <Select
+                        size='large'
+                        defaultValue={true}
+                        style={{ width: '100%' }}
+                        onChange={handleStatusChange}
+                        options={[
+                          { value: true, label: 'active' },
+                          { value: false, label: 'inactive' },
+                        ]}
+                      />
+                    </Form.Item>
+                  </div>
+                </div>
+
+
+                <Form.Item className='mx-auto w-full'>
+                  <Button type="primary" htmlType="submit" className='mx-auto w-full' size='large'>
+                    Submit
+                  </Button>
+                </Form.Item>
+
+              </Form>
+            </div>
+          )}
+        </>
       )}
-
-      {/* <input
-        type="file"
-        onChange={(event :any) => {
-          setImageUpload(event.target.files?.[0] ?? null);
-        }}
-      /> */}
     </div>
-
-  )
+  );
 };
 
 export default App;

@@ -1,5 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { FaInstagram } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
+import { SlSocialLinkedin } from "react-icons/sl";
 import { Modal, Space, Table, Tag, message, Spin, Descriptions, Avatar, Badge } from 'antd';
 import type { TableProps, DescriptionsProps } from 'antd';
 import { db, auth, storage } from "@/app/server/config/firebase";
@@ -14,7 +17,7 @@ import {
 import { usePathname, useRouter } from 'next/navigation';
 import { ref, uploadBytes } from "firebase/storage";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { ExclamationCircleFilled , DeleteOutlined , EyeOutlined , EditOutlined  } from '@ant-design/icons'
+import { ExclamationCircleFilled, DeleteOutlined, EyeOutlined, EditOutlined } from '@ant-design/icons'
 interface DataType {
   key: any;
   name: string;
@@ -168,7 +171,9 @@ const Page: React.FC = () => {
   const handleAddNew = () => {
     Router.push('interns/add');
   }
-
+  const handleSocial = (url: any) => () => {
+    window.open(url, '_blank');
+  }
   const items: DescriptionsProps['items'] = [
     { label: 'Name', children: selectedIntern?.name },
     { label: 'Department', children: selectedIntern?.department },
@@ -191,7 +196,7 @@ const Page: React.FC = () => {
         <div>
 
           <div className='flex items-center justify-end'>
-            <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl'>
+            <button onClick={handleAddNew} className='bg-blue-500 p-2 my-6 min-w-[100px] rounded-xl text-white transition-all ease-in-out hover:bg-blue-600'>
               Add new
             </button>
           </div>
@@ -213,8 +218,14 @@ const Page: React.FC = () => {
                 src={selectedIntern?.imageUrl}
               />
             </div>
-
+            <div className='flex gap-4 my-2 items-center mx-auto w-full justify-center'>
+              <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(selectedIntern?.instagram)} />
+              <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(selectedIntern?.github)} />
+              <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(selectedIntern?.linkedin)} />
+            </div>
             <Descriptions items={items} layout="horizontal" bordered column={1} />
+
+
           </Modal>
 
         </div>

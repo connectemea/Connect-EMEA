@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker } from 'antd';
+import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker, Result } from 'antd';
 import dayjs from 'dayjs';
 import { usePathname, useRouter } from 'next/navigation';
 import { db, auth, storage } from '@/app/server/config/firebase';
@@ -30,6 +30,8 @@ type FieldType = {
   join_link?: string;
   Gallery?: [];
   Status?: string;
+  imageUrl?: string;
+  createdAt?: any;
 };
 const { TextArea } = Input;
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
@@ -60,6 +62,8 @@ const App: React.FC = (params: any) => {
   const [imgUrl, setimgUrl] = useState('')
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
+  const [submited, setSubmited] = useState(false)
+  const [fetchedData, setFetchedData] = useState<any>({});
   const pathname = usePathname();
   const router = useRouter()
   const [DateValue, setDateValue] = useState<any>(dayjs());
@@ -94,6 +98,7 @@ const App: React.FC = (params: any) => {
         join_link: data.join_link,
         Status: data.Status,
       });
+      setFetchedData(data);
       setimgUrl(data.imageUrl)
       setImageUrl(data.imageUrl)
       setLoadingPage(false)
@@ -153,6 +158,7 @@ const App: React.FC = (params: any) => {
         createdAt: serverTimestamp(),
         userId: auth?.currentUser?.uid,
       });
+      setSubmited(true);
       message.success('Document successfully added!');
       console.log('Document successfully added!');
     } catch (err) {
@@ -161,21 +167,44 @@ const App: React.FC = (params: any) => {
   };
 
   const updateEvent = async (values: any) => {
-    await updateDoc(docRef, {
-      name: values.title,
-      imageUrl: imgUrl,
-      Date: values.Date.toString(),
-      summary: values.summary,
-      short_description: values.short_description,
-      join_link: values.join_link,
-      Status: values.Status,
-    }).then(() => {
+    const updateData: any = {};
+
+    // Check if each field is different from the current value in the document
+    if (values.title !== fetchedData.name) {
+      updateData.name = values.title;
+    }
+    if (imgUrl && imgUrl !== fetchedData.imageUrl) {
+      updateData.imageUrl = imgUrl;
+    }
+    if (values.Date !== undefined && values.Date !== '') {
+      if (DateValue !== fetchedData.Date) {
+
+        updateData.Date = values.Date.toString();
+      }
+    }
+    if (values.summary !== fetchedData.summary) {
+      updateData.summary = values.summary;
+    }
+    if (values.short_description !== fetchedData.short_description) {
+      updateData.short_description = values.short_description;
+    }
+    if (values.join_link !== fetchedData.join_link) {
+      updateData.join_link = values.join_link;
+    }
+    if (values.Status !== fetchedData.Status) {
+      updateData.Status = values.Status;
+    }
+    console.log('Update data:', updateData);
+    // Update the document with the changed fields
+    await updateDoc(docRef, updateData).then(() => {
+      setSubmited(true);
       message.success('Document successfully updated!')
       console.log('Document successfully updated!');
     }).catch((error) => {
       console.error('Error updating document: ', error);
     });
   };
+
 
   const handleChange: UploadProps['onChange'] = (info) => {
     if (info.file.status === 'uploading') {
@@ -203,6 +232,7 @@ const App: React.FC = (params: any) => {
 
   const onChange = (date: any) => {
     console.log(date);
+    setDateValue(date);
     form.setFieldsValue({ Date: date });
   };
 
@@ -211,109 +241,144 @@ const App: React.FC = (params: any) => {
     console.log(value);
     form.setFieldsValue({ Status: value });
   }
-
+  const handleGoBack = () => {
+    router.push('/adminpanel/events')
+  }
+  const handleAddEvent = () => {
+    router.push('/adminpanel/events/add')
+  }
 
   return (
-    <div className='min-h-screen bg-gray-400' ref={parent}>
-      <h1 className='text-black text-center my-10 text-xl'>
-        {mode}
-      </h1>
-      {loadingPage ? (
+    <div className='min-h-screen' ref={parent}>
+      {submited ? (
         <div className='mx-auto flex items-center justify-center'>
-          <Spin size='large' />
+          <Result
+            status="success"
+            title="Successfully!"
+            subTitle="Intern added successfully."
+            extra={[
+              <Button type="primary" onClick={handleGoBack} key="console">
+                Go to Events
+              </Button>,
+              <Button onClick={handleAddEvent} key="buy">Add new Event</Button>,
+            ]}
+          />
         </div>
       ) : (
         <div>
-          <Form
-            form={form}
-            name="basic"
-            labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList={false}
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-            </Upload>
+          <h1 className='text-black text-center my-10 text-xl'>
+            {mode}
+          </h1>
+          {loadingPage ? (
+            <div className='mx-auto flex items-center justify-center'>
+              <Spin size='large' />
+            </div>
+          ) : (
+            <div className='w-full mx-auto flex items-center justify-center p-4'>
+              <Form
+                form={form}
+                name="basic"
+                style={{ width: '100%', maxWidth: 600 }}
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                layout='vertical'
+              >
+                <Form.Item<FieldType>
+                  label="imageUrl"
+                  name="imageUrl"
+                  rules={[mode !== 'Edit' ? { required: true, message: 'Please upload image!' } : { required: false }]}
+                  hasFeedback
+                >
+                  <div className='w-full mx-auto flex items-center justify-center '>
+                    <Upload
+                      name="avatar"
+                      listType="picture-card"
+                      className="avatar-uploader"
+                      showUploadList={false}
+                      beforeUpload={beforeUpload}
+                      onChange={handleChange}
+                      accept='image/png, image/jpeg'
+                    >
+                      {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                    </Upload>
+                  </div>
+                </Form.Item>
 
-            <Form.Item<FieldType>
-              label="title"
-              name="title"
-              rules={[{ required: true, message: 'Please input your name!' }]}
-            >
-              <Input />
-            </Form.Item>
+                <Form.Item<FieldType>
+                  label="title"
+                  name="title"
+                  rules={[{ required: true, message: 'Please input your name!' }]}
+                >
+                  <Input size='large' />
+                </Form.Item>
 
-            <Form.Item<FieldType>
-              label="Date"
-              name="Date"
-              rules={[{ required: true, message: 'Please input your date!' }]}
-            >
-              <DatePicker
-                defaultValue={DateValue}
-                onChange={onChange}
-              />
-            </Form.Item>
+                <Form.Item<FieldType>
+                  label="Date"
+                  name="Date"
+                  rules={[mode !== 'Edit' ? { required: true, message: 'Please input your date!' } : { required: false }]}
+                  hasFeedback
+                >
+                  <DatePicker
+                    defaultValue={mode === 'Edit' ? dayjs(DateValue) : undefined}
+                    onChange={onChange}
+                    style={{ width: '100%' }}
+                    size='large'
+                  />
+                </Form.Item>
 
-            <Form.Item<FieldType>
-              label="summary"
-              name="summary"
-            >
-              <TextArea rows={4} />
-            </Form.Item>
+                <Form.Item<FieldType>
+                  label="summary"
+                  name="summary"
+                  rules={[{ required: true, message: 'Please input your summary!' }]}
+                  hasFeedback
+                >
+                  <TextArea rows={4} size='large' />
+                </Form.Item>
 
-            <Form.Item<FieldType>
-              label="short description"
-              name="short_description"
-            >
-              <TextArea rows={2} maxLength={50} />
-            </Form.Item>
+                <Form.Item<FieldType>
+                  label="short description"
+                  name="short_description"
+                  rules={[{ required: true, message: 'Please input your short description!' }]}
+                  hasFeedback
+                >
+                  <TextArea rows={2} maxLength={100} size='large' />
+                </Form.Item>
 
-            <Form.Item<FieldType>
-              label="join link"
-              name="join_link"
-            >
-              <Input />
-            </Form.Item>
+                <Form.Item<FieldType>
+                  label="join link"
+                  name="join_link"
+                  hasFeedback
 
-            <Form.Item
-              label="Status"
-              name="Status"
-              rules={[]}
-            >
-              <Select onChange={handleStatusChange} options={[
-                { value: 'draft', label: 'draft' },
-                { value: 'Publish', label: 'Publish' },
-                { value: 'Cancel', label: 'Cancel' },
-              ]}
-              />
-            </Form.Item>
+                >
+                  <Input size='large' />
+                </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+                <Form.Item
+                  label="Status"
+                  name="Status"
+                  hasFeedback
+                >
+                  <Select onChange={handleStatusChange} options={[
+                    { value: 'draft', label: 'draft' },
+                    { value: 'Publish', label: 'Publish' },
+                    { value: 'Cancel', label: 'Cancel' },
+                  ]}
+                    size='large'
+                  />
+                </Form.Item>
+
+                <Form.Item >
+                  <Button type="primary" htmlType="submit" size='large' className='w-full'>
+                    Submit
+                  </Button>
+                </Form.Item>
+              </Form>
+            </div>
+          )}
         </div>
       )}
-
-      {/* <input
-        type="file"
-        onChange={(event :any) => {
-          setImageUpload(event.target.files?.[0] ?? null);
-        }}
-      /> */}
     </div>
 
   )
