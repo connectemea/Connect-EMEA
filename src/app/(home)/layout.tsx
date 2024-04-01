@@ -20,15 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const theme = localStorage.getItem('theme');
-  const body = document.querySelector('body');
-  if (body) {
-    if (theme === 'darkMode') {
-      body.classList.add('dark');
-    } else {
-      body.classList.remove('dark');
-    }
-  }
+
  
 
   return (

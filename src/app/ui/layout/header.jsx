@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef, useState , useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -29,27 +29,29 @@ function Header() {
             router.push('/');
         }
     }
-    const body = document.querySelector('body');
-    const theme = localStorage.getItem('theme');
+    const [theme, setTheme] = useState('lightMode');
+
     useEffect(() => {
-        if (theme === 'darkMode') {
-            body.classList.add('dark');
-        } else {
-            body.classList.remove('dark');
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            setTheme(currentTheme);
         }
     }, []);
-    
-    const toggleTheme = () => {
-        if (body) {
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                localStorage.setItem('theme', 'lightMode');
-            } else {
-                body.classList.add('dark');
-                localStorage.setItem('theme', 'darkMode');
-            }
+
+    useEffect(() => {
+        if (theme === 'darkMode') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
         }
+    }, [theme]);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'darkMode' ? 'lightMode' : 'darkMode';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
     };
+
     return (
         <header className='flex items-center justify-between h-[80px] p-4 bg-primary nav-border z-50 dark:bg-slate-200 dark:text-black'>
             <div className='custom-container flex justify-between items-center'>
@@ -57,7 +59,7 @@ function Header() {
                     <ScrollLink to='top' smooth={true} duration={500} offset={-70} onClick={handleLogo}>
                         <img src="/logo.png" alt="logo" />
                     </ScrollLink>
-                    <Switch defaultChecked={localStorage.getItem('theme') === 'darkMode'} onChange={toggleTheme} />
+                    <Switch defaultChecked={theme === 'darkMode'} onChange={toggleTheme} />
                 </div>
 
                 <nav ref={navRef} >
