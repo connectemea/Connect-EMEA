@@ -33,6 +33,7 @@ const App: React.FC = () => {
   const [parent, enableAnimations] = useAutoAnimate();
   const [loading, setLoading] = useState(false);
   const [submited, setSubmited] = useState(false);
+  const [Status, setStatus] = useState<boolean | null>(null);
   const router = useRouter();
 
 
@@ -75,8 +76,9 @@ const App: React.FC = () => {
       });
       setLoading(true);
       setTimeout(() => {
-        message.success('Document successfully added!');
+        message.success('successfully added!');
         setSubmited(true);
+        setStatus(true);
         setLoading(false);
       }, 1000);
       setTimeout(() => {
@@ -86,9 +88,23 @@ const App: React.FC = () => {
         form.resetFields();
         setSubmited(false);
       }, 3000);
-      console.log('Document successfully added!');
+      console.log('successfully added!');
     } catch (err) {
       console.error(err);
+      setLoading(true);
+      setTimeout(() => {
+        message.success('successfully added!');
+        setSubmited(true);
+        setStatus(false);
+        setLoading(false);
+      }, 1000);
+      setTimeout(() => {
+        router.push('/');
+      }, 2500);
+      setTimeout(() => {
+        form.resetFields();
+        setSubmited(false);
+      }, 3000);
     }
   };
 
@@ -126,27 +142,41 @@ const App: React.FC = () => {
     <div className='' ref={parent}>
       <div className='m-4 joinNow dark:bg-white dark:text-black'>
 
-        <div className="min-h-[450px] bg-white/10 backdrop-blur  text-center flex  w-full rounded-2xl shadow border border-gray-50 flex-col lg:flex-row overflow-hidden max-w-[1000px] mx-auto  my-24">
+        <div className="min-h-[450px] bg-white/10 backdrop-blur  text-center flex  w-full rounded-2xl shadow border border-gray-50 flex-col lg:flex-row  max-w-[1200px] mx-auto  my-24 overflow-hidden">
           {loading ? <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
             <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin sizes="large" />} />
           </div> : null}
-          {submited ? <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
-            <div className='bg-white p-10 rounded-xl shadow-lg'>
-              <h1 className='text-3xl md:text-4xl text-violet font-bold'>Thank you for joining us!</h1>
-              <p className='text-lg'>We will get back to you soon.</p>
+          {submited && Status === false && (
+            <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
+              <div className='bg-white p-10 rounded-xl shadow-lg'>
+                <h1 className='text-3xl md:text-4xl text-red-500 font-bold'>Error!</h1>
+                <p className='text-lg'>There was an error processing your request. Please try again later.</p>
+              </div>
             </div>
-          </div> : null}
+          )}
 
-          <div className='flex items-center justify-center basis-2/5   bg-white flex-col relative py-10 lg:py-0'>
-            <h1 className="text-3xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-dark-violet font-extrabold">Welcome to Connect</h1>
-            <img src='/Images/joinnow!.png' alt='Developer' className='absolute top-24 lg:top-56 z-0 w-[280px] md:w-full' />
-            <img src="/Images/joinnow.png" alt="macbook" className="max-w-[400px] md:max-w-[450px] z-10" />
+          {submited && Status === true && (
+            <div className='absolute top-0 left-0 w-full h-full bg-white/50 flex items-center justify-center z-50'>
+              <div className='bg-white p-10 rounded-xl shadow-lg'>
+                <h1 className='text-3xl md:text-4xl text-violet font-bold'>Thank you for joining us!</h1>
+                <p className='text-lg'>We will get back to you soon.</p>
+              </div>
+            </div>
+          )}
+
+
+          <div className='flex items-center justify-around basis-2/5 bg-gradient-to-b from-white via-cream to-cream  lg:via-white lg:to-white  flex-col relative py-10 lg:py-0  -m-1'>
+            <h1 className=" text-3xl sm:text-4xl lg:text-5xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-dark-violet font-extrabold">Welcome to Connect</h1>
+            <div className='lg:-mt-24 relative '>
+              <img src='/Images/joinnow!.png' alt='Developer' className='absolute left-0 right-0 top-2 mx-auto  z-0 w-[270px] sm:w-[300px] lg:w-[380px]' />
+              <img src="/Images/joinnow.png" alt="macbook" className="-mb-16 lg:-mb-0 max-w-[400px] sm:max-w-[450px] top-24 lg:top-56 lg:max-w-[550px] z-10" />
+            </div>
           </div>
-          <div className='flex flex-col mx-auto  basis-3/5 border w-full justify-center bg-cream  p-10 mx-auto'>
+          <div className='flex flex-col mx-auto  basis-3/5 border w-full justify-center bg-cream  p-10 mx-auto max-w-full'>
             <Form
               form={form}
               name="basic"
-              style={{ maxWidth: 600 }}
+              style={{ maxWidth: 500 }}
               initialValues={{ remember: true }}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}

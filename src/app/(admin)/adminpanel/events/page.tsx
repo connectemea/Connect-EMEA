@@ -158,6 +158,13 @@ const Page: React.FC = () => {
     Router.push('events/add');
   }
 
+  function FormatDate(timestamp: any): string {
+    const date = new Date(timestamp);
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear();
+    return `${month} ${date.getDate()}, ${year}`;
+  }
+
   return (
     <div className="min-h-screen bg-primary text-center p-6">
       <h1 className="text-4xl font-bold text-white pt-10 ">Events Page</h1>
@@ -181,19 +188,21 @@ const Page: React.FC = () => {
             onOk={handleOk}
             onCancel={handleCancel}
             footer={[
-              <Button key="back" onClick={handleCancel}>
-                Return
-              </Button>
+              // <Button key="back" onClick={handleCancel}>
+              //   Return
+              // </Button>
             ]}
             className="w-full max-w-4xl mx-auto"
           >
             <div className="flex flex-col md:flex-row items-center justify-center space-x-4">
               <img src={selectedEvent?.imageUrl} alt="event" className="w-full md:w-1/3 rounded-lg" />
-              <div className="flex flex-col justify-center md:w-2/3 space-y-4">
+              <div className="flex flex-col justify-center md:w-2/3 space-y-2">
                 <h1 className="text-2xl font-bold">{selectedEvent?.title}</h1>
-                <p className="">{selectedEvent?.Date}</p>
+                <p className="">{FormatDate(selectedEvent?.Date)}</p>
                 <p className="text-blue-500">{selectedEvent?.link}</p>
-                <p className="">{selectedEvent?.Status}</p>
+                <Tag color={selectedEvent?.Status === 'Publish' ? 'green' : 'volcano'} key={selectedEvent?.Status} className='w-fit h-fit'>
+                  {selectedEvent?.Status}
+                </Tag>
                 <p className="text-gray-600">{selectedEvent?.short_description}</p>
               </div>
             </div>

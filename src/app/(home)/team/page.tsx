@@ -251,11 +251,11 @@ const Page: React.FC = () => {
                                 {coremembers.length > 0 ? (
                                     <div key={selectedYear} className='flex gap-4 md:gap-10 items-center justify-center flex-wrap' ref={parent}>
                                         {sortedCoremembers.map((member: any) => (
-                                            <div key={member.id} className='min-h-[140px] md:min-h-[260px]  rounded-md  max-w-[220px] min-w-[145px] md:min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
-                                                <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[70px] md:h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
+                                            <div key={member.id} className='min-h-[160px] md:min-h-[260px]  rounded-md  max-w-[220px] min-w-[160px] md:min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
+                                                <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[80px] md:h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
                                                 </div>
                                                 <div className='bg-slate-200 flex items-center justify-center h-[10px]'>
-                                                    <div className={`-translate-y-2 md:-translate-y-4 h-[80px] w-[80px] md:h-[120px] md:w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
+                                                    <div className={`-translate-y-2 md:-translate-y-4 h-[85px] w-[85px] md:h-[120px] md:w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
                                                         <img src={`${member.image}`} alt={member.name} className='w-full h-full object-cover rounded-full' />
                                                     </div>
                                                 </div>
@@ -266,10 +266,10 @@ const Page: React.FC = () => {
                                                     </div>
                                                 )}
 
-                                                <div className='h-[110px] md:h-[160px] bg-slate-200 flex items-center justify-center gap-0 md:pt-4 flex-col'>
+                                                <div className='h-[120px] md:h-[160px] bg-slate-200 flex items-center justify-center gap-0 md:pt-4 flex-col'>
                                                     <p className='text-md md:text-lg font-bold capitalize'>{member.name}</p>
                                                     <p className='text-gray-500 font-medium uppercase text-[10px] md:text-sm'>{member.position}</p>
-                                                    <div className='flex gap-4 mt-2 md:mt-4 -mb-2'>
+                                                    <div className='flex gap-4 mt-2 md:mt-4 -mb-4'>
                                                         <FaInstagram className=' text-secondary text-xl cursor-pointer  transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.instagram, '_blank')} />
                                                         <FiGithub className={` text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 `} onClick={() => window.open(member.social.github, '_blank')} />
                                                         <SlSocialLinkedin className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.linkedin, '_blank')} />

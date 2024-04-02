@@ -74,7 +74,7 @@ const App: React.FC = (params: any) => {
     return parts[parts.length - 1];
   };
   let id = mode === 'Edit' ? getIdFromPathname(pathname) : null;
-  const docRef = doc(db, `Events/${id}`)
+  const docRef = doc(db, `Events/${id}`);
 
   useEffect(() => {
     if (mode === 'Edit') {
@@ -386,3 +386,36 @@ const App: React.FC = (params: any) => {
 };
 
 export default App;
+
+
+// export async function getStaticPaths() {
+//   // Fetch paths from Firestore
+//   // Example: Fetch all event IDs from Firestore
+
+//   const pathname = usePathname();
+//   let mode = pathname.includes('/edit') ? 'Edit' : 'Add';
+//   const getIdFromPathname = (pathname: any) => {
+//     const parts = pathname.split('-');
+//     return parts[parts.length - 1];
+//   };
+
+
+//   let id = mode === 'Edit' ? getIdFromPathname(pathname) : null;
+//   const docRef = doc(db, 'Events', id);
+//   const eventsSnapshot = await getDoc(docRef);
+  
+//   // Ensure that the document exists before creating paths
+//   if (eventsSnapshot.exists()) {
+//     return {
+//       paths: [{ params: { mode: id } }],
+//       fallback: false,
+//     };
+//   } else {
+//     console.error('Document does not exist');
+//     return {
+//       paths: [],
+//       fallback: false,
+//     };
+//   }
+  
+// }

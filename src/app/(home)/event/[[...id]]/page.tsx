@@ -1,12 +1,15 @@
 "use client";
+
+// import { GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Image, Skeleton , Empty } from 'antd';
+import { Button, Modal, Image, Skeleton, Empty } from 'antd';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { FaTimes } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { db, auth, storage } from "@/app/config/firebase";
 import {
   getDocs,
+  getDoc,
   collection,
   addDoc,
   deleteDoc,
@@ -18,7 +21,54 @@ import {
 import '@/app/styles/event.css';
 import { usePathname } from 'next/navigation';
 
-const EventPage: React.FC = () => {
+// export const getStaticProps: GetStaticProps = async ({ params }) => {
+//   // params contains the eventId from the URL
+//   const pathname = usePathname();
+//   const eventId = params?.eventId;
+//   const id: string = pathname.split('/').pop() || '';
+
+//   // Fetch event data from Firestore using the eventId
+//   const eventRef = doc(db, 'Events', id);
+//   const eventDoc = await getDoc(eventRef);
+  
+//   if (!eventDoc.exists()) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+
+//   const event = eventDoc.data();
+
+//   // Pass event data as props to the page component
+//   return {
+//     props: {
+//       event,
+//     },
+//   };
+// };
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   // Fetch a list of all event IDs from your API
+//   const eventsCollection = collection(db, 'Events');
+//   const data = await getDocs(query(eventsCollection, where('Status', '==', 'Publish')));
+//   const events = data.docs.map((doc) => doc.id);
+
+//   // Generate paths for each event ID
+//   const paths = events.map((eventId) => ({
+//     params: { eventId },
+//   }));
+
+//   // Return the paths to Next.js
+//   return {
+//     paths,
+//     fallback: false, // or true if you want to use fallback behavior
+//   };
+// };
+
+
+
+
+const EventPage: React.FC = (params: any) => {
   const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<any>([]);
@@ -27,7 +77,7 @@ const EventPage: React.FC = () => {
   const [eventsFetched, setEventsFetched] = useState(false);
   const [pending, setPending] = useState(true);
   const pathname = usePathname();
-
+  console.log("Pathname:", params);
   const showModal = (event: any) => {
     setIsModalOpen(true);
     setSelectedEvent(event);
@@ -98,8 +148,8 @@ const EventPage: React.FC = () => {
         ) : (
           events.length === 0 ? (
             <div className='flex items-center justify-center'>
-                                    <Empty description="No Interns Found" />
-                                </div>
+              <Empty description="No Interns Found" />
+            </div>
           ) :
             events.map((event: any) => (
               <div key={event.key} className='bg-white rounded-lg flex flex-col gap-1 sm:gap-2 items-center justify-center h-fit max-w-[150px] sm:max-w-[260px] min-w-[150px] sm:min-w-[240px] p-2 sm:p-4 ' >

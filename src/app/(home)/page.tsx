@@ -22,7 +22,7 @@ export default function Home() {
           <div className=" mx-auto">
             <img src="/Images/macbook.png" alt="macbook" className="w-full max-w-[400px] sm:max-w-full mx-auto" />
           </div>
-          <div className="text-center md:text-left">
+          <div className="text-center lg:text-left">
             <h1 className="text-4xl  md:text-6xl  mb-4 bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 font-extrabold">Who are we?</h1>
             <div className="dark:text-black text-white max-w-xl p-4 ">
               {/* <TextGenerateEffectDemo /> */}
@@ -32,7 +32,7 @@ export default function Home() {
         </section>
 
 
-        <section className="my-10  mx-auto lg:px-10">
+        <section className=" mb-10 mt-0 lg:my-10  mx-auto lg:px-10">
           <PiontCard />
         </section>
 
