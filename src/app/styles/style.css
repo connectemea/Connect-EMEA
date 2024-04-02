@@ -258,6 +258,36 @@ header nav {
     0 0 100px #ffffff;
 }
 
+.curved-line {
+  position: relative;
+  width: 200px; /* Adjust the width as needed */
+  height: 2px; /* Adjust the height as needed */
+  background-color: transparent; /* Set background color to transparent */
+  overflow: hidden; /* Hide overflow to prevent arrow from overflowing */
+}
+
+.curved-line::after {
+  content: '';
+  position: absolute;
+  top: -6px; /* Adjust the position of the arrow */
+  right: -6px; /* Adjust the position of the arrow */
+  width: 12px; /* Width of the arrow */
+  height: 12px; /* Height of the arrow */
+  background-color: white; /* Color of the arrow */
+  transform: rotate(45deg); /* Rotate the arrow to point right */
+  z-index: 1; /* Ensure arrow is on top of the line */
+}
+
+.curved-line::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px dashed white; /* Adjust the dashed line style */
+  z-index: 0; /* Ensure the dashed line is behind the arrow */
+}
+
 
 .box {
   position: absolute;

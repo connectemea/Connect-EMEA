@@ -12,7 +12,6 @@ import '@/app/styles/style.css';
 
 export default function Home() {
 
-
   return (
     <div className="dark:bg-slate-50 dark:text-black bg-primary">
       <BackgroundBeamsDemo />
@@ -64,8 +63,43 @@ export default function Home() {
         <section>
           <h1 className="text-4xl md:text-6xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70 my-10 font-extrabold text-center">How to Join?
           </h1>
-          <div className="my-20 text-center text-xl font-bold text-white  dark:text-black">
-            Coming Soon!
+          <div className="my-20 text-center text-xl font-bold text-white  dark:text-black select-none flex gap-2 flex-col lg:flex-row ">
+            <div className="flex min-w-full justify-around lg:min-w-fit">
+              <div className="max-w-[250px] flex flex-col gap-2 items-center justify-center ">
+                <div className="bg-gradient-to-b from-secondary to-violet h-24 w-24 rounded-2xl !rounded-bl-none" />
+                <h1 className="text-md text-violet">step 1</h1>
+                <p className="!font-normal text-[12px] leading-5">
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                </p>
+              </div>
+              <img src="/img/curveline-3.svg" alt="arrow" className="w-28 block lg:hidden" />
+            </div>
+
+            <div className="flex items-start justify-start min-h-full w-full py-4">
+              <img src="/img/curveline-1.svg" alt="arrow" className="w-60 hidden lg:block" />
+            </div>
+
+            <div className="flex min-w-full lg:min-w-fit justify-around">
+              <img src="/img/curveline-4.svg" alt="arrow" className="w-36 block lg:hidden" />
+              <div className="max-w-[250px] flex flex-col gap-2 items-center justify-center ">
+                <div className="bg-gradient-to-b from-secondary to-violet h-24 w-24 rounded-2xl !rounded-bl-none" />
+                <h1 className="text-md text-violet">step 2</h1>
+                <p className="!font-normal text-[12px] leading-5">
+                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-center min-h-full w-full py-4">
+              <img src="/img/curveline-2.svg" alt="arrow" className="w-60  mb-10 hidden lg:block" />
+
+            </div>
+            <div className="max-w-[250px] flex flex-col gap-2 items-center justify-center ">
+              <div className="bg-gradient-to-b from-secondary to-violet h-24 w-24 rounded-2xl !rounded-bl-none" />
+              <h1 className="text-md text-violet">step 3</h1>
+              <p className="!font-normal text-[12px] leading-5">
+                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+              </p>
+            </div>
           </div>
         </section>
       </main>
