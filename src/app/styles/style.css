@@ -193,47 +193,71 @@ header nav {
 
 @media (max-width: 627px) {
   .parent-point-card {
-     display: flex;
-     flex-direction: column;
-     gap: 1rem;
-   }
-   .parent-point-card:nth-child(1n){
-     transform: translateX(-70px);
-   }
-   .parent-point-card:nth-child(2n){
-     transform: translateX(70px);
- 
-   }
- }
- @media (max-width: 480px) {
-  .parent-point-card {
-     display: flex;
-     flex-direction: column;
-     gap: 1rem;
-   }
-   .parent-point-card:nth-child(1n){
-     transform: translateX(-40px);
-   }
-   .parent-point-card:nth-child(2n){
-     transform: translateX(40px);
- 
-   }
- }
-
-@media (max-width: 400px) {
- .parent-point-card {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
-  .parent-point-card:nth-child(1n){
+
+  .parent-point-card:nth-child(1n) {
+    transform: translateX(-70px);
+  }
+
+  .parent-point-card:nth-child(2n) {
+    transform: translateX(70px);
+
+  }
+}
+
+@media (max-width: 480px) {
+  .parent-point-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .parent-point-card:nth-child(1n) {
+    transform: translateX(-40px);
+  }
+
+  .parent-point-card:nth-child(2n) {
+    transform: translateX(40px);
+
+  }
+}
+
+@media (max-width: 400px) {
+  .parent-point-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .parent-point-card:nth-child(1n) {
     transform: translateX(-25px);
   }
-  .parent-point-card:nth-child(2n){
+
+  .parent-point-card:nth-child(2n) {
     transform: translateX(25px);
 
   }
 }
+
+.iconSocial {
+  transition: all 0.3s ease;
+  border-radius: 5px;
+}
+
+.iconSocial:hover,
+.iconSocial:focus,
+.iconSocial:active {
+  background-color: #ffffffd8;
+  color: #A33FF8;
+  box-shadow: 0 0 5px #ffffff,
+    0 0 25px #ffffff,
+    0 0 50px #ffffff,
+    0 0 100px #ffffff;
+}
+
 
 .box {
   position: absolute;
@@ -285,7 +309,6 @@ header nav {
     0 0 25px #ffffff,
     0 0 50px #ffffff,
     0 0 100px #ffffff;
-
 }
 
 

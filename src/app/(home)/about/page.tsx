@@ -6,7 +6,7 @@ const About: React.FC = () => {
     return (
         <div className='bg-primary min-h-screen py-20 text-white text-center overflow-hidden dark:bg-white dark:text-black'>
             {/* background image */}
-            {/* <img src="/Visual.png" alt="macbook" className=" fixed z-10 opacity-50 top-10  w-[100%] left-0 right-0 h-[100%]" /> */}
+            {/* <img src="/img/Visual.png" alt="macbook" className=" fixed z-10 opacity-50 top-10  w-[100%] left-0 right-0 h-[100%]" /> */}
 
             <main className='mx-auto flex items-center flex-col custom-container z-20 text-white text-center  dark:text-black'>
 
@@ -18,7 +18,7 @@ const About: React.FC = () => {
                 </h2>
                 <section className='flex flex-row items-center justify-center mx-auto my-16 gap-2'>
                     <div className='basis-1/2 -ml-36 flex items-center justify-center w-full h-full TheFLex1'>
-                        <img src="/image/about-1.png" alt="logo" className="w-full h-full max-w-[450px]" />
+                        <img src="/img/about-1.png" alt="logo" className="w-full h-full max-w-[450px]" />
                     </div>
                     <div className='basis-1/2 TheFLex1'>
                         <div>
@@ -67,7 +67,7 @@ const About: React.FC = () => {
                         </div>
                     </div>
                     <div className='basis-1/2 -mr-36 flex items-center justify-center w-full h-full TheFLex1'>
-                        <img src="/image/about-vission.png" alt="logo" className="w-full h-full max-w-[450px]" />
+                        <img src="/img/about-vission.png" alt="logo" className="w-full h-full max-w-[450px]" />
                     </div>
                 </section>
                 <section className='flex flex-col  w-full items-center justify-around my-16 bg-white/10 border border-gray-600/50 rounded-2xl min-h-[800px] relative p-4 md:p-16'>
@@ -78,7 +78,7 @@ const About: React.FC = () => {
                     </div>
                     <div className='flex gap-6 md:gap-16 flex-col md:flex-row my-8 md:my-0'>
                         <div className='bg-white/20  flex flex-col items-center justify-around rounded-[40px] max-w-[360px] p-10 gap-4'>
-                            <img src='/image/Tinkerhub.png' alt="logo" className="w-auto h-16 md:h-24" />
+                            <img src='/Logos/Tinkerhub.png' alt="logo" className="w-auto h-16 md:h-24" />
                             <h1 className='text-xl md:text-3xl font-bold'>
                                 TinkerHub EMEA
                             </h1>
@@ -87,7 +87,7 @@ const About: React.FC = () => {
                             </p>
                         </div>
                         <div className='bg-white/20  flex flex-col items-center justify-around rounded-[40px] max-w-[360px] p-10 gap-4'>
-                            <img src='/image/SheHikeLogo.png' alt="logo" className="w-auto h-16 md:h-24" />
+                            <img src='/Logos/SheHikeLogo.png' alt="logo" className="w-auto h-16 md:h-24" />
                             <h1 className='text-xl md:text-3xl font-bold'>
                                 SheHike
                             </h1>
@@ -96,7 +96,7 @@ const About: React.FC = () => {
                             </p>
                         </div>
                     </div>
-                    <img src='/image/emeacollege.png' alt="logo" className="absolute bottom-0 w-full" />
+                    <img src='/Images/emeacollege.png' alt="logo" className="absolute bottom-0 w-full" />
                 </section>
             </main>
 

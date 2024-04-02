@@ -171,7 +171,7 @@ function RootLayout({ children }: RootLayoutProps) {
             <div className="demo-logo-vertical" />
             <Link href="/">
             <div className="logo" >
-              <img src="/logo.png" alt="logo" className="mx-auto my-10 mt-4" />
+              <img src="/Logos/logo.png" alt="logo" className="mx-auto my-10 mt-4" />
             </div>
             </Link>
             <Menu

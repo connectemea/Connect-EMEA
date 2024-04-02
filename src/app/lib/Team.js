@@ -7,9 +7,9 @@ const founders = [
         profession: 'Office Manager',
         department: 'Bsc cs',
         social: {
-            linkedin: 'https://www.instagram.com/',
-            github: 'https://www.instagram.com/',
-            instagram: 'https://www.instagram.com/'
+            linkedin: 'https://www.linkedin.com/in/salmanulfariscc/',
+            github: 'https://github.com/SALMANULFARISCC/',
+            instagram: 'https://www.instagram.com/salman__fari/'
         }
     },
     {

@@ -168,7 +168,7 @@ const App: React.FC = () => {
           <div className='flex items-center justify-around basis-2/5 bg-gradient-to-b from-white via-cream to-cream  lg:via-white lg:to-white  flex-col relative py-10 lg:py-0  -m-1'>
             <h1 className=" text-3xl sm:text-4xl lg:text-5xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-dark-violet font-extrabold">Welcome to Connect</h1>
             <div className='lg:-mt-24 relative '>
-              <img src='/Images/joinnow!.png' alt='Developer' className='absolute left-0 right-0 top-2 mx-auto  z-0 w-[270px] sm:w-[300px] lg:w-[380px]' />
+              <img src='/img/joinnow!.png' alt='Developer' className='absolute left-0 right-0 top-2 mx-auto  z-0 w-[270px] sm:w-[300px] lg:w-[380px]' />
               <img src="/Images/joinnow.png" alt="macbook" className="-mb-16 lg:-mb-0 max-w-[400px] sm:max-w-[450px] top-24 lg:top-56 lg:max-w-[550px] z-10" />
             </div>
           </div>

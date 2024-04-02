@@ -154,7 +154,7 @@ const EventPage: React.FC = (params: any) => {
             events.map((event: any) => (
               <div key={event.key} className='bg-white rounded-lg flex flex-col gap-1 sm:gap-2 items-center justify-center h-fit max-w-[150px] sm:max-w-[260px] min-w-[150px] sm:min-w-[240px] p-2 sm:p-4 ' >
                 <div className='bg-dark-violet rounded-lg min-h-[130px] sm:min-h-[200px]  min-w-[100%] flex items-center justify-center'>
-                  <img src={event?.imageUrl} alt='event' className='max-w-[130px] sm:w-full object-cover sm:h-full max-h-[130px] sm:max-h-[200px] rounded-xl' />
+                  <img src={event?.imageUrl} alt='event' className='max-w-[130px] sm:w-full object-cover sm:h-full max-h-[130px] sm:max-h-[200px] rounded-xl sm:max-w-[250px] sm:max-h-[200px]' />
                 </div>
                 <div className='text-black flex items-start justify-start w-full'>
                   <p className='font-bold text-sm sm:text-md'>
@@ -175,15 +175,15 @@ const EventPage: React.FC = (params: any) => {
           <FaTimes className='absolute -top-8 md:-top-6 right-0 md:-right-6 z-40 text-white dark:bg-white dark:text-black text-xl cursor-pointer dark:bg-white dark:text-black' onClick={handleCancel} />
           <div className='bg-white rounded-2xl overflow-hidden'>
             <div className="relative h-48 rounded-t-xl overflow-hidden">
-              <img src='/image/Rectangle 40.png' alt='event' className='absolute top-0 z-10' />
-              <img src='/image/Group 25.png' alt='event' className='absolute top-0 z-20 h-fit w-full opacity-30' />
-              <img src='/logo.png' alt='event' className='absolute top-6 right-6 z-30 ' />
+              <img src='/img/Rectangle 40.png' alt='event' className='absolute top-0 z-10' />
+              <img src='/img/buble.png' alt='event' className='absolute top-0 z-20 h-fit w-full opacity-30' />
+              <img src='/Logos/logo.png' alt='event' className='absolute top-6 right-6 z-30 ' />
             </div>
             <div className='relative z-40  pb-20 '>
               <div className='flex gap-4'>
 
                 <div className='border-[10px] border-white bg-white shadow-xl rounded-xl ml-10 w-fit h-fit relative -mt-28 overflow-hidden'>
-                  <img src={selectedEvent?.imageUrl} alt='event' className='w-full max-w-[280px] h-full max-h-[240px] rounded-xl min-w-[200px] min-h-[160px]' />
+                  <img src={selectedEvent?.imageUrl} alt='event' className='w-full max-w-[280px]  h-full max-h-[240px] rounded-xl min-w-[200px] min-h-[160px]' />
                 </div>
                 <div className='mt-4'>
                   <h1 className='text-xl font-bold uppercase'>

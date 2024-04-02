@@ -193,9 +193,9 @@ const Page: React.FC = () => {
                             <div key={founder.id} className='bg-[#1B1B1B] min-h-[140px] sm:min-h-[240px]  rounded-lg  max-w-[300px] min-w-[160px] sm:min-w-[230px] mx-auto shadow text-white'>
                                 <div className='relative z-10'>
                                     <div className='mt-2 mx-auto p-4 z-20 sm:h-[300px] relative'>
-                                        <img src={`Images/founders/${founder.image}`} alt={founder.name} className=' w-[120px] h-[150px] sm:w-full sm:h-full object-cover rounded-md z-30' />
+                                        <img src={`/founders/${founder.image}`} alt={founder.name} className=' w-[120px] h-[150px] sm:w-full sm:h-full object-cover rounded-md z-30' />
                                         <div className='absolute top-0 left-0 w-full h-full' style={{ zIndex: -10 }}>
-                                            <img src='/Images/bg-traingle.png' alt='overlay' className='w-auto h-auto sm:w-full sm:h-full  object-cover rounded-md' style={{ zIndex: -10 }} />
+                                            <img src='/img/bg-traingle.png' alt='overlay' className='w-auto h-auto sm:w-full sm:h-full  object-cover rounded-md' style={{ zIndex: -10 }} />
                                         </div>
                                     </div>
                                 </div>

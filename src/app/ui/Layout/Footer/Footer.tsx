@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaInstagram , FaLinkedin , FaGithub } from "react-icons/fa";
+import { FaInstagram, FaLinkedin, FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import '@/app/styles/style.css';
 const Footer: React.FC = () => {
     return (
         <div className='bg-primary text-white z-20 dark:bg-white dark:text-black'>
@@ -23,21 +24,32 @@ const Footer: React.FC = () => {
                     </ul>
                     <div className='p-4 flex flex-col justify-end md:justify-start gap-2'>
                         <div className=''>
-                            <img src="/logo.png" alt="logo w-20 h-20" />
+                            <img src="/Logos/logo.png" alt="logo w-20 h-20" />
                         </div>
                         <div className='md:flex-1 flex items-center  justify-end md:justify-center md:h-full gap-2 text-black'>
-                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
-                                <FaInstagram />
-                            </span>
-                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
-                                <FaLinkedin />
-                            </span>
-                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
-                                <FaGithub />
-                            </span>
-                            <span className='text-white  dark:text-black text-xl cursor-pointer'>
-                                <MdEmail />
-                            </span>
+                            <Link href="https://connectemea.in/" className='iconSocial'>
+                                <span className='text-white  dark:text-black text-xl cursor-pointer transition-all ease-in-out iconSocial'>
+                                    <FaInstagram />
+                                </span>
+                            </Link>
+                            <Link href="https://connectemea.in/" className='iconSocial'>
+
+                                <span className='text-white  dark:text-black text-xl cursor-pointer iconSocial'>
+                                    <FaLinkedin />
+                                </span>
+                            </Link>
+                            <Link href="https://connectemea.in/" className='iconSocial'>
+
+                                <span className='text-white  dark:text-black text-xl cursor-pointer iconSocial'>
+                                    <FaGithub />
+                                </span>
+                            </Link>
+                            <Link href="https://connectemea.in/" className='iconSocial'>
+
+                                <span className='text-white  dark:text-black text-xl cursor-pointer iconSocial'>
+                                    <MdEmail />
+                                </span>
+                            </Link>
                         </div>
 
                     </div>

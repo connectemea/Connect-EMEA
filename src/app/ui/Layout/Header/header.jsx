@@ -36,7 +36,7 @@ function Header() {
             <div className='custom-container flex justify-between items-center'>
                 <div className='cursor-pointer'>
                     <ScrollLink to='top' smooth={true} duration={500} offset={-70} onClick={handleLogo}>
-                        <img src="/logo.png" alt="logo" />
+                        <img src="/Logos//logo.png" alt="logo" />
                     </ScrollLink>
                 </div>
 

@@ -43,7 +43,7 @@ export function BackgroundBeamsDemo() {
           </Link>
       </div>
       <div className="relative z-20 flex items-center justify-center mt-10">
-      <img src="/Images/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-24 md:-top-28 w-[90%] -z-10 dark:hidden" />
+      <img src="/img/Gradient.png" alt="macbook" className="absolute  h-[280px] -top-24 md:-top-28 w-[90%] -z-10 dark:hidden" />
       <img src="/Images/groupImage.png" alt="macbook" className="z-50 w-[90%] custom-container" />
       </div>
       </div>

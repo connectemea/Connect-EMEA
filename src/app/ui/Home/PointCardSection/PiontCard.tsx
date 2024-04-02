@@ -18,7 +18,6 @@ export function PiontCard() {
                 <div className='items-start'>
                   <span>
                     <BsCaretRight className='text-[22px] sm:text-[28px] text-secondary' />
-                    {/* <img src='/icons/arrow.png' alt='notification' /> */}
                   </span>
 
                 </div>
