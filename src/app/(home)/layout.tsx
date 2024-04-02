@@ -1,9 +1,9 @@
 "use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Footer from "../ui/layout/Footer";
-import "../ui/styles/globals.css";
-import Header from "../ui/layout/header";
+import Footer from "@/app/ui/Layout/Footer/Footer";
+import "@/app/styles/globals.css";
+import Header from "@/app/ui/Layout/Header/header";
 import { FloatButton, Switch } from 'antd';
 
 
@@ -20,8 +20,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-
- 
 
   return (
     <html lang="en" >

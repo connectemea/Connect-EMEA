@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker, Result } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
-import { db, auth, storage } from '@/app/server/config/firebase';
+import { db, auth, storage } from '@/app/config/firebase';
 import {
   collection,
   addDoc,

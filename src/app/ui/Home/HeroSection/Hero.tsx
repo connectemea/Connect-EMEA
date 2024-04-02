@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { BackgroundBeams } from "../../../components/ui/background-beams";
-import { TypewriterEffectSmooth } from "../../../components/ui/typewriter-effect";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 
 import Link from 'next/link';
  
@@ -31,7 +31,7 @@ export function BackgroundBeamsDemo() {
           Lorem ipsum dolor sit amet
         </h1> */}
         <TypewriterEffectSmooth words={words} />
-        <p className="text-neutral-500 max-w-lg mx-auto my-2 mt-0 text-center relative z-10 dark:text-black">
+        <p className="text-neutral-500 max-w-lg mx-auto my-2 mt-0 text-sm md:text-md text-center relative z-10 dark:text-black">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
           incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam

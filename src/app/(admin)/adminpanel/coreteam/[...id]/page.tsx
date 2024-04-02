@@ -2,7 +2,7 @@
 import React, { useState, useEffect, use } from 'react';
 import { Modal, Space, Table, Tag, message, Select, Form, type FormProps, Input, Button } from 'antd';
 import type { TableProps } from 'antd';
-import { db, auth, storage } from "@/app/server/config/firebase";
+import { db, auth, storage } from "@/app/config/firebase";
 import {
   getDocs,
   getDoc,

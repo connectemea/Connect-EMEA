@@ -1,12 +1,12 @@
 "use client";
 // import { MacbookScrollDemo } from "./ui/Home/Macbook";
-import { BackgroundBeamsDemo } from "../ui/Home/Hero";
-import { PiontCard } from "../ui/Home/PiontCard";
-import { TextGenerateEffectDemo } from "../ui/Home/ConnectText";
-import Slider from "../ui/Home/Events";
-import Team from "../ui/Home/Team";
-import Suggestion from "../ui/Home/Suggestion";
-import '../ui/styles/style.css';
+import { BackgroundBeamsDemo } from "@/app/ui/Home/HeroSection/Hero";
+import { PiontCard } from "@/app//ui/Home/PointCardSection/PiontCard";
+import { TextGenerateEffectDemo } from "@/app/ui/Home/FadeAnimationText/Text";
+import Slider from "@/app/ui/Home/EventsSlideSection/Events";
+import Team from "@/app/ui/Home/TeamSection/Team";
+import Suggestion from "@/app/ui/Home/SuggestionSection/Suggestion";
+import '@/app/styles/style.css';
 
 
 

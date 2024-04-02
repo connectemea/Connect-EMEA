@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../../../server/components/auth';
+import Login from '@/app/config/auth';
 
 const AdminPanel: React.FC = () => {
     return (

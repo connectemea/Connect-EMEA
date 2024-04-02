@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Spin, Form, type FormProps, Input, message, Upload, Select, DatePicker, Result } from 'antd';
 import dayjs from 'dayjs';
 import { usePathname, useRouter } from 'next/navigation';
-import { db, auth, storage } from '@/app/server/config/firebase';
+import { db, auth, storage } from '@/app/config/firebase';
 import {
   collection,
   addDoc,
@@ -67,6 +67,7 @@ const App: React.FC = (params: any) => {
   const pathname = usePathname();
   const router = useRouter()
   const [DateValue, setDateValue] = useState<any>(dayjs());
+  console.log('Pathname:', params);
   let mode = pathname.includes('/edit') ? 'Edit' : 'Add';
   const getIdFromPathname = (pathname: any) => {
     const parts = pathname.split('-');

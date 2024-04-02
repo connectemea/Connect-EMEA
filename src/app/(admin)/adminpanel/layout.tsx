@@ -1,7 +1,7 @@
 "use client";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../../ui/styles/globals.css";
+import "@/app/styles/globals.css";
 import Link from "next/link";
 import React, { useState, createContext, useEffect } from 'react';
 import {
@@ -12,7 +12,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme, Modal , FloatButton } from 'antd';
-import { auth } from '@/app/server/config/firebase';
+import { auth } from '@/app/config/firebase';
 import { signOut } from "firebase/auth";
 import { usePathname, useRouter } from 'next/navigation';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
@@ -63,13 +63,21 @@ function RootLayout({ children }: RootLayoutProps) {
     }
   }, [pathname]);
 
+  // const user = auth.currentUser;
+  // useEffect(() => {
+  //   if (!!user) {
+  //     // Router.push('/adminpanel');
+  //   }else {
+  //     Router.push('/admin');
+  //   }
+  // }, [user]);
 
   auth.onAuthStateChanged((user) => {
     if (user) {
       console.log('User is signed in', user);
     } else {
       console.log('User is not signed in');
-      Router.push('/admin/auth/signin');
+      Router.push('/admin');
     }
   });
 

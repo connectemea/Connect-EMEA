@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider } from "antd";
-import '../../ui/styles/style.css'
+import '@/app/styles/style.css'
 
 const About: React.FC = () => {
     return (

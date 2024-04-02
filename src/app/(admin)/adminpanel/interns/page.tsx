@@ -5,7 +5,7 @@ import { FiGithub } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { Modal, Space, Table, Tag, message, Spin, Descriptions, Avatar, Badge } from 'antd';
 import type { TableProps, DescriptionsProps } from 'antd';
-import { db, auth, storage } from "@/app/server/config/firebase";
+import { db, auth, storage } from "@/app/config/firebase";
 import {
   getDocs,
   collection,

@@ -1,5 +1,5 @@
 import React from 'react';
-import Preloader from '../ui/Preloader';
+import Preloader from '@/app/ui/Preloader/loader';
 
 const Loading = () => {
     return (

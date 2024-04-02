@@ -11,12 +11,12 @@ import { useAutoAnimate } from '@formkit/auto-animate/react'
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import '../styles/swiper.css';
+import '@/app/styles/swiper.css';
 
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
 
-import { db, auth, storage } from "@/app/server/config/firebase";
+import { db, auth, storage } from "@/app/config/firebase";
 import {
   getDocs,
   collection,

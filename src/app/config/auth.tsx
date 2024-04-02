@@ -1,19 +1,16 @@
 'use client';
-import React, { useState } from 'react';
-import { auth } from '../config/firebase';
-import {
-    signInWithEmailAndPassword,
-    signOut,
-} from "firebase/auth";
+import React, { useState, useEffect } from 'react';
+import { auth } from './firebase';
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, message } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useRouter } from 'next/navigation';
 
 const Login: React.FC = () => {
     const Router = useRouter();
-   
+    const [user, setUser] = useState<any | null>(null);
+
     const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
         signIn(values.email, values.password);
     };
 
@@ -24,22 +21,12 @@ const Login: React.FC = () => {
     const signIn = async (email: string, password: string) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
-            Router.push('/adminpanel');
-           
-
-        } catch (err) {
+            message.success('Successfully signed in');
+        } catch (err:any) {
+            message.error('Failed to sign in. Please try again.');
             console.error(err);
         }
     };
-
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            Router.push('/adminpanel');
-        } else {
-            console.log('User is not signed in');
-            Router.push('/admin/auth/signin');
-        }
-    });
 
     const logout = async () => {
         try {
@@ -48,6 +35,23 @@ const Login: React.FC = () => {
             console.error(err);
         }
     };
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            if (user) {
+                setUser(user);
+                Router.push('/adminpanel');
+            } else {
+                setUser(null);
+                console.log('User is not signed in');
+                Router.push('/admin');
+            }
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, [Router]);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-primary text-white z-20  dark:bg-white dark:text-black ">

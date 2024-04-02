@@ -1,17 +1,17 @@
 'use client';
 import React from 'react';
-import { Empty } from 'antd';
+import { Empty, Switch } from 'antd';
 import { useState, useEffect } from 'react';
-import TeamData from '../../lib/Team.js';
+import TeamData from '@/app/lib/Team.js';
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import '../../ui/styles/style.css';
-import { AnimatedTooltip } from "../../../components/ui/animated-tooltip";
+import '@/app/styles/style.css';
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { FaInstagram } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { Select, Space, Skeleton } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { db, auth, storage } from "@/app/server/config/firebase";
+import { db, auth, storage } from "@/app/config/firebase.js";
 import {
     getDocs,
     getDoc,
@@ -151,33 +151,63 @@ const Page: React.FC = () => {
         selectedOptions = options.filter(option => option.value === selectedYear);
         console.log('selectedOptions', selectedOptions);
     };
+
+
+    // dark mode
+    const [theme, setTheme] = useState('lightMode');
+
+    useEffect(() => {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            setTheme(currentTheme);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (theme === 'darkMode') {
+            document.body.classList.add('dark');
+        } else {
+            document.body.classList.remove('dark');
+        }
+    }, [theme]);
+
+    const toggleTheme = () => {
+        const newTheme = theme === 'darkMode' ? 'lightMode' : 'darkMode';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+    };
     return (
         <div className='bg-primary min-h-screen text-white text-center pt-10 pb-24 dark:bg-white dark:text-black'>
             <main className='custom-container flex flex-col gap-4 mx-auto '>
-                <h1 className='text-4xl font-extrabold mt-16'>Team</h1>
-                <section className='p-6 mx-auto'>
+                <div className='flex mx-auto items-center justify-center flex-col mt-6'>
+                    <label className='text-lg font-semibold'>Toggle Mode &nbsp;
+                        <Switch defaultChecked={theme === 'darkMode'} onChange={toggleTheme} className='shadow-xl' />
+                    </label>
+                    <h1 className='text-4xl font-extrabold mt-6'>Team</h1>
+                </div>
+                <section className='p-2 sm:p-6 mx-auto'>
                     <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
                     <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Founders</h2>
-                    <div className='grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-x-10 gap-y-10 items-center justify-center my-16'>
+                    <div className='grid grid-cols-2  lg:grid-cols-4 gap-x-4 sm:gap-x-10 gap-y-10 items-center justify-center my-16'>
                         {TeamData.founders.map((founder) => (
-                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[240px]  rounded-lg  max-w-[300px] min-w-[230px] mx-auto shadow text-white'>
+                            <div key={founder.id} className='bg-[#1B1B1B] min-h-[140px] sm:min-h-[240px]  rounded-lg  max-w-[300px] min-w-[160px] sm:min-w-[230px] mx-auto shadow text-white'>
                                 <div className='relative z-10'>
-                                    <div className='mt-2 mx-auto p-4 z-20 h-[300px] relative'>
-                                        <img src={`Images/founders/${founder.image}`} alt={founder.name} className='w-full h-full object-cover rounded-md z-30' />
+                                    <div className='mt-2 mx-auto p-4 z-20 sm:h-[300px] relative'>
+                                        <img src={`Images/founders/${founder.image}`} alt={founder.name} className=' w-[120px] h-[150px] sm:w-full sm:h-full object-cover rounded-md z-30' />
                                         <div className='absolute top-0 left-0 w-full h-full' style={{ zIndex: -10 }}>
-                                            <img src='/Images/bg-traingle.png' alt='overlay' className='w-full h-full object-cover rounded-md' style={{ zIndex: -10 }} />
+                                            <img src='/Images/bg-traingle.png' alt='overlay' className='w-auto h-auto sm:w-full sm:h-full  object-cover rounded-md' style={{ zIndex: -10 }} />
                                         </div>
                                     </div>
                                 </div>
 
 
                                 <div className='text-center flex items-center justify-center gap-1 flex-col my-2 mx-auto'>
-                                    <p className='font-bold '>{founder.name}</p>
-                                    <p>{founder.profession}</p>
+                                    <p className='font-bold text-sm sm:text-md'>{founder.name}</p>
+                                    <p className=' text-sm sm:text-md'>{founder.profession}</p>
                                     <div className='flex gap-4 my-2'>
-                                        <FaInstagram className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.instagram)} />
-                                        <FiGithub className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.github)} />
-                                        <SlSocialLinkedin className='text-secondary text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.linkedin)} />
+                                        <FaInstagram className='text-secondary text-sm sm:text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.instagram)} />
+                                        <FiGithub className='text-secondary text-sm sm:text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.github)} />
+                                        <SlSocialLinkedin className='text-secondary text-sm sm:text-lg cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={handleSocial(founder.social.linkedin)} />
                                     </div>
                                 </div>
                             </div>
@@ -188,7 +218,7 @@ const Page: React.FC = () => {
 
                 <div ref={parent}>
                     {loadingCoreTeam ? (
-                        <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
+                        <section className='p-2 md:p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
                             <div className='flex items-center justify-center flex-col w-full'>
                                 <h1 className='text-xl md:text-2xl font-medium'>Connect EMEA</h1>
                                 <h2 className='text-2xl md:text-4xl bg-gradient-to-b text-transparent bg-clip-text from-violet to-[#ffffff]/70  font-extrabold uppercase  mb-6'>Core Team</h2>
@@ -198,7 +228,7 @@ const Page: React.FC = () => {
                     ) : (
                         options.length > 0 ? (
 
-                            <section className='p-6 border border-gray-800 rounded-lg bg-primary-light/50 m-4' ref={parent}>
+                            <section className='p-2 md:p-6 py-6 border border-gray-800 rounded-lg bg-primary-light/50 m-1 md:m-4' ref={parent}>
 
                                 <div className='flex gap-4 mx-auto mb-10 flex-col md:flex-row'>
                                     <div className='basis-11/12 md:pl-20'>
@@ -211,34 +241,35 @@ const Page: React.FC = () => {
                                             onChange={handleChange}
                                             options={options}
                                             suffixIcon={<DownOutlined style={{ color: '#FF00F5' }} />}
-                                        // popupClassName='year-Selector'
+                                            // popupClassName='year-Selector'
+                                            size='large'
                                         />
 
                                     </div>
 
                                 </div>
                                 {coremembers.length > 0 ? (
-                                    <div key={selectedYear} className='flex gap-10 flex-wrap items-center justify-center' ref={parent}>
+                                    <div key={selectedYear} className='flex gap-4 md:gap-10 items-center justify-center flex-wrap' ref={parent}>
                                         {sortedCoremembers.map((member: any) => (
-                                            <div key={member.id} className='min-h-[260px]  rounded-md  max-w-[220px] min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
-                                                <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
+                                            <div key={member.id} className='min-h-[140px] md:min-h-[260px]  rounded-md  max-w-[220px] min-w-[145px] md:min-w-[220px] text-black rounded-xl overflow-hidden flex flex-col relative'>
+                                                <div className={`bg-[${selectedOptions?.[0]?.Color}] h-[70px] md:h-[120px]`} style={{ backgroundColor: selectedOptions[0]?.Color }}>
                                                 </div>
                                                 <div className='bg-slate-200 flex items-center justify-center h-[10px]'>
-                                                    <div className={`-translate-y-4 h-[120px] w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
+                                                    <div className={`-translate-y-2 md:-translate-y-4 h-[80px] w-[80px] md:h-[120px] md:w-[120px]  rounded-full bg-white border-4 border-[${selectedOptions[0]?.Color}]`} style={{ borderColor: selectedOptions[0]?.Color }}>
                                                         <img src={`${member.image}`} alt={member.name} className='w-full h-full object-cover rounded-full' />
                                                     </div>
                                                 </div>
                                                 {/* department badge */}
                                                 {member.short_department && (
-                                                    <div className={`absolute shadow-xl top-2 right-2 px-2 py-1 rounded-full bg-white text-[${selectedOptions[0]?.Color}] text-xs font-semibold select-none shadow`} style={{ color: selectedOptions[0]?.Color }}>
+                                                    <div className={`absolute shadow-xl top-2 right-2 px-2 py-1 rounded-full bg-white text-[${selectedOptions[0]?.Color}] text-[8px] md:text-xs font-semibold select-none shadow`} style={{ color: selectedOptions[0]?.Color }}>
                                                         <p>{member.short_department}</p>
                                                     </div>
                                                 )}
 
-                                                <div className='h-[160px] bg-slate-200 flex items-center justify-center gap-0 pt-4 flex-col'>
-                                                    <p className='text-lg font-bold capitalize'>{member.name}</p>
-                                                    <p className='text-gray-500 font-medium uppercase text-sm'>{member.position}</p>
-                                                    <div className='flex gap-4 mt-4 -mb-2'>
+                                                <div className='h-[110px] md:h-[160px] bg-slate-200 flex items-center justify-center gap-0 md:pt-4 flex-col'>
+                                                    <p className='text-md md:text-lg font-bold capitalize'>{member.name}</p>
+                                                    <p className='text-gray-500 font-medium uppercase text-[10px] md:text-sm'>{member.position}</p>
+                                                    <div className='flex gap-4 mt-2 md:mt-4 -mb-2'>
                                                         <FaInstagram className=' text-secondary text-xl cursor-pointer  transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.instagram, '_blank')} />
                                                         <FiGithub className={` text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 `} onClick={() => window.open(member.social.github, '_blank')} />
                                                         <SlSocialLinkedin className=' text-secondary text-xl cursor-pointer transition-all ease-in-out duration-500 hover:-translate-y-1 ' onClick={() => window.open(member.social.linkedin, '_blank')} />

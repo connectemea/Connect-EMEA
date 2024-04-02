@@ -184,12 +184,56 @@ header nav {
 }
 
 
-@media (max-width:768px) {
+@media (max-width:1023px) {
   .TheFLex1 {
     flex: 1 !important;
   }
 }
 
+
+@media (max-width: 627px) {
+  .parent-point-card {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+   }
+   .parent-point-card:nth-child(1n){
+     transform: translateX(-70px);
+   }
+   .parent-point-card:nth-child(2n){
+     transform: translateX(70px);
+ 
+   }
+ }
+ @media (max-width: 480px) {
+  .parent-point-card {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+   }
+   .parent-point-card:nth-child(1n){
+     transform: translateX(-40px);
+   }
+   .parent-point-card:nth-child(2n){
+     transform: translateX(40px);
+ 
+   }
+ }
+
+@media (max-width: 400px) {
+ .parent-point-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .parent-point-card:nth-child(1n){
+    transform: translateX(-25px);
+  }
+  .parent-point-card:nth-child(2n){
+    transform: translateX(25px);
+
+  }
+}
 
 .box {
   position: absolute;

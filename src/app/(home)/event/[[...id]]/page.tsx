@@ -4,7 +4,7 @@ import { Button, Modal, Image, Skeleton , Empty } from 'antd';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { FaTimes } from 'react-icons/fa';
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { db, auth, storage } from "@/app/server/config/firebase";
+import { db, auth, storage } from "@/app/config/firebase";
 import {
   getDocs,
   collection,
@@ -15,7 +15,7 @@ import {
   query,
   where
 } from "firebase/firestore";
-import '../../../ui/styles/event.css';
+import '@/app/styles/event.css';
 import { usePathname } from 'next/navigation';
 
 const EventPage: React.FC = () => {
@@ -88,12 +88,12 @@ const EventPage: React.FC = () => {
 
 
   return (
-    <div className='bg-primary min-h-screen text-white dark:bg-white dark:text-black  pt-10 pb-24 custom-container px-4 dark:bg-white dark:text-black'>
+    <div className='bg-primary min-h-screen text-white dark:bg-white dark:text-black  pt-10 pb-24 custom-container sm:px-4 dark:bg-white dark:text-black'>
       <h1 className='text-3xl md:text-5xl font-bold text-center my-10'>Events</h1>
-      <section className='p-4 md:p-6 mb-6 border border-gray-700 rounded-lg bg-primary-light  flex flex-wrap gap-10 items-center justify-center w-full' ref={parent}>
+      <section className='p-2 py-6 sm:p-6 mb-6 border border-gray-700 rounded-lg bg-primary-light  flex flex-wrap sm:gap-10 gap-4 items-center justify-center w-full' ref={parent}>
         {pending ? (
           <div className='text-white dark:bg-white dark:text-black text-center w-full dark:bg-white dark:text-black'>
-            Loading ....  <Skeleton active />
+            Loading ....  <Skeleton active /><Skeleton active />
           </div>
         ) : (
           events.length === 0 ? (
@@ -102,17 +102,17 @@ const EventPage: React.FC = () => {
                                 </div>
           ) :
             events.map((event: any) => (
-              <div key={event.key} className='bg-white rounded-lg flex flex-col gap-2 items-center justify-center h-fit max-w-[260px] min-w-[240px] p-4' >
-                <div className='bg-dark-violet rounded-lg min-h-[200px]  min-w-[100%] flex items-center justify-center'>
-                  <img src={event?.imageUrl} alt='event' className='w-full object-cover h-full max-h-[200px] rounded-xl' />
+              <div key={event.key} className='bg-white rounded-lg flex flex-col gap-1 sm:gap-2 items-center justify-center h-fit max-w-[150px] sm:max-w-[260px] min-w-[150px] sm:min-w-[240px] p-2 sm:p-4 ' >
+                <div className='bg-dark-violet rounded-lg min-h-[130px] sm:min-h-[200px]  min-w-[100%] flex items-center justify-center'>
+                  <img src={event?.imageUrl} alt='event' className='max-w-[130px] sm:w-full object-cover sm:h-full max-h-[130px] sm:max-h-[200px] rounded-xl' />
                 </div>
                 <div className='text-black flex items-start justify-start w-full'>
-                  <p className='font-bold'>
+                  <p className='font-bold text-sm sm:text-md'>
                     {event.title}
                   </p>
                 </div>
                 <div className='flex justify-end text-black w-full' >
-                  <button className='flex items-center font-medium justify-center' onClick={() => showModal(event)}>
+                  <button className='flex items-center font-medium justify-center text-sm sm:text-md' onClick={() => showModal(event)}>
                     show more <MdKeyboardArrowRight className='text-xl' /></button>
                 </div>
               </div>

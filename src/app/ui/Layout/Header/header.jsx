@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Link as ScrollLink } from 'react-scroll';
 import { useRouter } from 'next/navigation';
-import '../styles/style.css';
+import '@/app/styles/style.css';
 import { Avatar, Flex, Segmented, Switch } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 const links = [
@@ -29,28 +29,7 @@ function Header() {
             router.push('/');
         }
     }
-    const [theme, setTheme] = useState('lightMode');
 
-    useEffect(() => {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            setTheme(currentTheme);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (theme === 'darkMode') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-    }, [theme]);
-
-    const toggleTheme = () => {
-        const newTheme = theme === 'darkMode' ? 'lightMode' : 'darkMode';
-        setTheme(newTheme);
-        localStorage.setItem('theme', newTheme);
-    };
 
     return (
         <header className='flex items-center justify-between h-[80px] p-4 bg-primary nav-border z-50 dark:bg-slate-200 dark:text-black'>
@@ -59,7 +38,6 @@ function Header() {
                     <ScrollLink to='top' smooth={true} duration={500} offset={-70} onClick={handleLogo}>
                         <img src="/logo.png" alt="logo" />
                     </ScrollLink>
-                    <Switch defaultChecked={theme === 'darkMode'} onChange={toggleTheme} />
                 </div>
 
                 <nav ref={navRef} >

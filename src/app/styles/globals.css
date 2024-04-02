@@ -19,7 +19,7 @@
 }
 
 .darkLogo {
-  background-image: url('../../../assets/dark-Logo.png');
+  background-image: url('/src/assets/dark-Logo.png');
 }
 body{
   font-family: 'Poppins', sans-serif;
