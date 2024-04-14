@@ -138,9 +138,9 @@ const EventPage: React.FC = (params: any) => {
 
 
   return (
-    <div className='bg-primary min-h-screen text-white dark:bg-white dark:text-black  pt-10 pb-24 custom-container sm:px-4 dark:bg-white dark:text-black '>
+    <div className='bg-primary min-h-screen text-white dark:bg-white dark:text-black  pt-10 pb-24 custom-container sm:px-4 dark:bg-white dark:text-black'>
       <h1 className='text-3xl md:text-5xl font-bold text-center my-10'>Events</h1>
-      <section className='flex flex-col p-2 py-6 sm:p-6 mb-6 border border-gray-700 rounded-lg bg-primary-light sm:gap-10 gap-4 items-center justify-center w-full' ref={parent}>
+      <section className='flex flex-col p-2 py-6 sm:p-6 mb-20 border border-gray-700 rounded-lg bg-primary-light sm:gap-10 gap-4 items-center justify-center w-full' ref={parent}>
       {pending ? (
   <div className='text-white dark:bg-white dark:text-black text-center w-full dark:bg-white dark:text-black'>
     Loading ....  <Skeleton active /><Skeleton active />
@@ -152,7 +152,7 @@ const EventPage: React.FC = (params: any) => {
     </div>
   ) :
     (
-      <div className='responsive-event-parent rounded-lg items-center justify-center w-full'>
+      <div className='responsive-event-parent rounded-lg items-center justify-center w-full '>
         {events.map((event: any) => (
           <div key={event.key} className='responsive-event-card mx-auto bg-white rounded-lg flex flex-col gap-1 md:gap-2 items-center justify-center h-fit p-2 sm:p-4'>
             <div className='bg-dark-violet rounded-lg min-h-[130px] md:min-h-[200px] min-w-[100%] flex items-center justify-center'>
@@ -189,7 +189,7 @@ const EventPage: React.FC = (params: any) => {
               <div className='flex gap-4'>
 
                 <div className='border-[10px] border-white bg-white shadow-xl rounded-xl ml-10 w-fit h-fit relative -mt-28 overflow-hidden'>
-                  <img src={selectedEvent?.imageUrl} alt='event' className='w-full max-w-[280px]  h-full max-h-[240px] rounded-xl min-w-[200px] min-h-[160px]' />
+                  <img src={selectedEvent?.imageUrl} alt='event' className='w-full max-w-[240px]  h-full max-h-[240px] rounded-xl min-w-[180px] min-h-[160px]' />
                 </div>
                 <div className='mt-4'>
                   <h1 className='text-xl font-bold uppercase'>

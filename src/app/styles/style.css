@@ -157,7 +157,8 @@ header nav {
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    background-color: #A33FF8;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background color */
+    backdrop-filter: blur(10px); /* Blur effect */
     transition: all 1s ease;
     transform: translateY(-120vh);
     z-index: 999999 !important;

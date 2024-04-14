@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 import '@/app/styles/swiper.css';
 
 // import required modules
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Pagination, Autoplay, FreeMode } from 'swiper/modules';
 
 import { db, auth, storage } from "@/app/config/firebase";
 import {
@@ -98,10 +98,10 @@ export default function Slider() {
     <>
       <div>
         <Swiper
-          slidesPerView={3}
+          // slidesPerView={3}
           spaceBetween={40}
           breakpoints={{
-            640: {
+            600: {
               slidesPerView: 1,
               spaceBetween: 40,
             },
@@ -112,19 +112,20 @@ export default function Slider() {
           }}
           pagination={pagination}
           centeredSlides={true}
+          // freeMode={true}
           loop={true}
           grabCursor={true}
           autoplay={{
             delay: 2500,
             disableOnInteraction: false,
           }}
-          modules={[Pagination, Autoplay]}
+          modules={[Pagination, Autoplay, FreeMode]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
         >
           {loading ? (
             <SwiperSlide>
-              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
+              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-full mx-4 flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
                 <h1 className='text-white font-bold text-3xl'>
                   Loading...
                 </h1>

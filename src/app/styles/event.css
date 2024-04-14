@@ -8,6 +8,7 @@
 .responsive-event-card {
   max-width: 250px;
   min-width: 230px;
+  margin-top: 10px;
 }
 
 .responsive-event-parent {
