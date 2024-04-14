@@ -24,7 +24,7 @@ module.exports = {
         'primary-orange': '#ED642B',
         'cream': '#EAD1FF',
         'cream-light': '#F0DEFF',
-        'violet': '#A33FF8',
+        'violet': '#5B0493',
         'dark-violet': '#0A0118',
         'secondaryCard': '#A33FF8'
       },

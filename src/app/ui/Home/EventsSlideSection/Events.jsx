@@ -124,7 +124,7 @@ export default function Slider() {
         >
           {loading ? (
             <SwiperSlide>
-              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
+              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
                 <h1 className='text-white font-bold text-3xl'>
                   Loading...
                 </h1>
@@ -140,8 +140,8 @@ export default function Slider() {
             </SwiperSlide>
           ) : events.length > 0 ? (
             events.map((slide, index) => (
-              <SwiperSlide key={index} className={centerSlideIndex === (index + events.length) % events.length ? 'center-slide' : ''}>
-                <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 m-4 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
+              <SwiperSlide key={index} className={centerSlideIndex === (index + events.length) % events.length ? 'center-slide' : ''} >
+                <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-gray-700 '>
                   <h1 className='text-white font-bold text-3xl'>
                     {slide.title}
                   </h1>
@@ -158,7 +158,7 @@ export default function Slider() {
             ))
           ) : (
             <SwiperSlide>
-              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2'>
+              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-[200px] flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
                 <h1 className='text-white font-bold text-3xl'>
                   No Events
                 </h1>

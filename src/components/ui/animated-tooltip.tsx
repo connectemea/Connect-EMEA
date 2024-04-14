@@ -59,6 +59,7 @@ export const AnimatedTooltip = ({
 
     const handleOk = () => {
         setOpenModalIndex(null);
+        setHoveredIndex(null);
     };
 
     const handleCancel = () => {
@@ -69,7 +70,7 @@ export const AnimatedTooltip = ({
     }
 
     return (
-        <div className="flex flex-wrap gap-y-4">
+        <div className="flex flex-wrap mx-auto gap-y-4">
             {items.map((item, idx) => (
                 <div
                     className="-mr-4  relative group overlfow-hidden"
@@ -96,7 +97,7 @@ export const AnimatedTooltip = ({
                                 rotate: rotate,
                                 whiteSpace: "nowrap",
                             }}
-                            className="absolute -top-16 -left-1/3 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-40 shadow-xl px-4 py-2"
+                            className="absolute -top-16 -left-1/3 translate-x-1/2 flex text-xs  flex-col items-center justify-center rounded-md bg-black z-40 shadow-xl px-4 py-2 mx-auto"
                         >
                             <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px " />
                             <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px " />
