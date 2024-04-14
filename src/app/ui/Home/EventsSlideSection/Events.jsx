@@ -98,18 +98,18 @@ export default function Slider() {
     <>
       <div>
         <Swiper
-          // slidesPerView={3}
+          slidesPerView={3}
           spaceBetween={40}
-          breakpoints={{
-            600: {
-              slidesPerView: 1,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-          }}
+          // breakpoints={{
+          //   700: {
+          //     slidesPerView: 1,
+          //     spaceBetween: 40,
+          //   },
+          //   1024: {
+          //     slidesPerView: 3,
+          //     spaceBetween: 40,
+          //   },
+          // }}
           pagination={pagination}
           centeredSlides={true}
           // freeMode={true}
@@ -124,6 +124,22 @@ export default function Slider() {
           onSlideChange={handleSlideChange}
         >
           {loading ? (
+            <div>
+                <SwiperSlide>
+              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-full mx-4 flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
+                <h1 className='text-white font-bold text-3xl'>
+                  Loading...
+                </h1>
+                <p className='text-white font-medium ml-2'>
+                  Loading...
+                </p>
+                <div className='flex justify-end p-2 py-4'>
+                  <button className='bg-white text-xs font-semibold text-black rounded-full px-2 py-1 flex items-center gap-1 font-medium'>
+                    Loading...
+                  </button>
+                </div>
+              </div>
+            </SwiperSlide>
             <SwiperSlide>
               <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-full mx-4 flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
                 <h1 className='text-white font-bold text-3xl'>
@@ -139,6 +155,22 @@ export default function Slider() {
                 </div>
               </div>
             </SwiperSlide>
+            <SwiperSlide>
+              <div className='bg-gradient-to-b from-secondary to-violet text-left p-6 min-w-full mx-4 flex flex-col w-full h-full justify-between gap-2 rounded-2xl border border-slate-400'>
+                <h1 className='text-white font-bold text-3xl'>
+                  Loading...
+                </h1>
+                <p className='text-white font-medium ml-2'>
+                  Loading...
+                </p>
+                <div className='flex justify-end p-2 py-4'>
+                  <button className='bg-white text-xs font-semibold text-black rounded-full px-2 py-1 flex items-center gap-1 font-medium'>
+                    Loading...
+                  </button>
+                </div>
+              </div>
+            </SwiperSlide>
+            </div>
           ) : events.length > 0 ? (
             events.map((slide, index) => (
               <SwiperSlide key={index} className={centerSlideIndex === (index + events.length) % events.length ? 'center-slide' : ''} >
